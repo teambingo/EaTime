@@ -9,7 +9,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EaTime</servlet-name>
-		<url-pattern>/eatime</url-pattern>
+		<url-pattern>/EaTime</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>EaTimeLogin</servlet-name>
