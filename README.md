@@ -1,4 +1,7 @@
-Purdue-Bingo
-============
+# EaTime
 
-Repo for Purdue Coding competition team Bingo
+*by Team Bingo*
+
+## Environment
+
+Google App Engine for Java
