@@ -11,9 +11,9 @@
 		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties" />
 	</system-properties>
 	<static-files>
-        <include path="/**.js" />
-        <include path="/**.css" />
-    </static-files>
+		<include path="/**.js" />
+		<include path="/**.css" />
+	</static-files>
 	<!-- HTTP Sessions are disabled by default. To enable HTTP sessions specify: 
 		<sessions-enabled>true</sessions-enabled> It's possible to reduce request 
 		latency by configuring your application to asynchronously write HTTP session 

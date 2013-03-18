@@ -15,7 +15,7 @@ public class EaTimeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("text/html");
-		RequestDispatcher rd=req.getRequestDispatcher("/main.html");
+		RequestDispatcher rd = req.getRequestDispatcher("/main.html");
 		try {
 			rd.include(req, resp);
 		} catch (ServletException e) {
