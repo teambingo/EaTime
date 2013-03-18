@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Base css stylesheet file.
 Base style across the website.
@@ -23,4 +24,31 @@ width: 100% !important;
 height: 44px !important;
 line-height: 30px !important;
 font-size: 17.5px !important;
+=======
+/*
+Base css stylesheet file.
+Base style across the website.
+*/
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body, html {
+	width: 100%;
+	height: 100%;
+	text-align:center;
+}
+
+.block {
+	height:40%;
+}
+
+.input-large {
+width: 100% !important;
+height: 44px !important;
+line-height: 30px !important;
+font-size: 17.5px !important;
+>>>>>>> 0d58580513bff39b03ea800a5e806fb1cd1f13ec
 }
