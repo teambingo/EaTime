@@ -17,8 +17,6 @@ public class EaTimeLogin extends HttpServlet {
 		System.out.println("Success");
 		String user = req.getParameter("user");
 		String password = req.getParameter("pwd");
-		System.out.println(user);
-		System.out.println(password);
 		JSONArray result=new JSONArray();
 		if(user.equals("ryan") && password.equals("crd")){
 			try {

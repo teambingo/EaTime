@@ -36,3 +36,9 @@ body, html {
 	line-height: 30px !important;
 	font-size: 17.5px !important;
 }
+
+#error {
+	height:50px !important;
+	padding-top:10px !important;
+	padding-bottom:50px !important;
+}
