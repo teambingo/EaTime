@@ -6,10 +6,10 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 public class RestaurantStoreView {
 
 	private DatastoreService mDatastoreService;
-	
+
 	public RestaurantStoreView() {
-		this.mDatastoreService = DatastoreServiceFactory.getDatastoreService();
-		
+		mDatastoreService = DatastoreServiceFactory.getDatastoreService();
+
 	}
 
 }
