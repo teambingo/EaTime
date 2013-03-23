@@ -1,5 +1,6 @@
 package com.bingo.eatime.core;
 
+import java.util.Comparator;
 import java.util.TreeSet;
 
 import com.google.appengine.api.datastore.Entity;
@@ -48,6 +49,18 @@ public class Category {
 		return this;
 	}
 
+	protected static TreeSet<Category> newCategories() {
+		TreeSet<Category> categories = new TreeSet<Category>(
+				new Comparator<Category>() {
+					@Override
+					public int compare(Category o1, Category o2) {
+						return o1.getName().compareTo(o2.getName());
+					}
+				});
+
+		return categories;
+	}
+
 	public static Category createCategory(String name) {
 		Category category = new Category();
 		category.setName(name).setKey(name);
@@ -64,7 +77,7 @@ public class Category {
 	}
 
 	public static TreeSet<Category> createCategories(Iterable<Entity> entities) {
-		TreeSet<Category> categories = Utilities.newCategories();
+		TreeSet<Category> categories = newCategories();
 
 		for (Entity entity : entities) {
 			categories.add(createCategory(entity));

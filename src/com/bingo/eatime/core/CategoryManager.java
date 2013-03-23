@@ -71,7 +71,10 @@ public class CategoryManager {
 		return restaurantKeyEntity;
 	}
 
-	public TreeSet<Category> getRestaurantCategories(Key restaurantKey) {
+	public static TreeSet<Category> getRestaurantCategories(Key restaurantKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
 		Filter restaurantKeyFilter = new FilterPredicate(
 				Category.PROPERTY_RESTAURANTKEY, Query.FilterOperator.EQUAL,
 				restaurantKey);
@@ -79,21 +82,24 @@ public class CategoryManager {
 		Query q = new Query(Category.KIND_RESTAURANTKEY)
 				.setFilter(restaurantKeyFilter);
 
-		PreparedQuery pq = mDatastoreService.prepare(q);
+		PreparedQuery pq = datastore.prepare(q);
 
 		HashSet<Entity> categoryEntities = new HashSet<Entity>();
 		try {
 			for (Entity entity : pq.asIterable()) {
 				Key categoryKey = entity.getParent();
 
-				Entity categoryEntity = mDatastoreService.get(categoryKey);
+				Entity categoryEntity = datastore.get(categoryKey);
 				categoryEntities.add(categoryEntity);
 			}
 		} catch (EntityNotFoundException e) {
 			return null;
 		}
-		
-		
+
+		TreeSet<Category> categories = Category
+				.createCategories(categoryEntities);
+
+		return categories;
 	}
 
 }

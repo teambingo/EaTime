@@ -1,7 +1,6 @@
 package com.bingo.eatime.core;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.TreeSet;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
@@ -14,13 +13,13 @@ public class Restaurant {
 	public static final String KIND_RESTAURANT = "restaurant";
 
 	public static final String PROPERTY_NAME = "name";
-	public static final String PROPERTY_CATEGORIES = "categories";
+	// public static final String PROPERTY_CATEGORIES = "categories";
 	public static final String PROPERTY_ADDRESS = "address";
 	public static final String PROPERTY_PHONENUMBER = "phonenumber";
 
 	private Key key;
 	private String name;
-	private List<Category> categories;
+	private TreeSet<Category> categories;
 	private PostalAddress address;
 	private PhoneNumber phoneNumber;
 
@@ -55,19 +54,31 @@ public class Restaurant {
 		return this;
 	}
 
-	public List<Category> getCategories() {
+	public TreeSet<Category> getCategories() {
 		return categories;
 	}
 
-	private Restaurant setCategories(List<Category> categories) {
+	private Restaurant setCategories(TreeSet<Category> categories) {
 		this.categories = categories;
+
+		return this;
+	}
+
+	private Restaurant addCategories(Iterable<Category> categories) {
+		if (this.categories == null) {
+			this.categories = Category.newCategories();
+		}
+
+		for (Category category : categories) {
+			this.categories.add(category);
+		}
 
 		return this;
 	}
 
 	private Restaurant addCategory(Category category) {
 		if (this.categories == null) {
-			this.categories = new ArrayList<Category>();
+			this.categories = Category.newCategories();
 		}
 
 		this.categories.add(category);
@@ -96,10 +107,10 @@ public class Restaurant {
 	}
 
 	public static Restaurant createRestaurant(String name,
-			List<Category> categories, PostalAddress address,
+			Iterable<Category> categories, PostalAddress address,
 			PhoneNumber phoneNumber) {
 		Restaurant restaurant = new Restaurant();
-		restaurant.setName(name).setKey(name).setCategories(categories)
+		restaurant.setName(name).setKey(name).addCategories(categories)
 				.setLocation(address).setPhoneNumber(phoneNumber);
 
 		return restaurant;
@@ -132,6 +143,10 @@ public class Restaurant {
 						.getProperty(PROPERTY_ADDRESS));
 				restaurant.setPhoneNumber((PhoneNumber) entity
 						.getProperty(PROPERTY_PHONENUMBER));
+
+				TreeSet<Category> categories = CategoryManager
+						.getRestaurantCategories(entity.getKey());
+				restaurant.setCategories(categories);
 
 				return restaurant;
 			} catch (ClassCastException e) {
