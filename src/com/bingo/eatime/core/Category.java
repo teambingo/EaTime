@@ -69,18 +69,24 @@ public class Category {
 	}
 
 	public static Category createCategory(Entity entity) {
-		Category category = new Category();
-		category.setKey(entity.getKey());
-		category.setName((String) entity.getProperty(PROPERTY_NAME));
+		if (entity.getKind().equals(KIND_CATEGORY)) {
+			Category category = new Category();
+			category.setKey(entity.getKey());
+			category.setName((String) entity.getProperty(PROPERTY_NAME));
 
-		return category;
+			return category;
+		} else {
+			throw new EntityKindNotMatchException(
+					"Entity Kind must be KIND_CATEGORY.");
+		}
 	}
 
 	public static TreeSet<Category> createCategories(Iterable<Entity> entities) {
 		TreeSet<Category> categories = newCategories();
 
 		for (Entity entity : entities) {
-			categories.add(createCategory(entity));
+			Category category = createCategory(entity);
+			categories.add(category);
 		}
 
 		return categories;

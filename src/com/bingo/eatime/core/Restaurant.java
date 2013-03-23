@@ -130,30 +130,26 @@ public class Restaurant {
 	 * 
 	 * @param entity
 	 *            Entity object of Restaurant kind.
-	 * @return Restaurant object if successful reconstructed. Null if
-	 *         reconstruct failed or entity is not Restaurant kind.
+	 * @return Restaurant object
 	 */
 	public static Restaurant createRestaurant(Entity entity) {
 		if (entity.getKind().equals(KIND_RESTAURANT)) {
-			try {
-				Restaurant restaurant = new Restaurant();
-				restaurant.setKey(entity.getKey());
-				restaurant.setName((String) entity.getProperty(PROPERTY_NAME));
-				restaurant.setLocation((PostalAddress) entity
-						.getProperty(PROPERTY_ADDRESS));
-				restaurant.setPhoneNumber((PhoneNumber) entity
-						.getProperty(PROPERTY_PHONENUMBER));
+			Restaurant restaurant = new Restaurant();
+			restaurant.setKey(entity.getKey());
+			restaurant.setName((String) entity.getProperty(PROPERTY_NAME));
+			restaurant.setLocation((PostalAddress) entity
+					.getProperty(PROPERTY_ADDRESS));
+			restaurant.setPhoneNumber((PhoneNumber) entity
+					.getProperty(PROPERTY_PHONENUMBER));
 
-				TreeSet<Category> categories = CategoryManager
-						.getRestaurantCategories(entity.getKey());
-				restaurant.setCategories(categories);
+			TreeSet<Category> categories = CategoryManager
+					.getRestaurantCategories(entity.getKey());
+			restaurant.setCategories(categories);
 
-				return restaurant;
-			} catch (ClassCastException e) {
-				return null;
-			}
+			return restaurant;
 		} else {
-			return null;
+			throw new EntityKindNotMatchException(
+					"Entity Kind must be KIND_RESTAURANT.");
 		}
 	}
 
