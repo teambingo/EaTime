@@ -3,18 +3,19 @@ package com.bingo.eatime.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.appengine.api.datastore.PhoneNumber;
+import com.google.appengine.api.datastore.PostalAddress;
+
 public class Restaurant {
 
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_CATEGORIES = "categories";
-	public static final String PROPERTY_LOCATION = "location";
-	// public static final String PROPERTY_IMAGE = "image_path";
+	public static final String PROPERTY_LOCATION = "address";
 
 	private String name;
 	private List<Category> categories;
-	private String location;
-
-	// private File image;
+	private PostalAddress location;
+	private PhoneNumber phoneNumber;
 
 	private Restaurant() {
 
@@ -50,54 +51,41 @@ public class Restaurant {
 		return this;
 	}
 
-	public String getLocation() {
+	public PostalAddress getLocation() {
 		return location;
 	}
 
-	private Restaurant setLocation(String location) {
+	private Restaurant setLocation(PostalAddress location) {
 		this.location = location;
 
 		return this;
 	}
 
-	// public File getImage() {
-	// return image;
-	// }
+	public PhoneNumber getPhoneNumber() {
+		return phoneNumber;
+	}
 
-	// /**
-	// * Set image of this restaurant.
-	// *
-	// * @param image
-	// * File object representing the image file in the file system.
-	// */
-	// private Restaurant setImage(File image) {
-	// this.image = image;
-	//
-	// return this;
-	// }
+	private Restaurant setPhoneNumber(PhoneNumber phoneNumber) {
+		this.phoneNumber = phoneNumber;
 
-	// /**
-	// * Set image of this restaurant.
-	// *
-	// * @param image
-	// * String of the image file path in the file system.
-	// */
-	// private Restaurant setImage(String image) {
-	// return setImage(new File(image));
-	// }
+		return this;
+	}
 
 	public static Restaurant createRestaurant(String name,
-			List<Category> categories, String location) {
+			List<Category> categories, PostalAddress address,
+			PhoneNumber phoneNumber) {
 		Restaurant restaurant = new Restaurant().setName(name)
-				.setCategories(categories).setLocation(location);
+				.setCategories(categories).setLocation(address)
+				.setPhoneNumber(phoneNumber);
 
 		return restaurant;
 	}
 
 	public static Restaurant createRestaurant(String name, Category category,
-			String location) {
+			PostalAddress address, PhoneNumber phoneNumber) {
 		Restaurant restaurant = new Restaurant().setName(name)
-				.addCategory(category).setLocation(location);
+				.addCategory(category).setLocation(address)
+				.setPhoneNumber(phoneNumber);
 
 		return restaurant;
 	}

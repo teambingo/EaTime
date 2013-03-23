@@ -17,6 +17,11 @@ public class RestaurantManager {
 
 	public void addRestaurant(Restaurant restaurant) {
 		Entity restaurantEntity = new Entity(KIND_RESTAURANT);
+		restaurantEntity.setProperty(Restaurant.PROPERTY_NAME,
+				restaurant.getName());
+		restaurantEntity.setProperty(Restaurant.PROPERTY_LOCATION,
+				restaurant.getLocation());
+		
 	}
 
 }
