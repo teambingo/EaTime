@@ -45,34 +45,22 @@ public class CategoryManager {
 	}
 
 	/**
-	 * Add restaurant key to a specific category.It is necessary to check
-	 * whether the operation is successful or not.
+	 * Create a RestaurantKey Entity for a specific Category Key.
 	 * 
 	 * @param restaurantKey
 	 *            restaurant Key object.
 	 * @param categoryKey
 	 *            Key object of the category to be added into.
-	 * @return true if succeed, false if failed.
+	 * @return Entity of RestaurantKey kind.
 	 */
-	public boolean addRestaurantToCategory(Key restaurantKey, Key categoryKey) {
-		Transaction txn = mDatastoreService.beginTransaction();
-		try {
-			Entity restaurantKeyEntity = new Entity(
-					Category.KIND_RESTAURANTKEY, categoryKey);
-			restaurantKeyEntity.setProperty(Category.PROPERTY_RESTAURANTKEY,
-					restaurantKey);
+	public static Entity createRestaurantKeyEntity(Key restaurantKey,
+			Key categoryKey) {
+		Entity restaurantKeyEntity = new Entity(Category.KIND_RESTAURANTKEY,
+				categoryKey);
+		restaurantKeyEntity.setProperty(Category.PROPERTY_RESTAURANTKEY,
+				restaurantKey);
 
-			mDatastoreService.put(restaurantKeyEntity);
-			txn.commit();
-		} finally {
-			if (txn.isActive()) {
-				txn.rollback();
-
-				return false;
-			}
-		}
-
-		return true;
+		return restaurantKeyEntity;
 	}
 
 }
