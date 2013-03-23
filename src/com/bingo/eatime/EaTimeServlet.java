@@ -16,9 +16,9 @@ public class EaTimeServlet extends HttpServlet {
 			throws IOException {
 		String isLogin=(String) req.getSession().getAttribute("loginStatus");
 		if(isLogin==null)
-			resp.sendRedirect("login");
-		if(isLogin.equals("false"))
-			resp.sendRedirect("login");
+			resp.sendRedirect("login.jsp");
+		else if(isLogin.equals("false"))
+			resp.sendRedirect("login.jsp");
 		RequestDispatcher rd = req.getRequestDispatcher("/main.jsp");
 		try {
 			rd.forward(req, resp);
