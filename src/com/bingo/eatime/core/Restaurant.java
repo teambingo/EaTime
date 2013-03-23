@@ -3,6 +3,7 @@ package com.bingo.eatime.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PhoneNumber;
@@ -31,14 +32,25 @@ public class Restaurant {
 		return key;
 	}
 
+	private Restaurant setKey(Key key) {
+		this.key = key;
+
+		return this;
+	}
+
+	private Restaurant setKey(String name) {
+		this.key = KeyFactory.createKey(KIND_RESTAURANT,
+				Utilities.getKeyFromName(name));
+
+		return this;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	private Restaurant setName(String name) {
 		this.name = name;
-		this.key = KeyFactory.createKey(KIND_RESTAURANT,
-				Utilities.getKeyFromName(this.name));
 
 		return this;
 	}
@@ -86,20 +98,47 @@ public class Restaurant {
 	public static Restaurant createRestaurant(String name,
 			List<Category> categories, PostalAddress address,
 			PhoneNumber phoneNumber) {
-		Restaurant restaurant = new Restaurant().setName(name)
-				.setCategories(categories).setLocation(address)
-				.setPhoneNumber(phoneNumber);
+		Restaurant restaurant = new Restaurant();
+		restaurant.setName(name).setKey(name).setCategories(categories)
+				.setLocation(address).setPhoneNumber(phoneNumber);
 
 		return restaurant;
 	}
 
 	public static Restaurant createRestaurant(String name, Category category,
 			PostalAddress address, PhoneNumber phoneNumber) {
-		Restaurant restaurant = new Restaurant().setName(name)
-				.addCategory(category).setLocation(address)
-				.setPhoneNumber(phoneNumber);
+		Restaurant restaurant = new Restaurant();
+		restaurant.setName(name).setKey(name).addCategory(category)
+				.setLocation(address).setPhoneNumber(phoneNumber);
 
 		return restaurant;
 	}
 
+	/**
+	 * Create Restaurant object using DataStore Entity object.
+	 * 
+	 * @param entity
+	 *            Entity object of Restaurant kind.
+	 * @return Restaurant object if successful reconstructed. Null if
+	 *         reconstruct failed or entity is not Restaurant kind.
+	 */
+	public static Restaurant createRestaurant(Entity entity) {
+		if (entity.getKind().equals(KIND_RESTAURANT)) {
+			try {
+				Restaurant restaurant = new Restaurant();
+				restaurant.setKey(entity.getKey());
+				restaurant.setName((String) entity.getProperty(PROPERTY_NAME));
+				restaurant.setLocation((PostalAddress) entity
+						.getProperty(PROPERTY_ADDRESS));
+				restaurant.setPhoneNumber((PhoneNumber) entity
+						.getProperty(PROPERTY_PHONENUMBER));
+
+				return restaurant;
+			} catch (ClassCastException e) {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
 }
