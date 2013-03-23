@@ -4,6 +4,10 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Transaction;
 
 public class CategoryManager {
@@ -64,7 +68,15 @@ public class CategoryManager {
 	}
 
 	public void getRestaurantCategories(Key restaurantKey) {
+		Filter restaurantKeyFilter = new FilterPredicate(
+				Category.PROPERTY_RESTAURANTKEY, Query.FilterOperator.EQUAL,
+				restaurantKey);
+
+		Query q = new Query(Category.KIND_RESTAURANTKEY)
+				.setFilter(restaurantKeyFilter);
 		
+		PreparedQuery pq = mDatastoreService.prepare(q);
+
 	}
 
 }
