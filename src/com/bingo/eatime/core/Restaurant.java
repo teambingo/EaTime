@@ -9,12 +9,13 @@ public class Restaurant {
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_CATEGORIES = "categories";
 	public static final String PROPERTY_LOCATION = "location";
-	public static final String PROPERTY_IMAGE = "image_path";
+	// public static final String PROPERTY_IMAGE = "image_path";
 
 	private String name;
 	private List<Category> categories;
 	private String location;
-	private File image;
+
+	// private File image;
 
 	private Restaurant() {
 
@@ -60,62 +61,44 @@ public class Restaurant {
 		return this;
 	}
 
-	public File getImage() {
-		return image;
-	}
+	// public File getImage() {
+	// return image;
+	// }
 
-	/**
-	 * Set image of this restaurant.
-	 * 
-	 * @param image
-	 *            File object representing the image file in the file system.
-	 */
-	private Restaurant setImage(File image) {
-		
-		
-		return this;
-	}
+	// /**
+	// * Set image of this restaurant.
+	// *
+	// * @param image
+	// * File object representing the image file in the file system.
+	// */
+	// private Restaurant setImage(File image) {
+	// this.image = image;
+	//
+	// return this;
+	// }
 
-	/**
-	 * Set image of this restaurant.
-	 * 
-	 * @param image
-	 *            String of the image file path in the file system.
-	 */
-	private Restaurant setImage(String image) {
-		return setImage(new File(image));
-	}
-
-	public static Restaurant createRestaurant(String name,
-			List<Category> categories, String location, File image) {
-		Restaurant restaurant = new Restaurant().setName(name)
-				.setCategories(categories).setLocation(location)
-				.setImage(image);
-
-		return restaurant;
-	}
+	// /**
+	// * Set image of this restaurant.
+	// *
+	// * @param image
+	// * String of the image file path in the file system.
+	// */
+	// private Restaurant setImage(String image) {
+	// return setImage(new File(image));
+	// }
 
 	public static Restaurant createRestaurant(String name,
-			List<Category> categories, String location, String image) {
+			List<Category> categories, String location) {
 		Restaurant restaurant = new Restaurant().setName(name)
-				.setCategories(categories).setLocation(location)
-				.setImage(image);
+				.setCategories(categories).setLocation(location);
 
 		return restaurant;
 	}
 
 	public static Restaurant createRestaurant(String name, Category category,
-			String location, File image) {
+			String location) {
 		Restaurant restaurant = new Restaurant().setName(name)
-				.addCategory(category).setLocation(location).setImage(image);
-
-		return restaurant;
-	}
-
-	public static Restaurant createRestaurant(String name, Category category,
-			String location, String image) {
-		Restaurant restaurant = new Restaurant().setName(name)
-				.addCategory(category).setLocation(location).setImage(image);
+				.addCategory(category).setLocation(location);
 
 		return restaurant;
 	}
