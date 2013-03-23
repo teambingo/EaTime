@@ -1,8 +1,12 @@
 package com.bingo.eatime.core;
 
+import java.util.HashSet;
+import java.util.TreeSet;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
@@ -67,16 +71,29 @@ public class CategoryManager {
 		return restaurantKeyEntity;
 	}
 
-	public void getRestaurantCategories(Key restaurantKey) {
+	public TreeSet<Category> getRestaurantCategories(Key restaurantKey) {
 		Filter restaurantKeyFilter = new FilterPredicate(
 				Category.PROPERTY_RESTAURANTKEY, Query.FilterOperator.EQUAL,
 				restaurantKey);
 
 		Query q = new Query(Category.KIND_RESTAURANTKEY)
 				.setFilter(restaurantKeyFilter);
-		
+
 		PreparedQuery pq = mDatastoreService.prepare(q);
 
+		HashSet<Entity> categoryEntities = new HashSet<Entity>();
+		try {
+			for (Entity entity : pq.asIterable()) {
+				Key categoryKey = entity.getParent();
+
+				Entity categoryEntity = mDatastoreService.get(categoryKey);
+				categoryEntities.add(categoryEntity);
+			}
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
+		
+		
 	}
 
 }
