@@ -6,8 +6,10 @@ import com.google.appengine.api.datastore.KeyFactory;
 public class Category {
 
 	public static final String KIND_CATEGORY = "category";
+	public static final String KIND_RESTAURANTKEY = "restaurant-key";
 
 	public static final String PROPERTY_NAME = "name";
+	public static final String PROPERTY_RESTAURANTKEY = "restaurant-id-key";
 
 	private Key key;
 	private String name;

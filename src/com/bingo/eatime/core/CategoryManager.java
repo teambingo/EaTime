@@ -4,7 +4,6 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Transaction;
 
 public class CategoryManager {
@@ -36,10 +35,26 @@ public class CategoryManager {
 		return true;
 	}
 
+	/**
+	 * Add restaurant key to a specific category.It is necessary to check
+	 * whether the operation is successful or not.
+	 * 
+	 * @param restaurantKey
+	 *            restaurant Key object.
+	 * @param categoryKey
+	 *            Key object of the category to be added into.
+	 * @return true if succeed, false if failed.
+	 */
 	public boolean addRestaurantToCategory(Key restaurantKey, Key categoryKey) {
 		Transaction txn = mDatastoreService.beginTransaction();
 		try {
+			Entity restaurantKeyEntity = new Entity(
+					Category.KIND_RESTAURANTKEY, categoryKey);
+			restaurantKeyEntity.setProperty(Category.PROPERTY_RESTAURANTKEY,
+					restaurantKey);
 
+			mDatastoreService.put(restaurantKeyEntity);
+			txn.commit();
 		} finally {
 			if (txn.isActive()) {
 				txn.rollback();
