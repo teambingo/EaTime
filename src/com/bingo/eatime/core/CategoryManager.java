@@ -16,10 +16,10 @@ import com.google.appengine.api.datastore.Transaction;
 
 public class CategoryManager {
 
-	private DatastoreService mDatastoreService;
+	private DatastoreService mDatastore;
 
 	public CategoryManager() {
-		mDatastoreService = DatastoreServiceFactory.getDatastoreService();
+		mDatastore = DatastoreServiceFactory.getDatastoreService();
 	}
 
 	/**
@@ -32,14 +32,14 @@ public class CategoryManager {
 	 * @return true if succeed, false if failed.
 	 */
 	public boolean addCategory(Category category) {
-		Transaction txn = mDatastoreService.beginTransaction();
+		Transaction txn = mDatastore.beginTransaction();
 		try {
 			Entity categoryEntity = new Entity(Category.KIND_CATEGORY,
 					category.getKey());
 			categoryEntity.setProperty(Category.PROPERTY_NAME,
 					category.getName());
 
-			mDatastoreService.put(categoryEntity);
+			mDatastore.put(categoryEntity);
 			txn.commit();
 		} finally {
 			if (txn.isActive()) {

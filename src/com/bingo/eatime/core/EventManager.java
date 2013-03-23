@@ -5,10 +5,10 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 
 public class EventManager {
 
-	private DatastoreService mDatastoreService;
+	private DatastoreService mDatastore;
 
 	public EventManager() {
-		mDatastoreService = DatastoreServiceFactory.getDatastoreService();
+		mDatastore = DatastoreServiceFactory.getDatastoreService();
 	}
 
 }
