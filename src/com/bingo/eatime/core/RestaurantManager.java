@@ -47,6 +47,7 @@ public class RestaurantManager {
 		} finally {
 			if (txn.isActive()) {
 				txn.rollback();
+
 				return false;
 			}
 		}
