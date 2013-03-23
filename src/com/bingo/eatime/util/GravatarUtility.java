@@ -1,6 +1,8 @@
 package com.bingo.eatime.util;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -54,4 +56,32 @@ public class GravatarUtility {
 				+ (appendExtension ? ".jpg" : "")
 				+ ((size > 0) ? "?s=" + size : "");
 	}
+
+	public static URL getGravatarUrl(String email) {
+		return getGravatarUrl(email, false);
+	}
+
+	public static URL getGravatarUrl(String email, boolean secure) {
+		return getGravatarUrl(email, false, 0, secure);
+	}
+
+	public static URL getGravatarUrl(String email, boolean appendExtension,
+			int size) {
+		return getGravatarUrl(email, appendExtension, size, false);
+	}
+
+	public static URL getGravatarUrl(String email, boolean appendExtension,
+			int size, boolean secure) {
+		try {
+			URL url = new URL(getGravatarUrlString(email, appendExtension,
+					size, secure));
+
+			return url;
+		} catch (MalformedURLException e) {
+
+		}
+
+		return null;
+	}
+
 }
