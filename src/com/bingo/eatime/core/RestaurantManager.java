@@ -14,9 +14,9 @@ public class RestaurantManager {
 		mDatastoreService = DatastoreServiceFactory.getDatastoreService();
 
 	}
-	
+
 	public void addRestaurant(Restaurant restaurant) {
-		
+		Entity restaurantEntity = new Entity(KIND_RESTAURANT);
 	}
 
 }

@@ -6,13 +6,18 @@ import java.util.List;
 
 public class Restaurant {
 
+	public static final String PROPERTY_NAME = "name";
+	public static final String PROPERTY_CATEGORIES = "categories";
+	public static final String PROPERTY_LOCATION = "location";
+	public static final String PROPERTY_IMAGE = "image_path";
+
 	private String name;
 	private List<Category> categories;
 	private String location;
 	private File image;
-	
+
 	private Restaurant() {
-		
+
 	}
 
 	public String getName() {
@@ -66,8 +71,8 @@ public class Restaurant {
 	 *            File object representing the image file in the file system.
 	 */
 	private Restaurant setImage(File image) {
-		this.image = image;
-
+		
+		
 		return this;
 	}
 
@@ -78,9 +83,7 @@ public class Restaurant {
 	 *            String of the image file path in the file system.
 	 */
 	private Restaurant setImage(String image) {
-		this.image = new File(image);
-
-		return this;
+		return setImage(new File(image));
 	}
 
 	public static Restaurant createRestaurant(String name,
