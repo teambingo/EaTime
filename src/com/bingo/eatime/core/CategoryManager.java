@@ -63,4 +63,8 @@ public class CategoryManager {
 		return restaurantKeyEntity;
 	}
 
+	public void getRestaurantCategories(Key restaurantKey) {
+		
+	}
+
 }
