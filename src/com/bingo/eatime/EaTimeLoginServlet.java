@@ -3,9 +3,7 @@ package com.bingo.eatime;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import com.google.appengine.labs.repackaged.org.json.JSONArray;
 
@@ -18,21 +16,22 @@ public class EaTimeLoginServlet extends HttpServlet {
 		System.out.println("Success");
 		String user = req.getParameter("user");
 		String password = req.getParameter("pwd");
+		HttpSession session=req.getSession();
 		if (user.equals("ryan") && password.equals("crd")) {
 			try {
+				String username="ryan";
+				session.setAttribute("loginStatus", "true");
+				session.setAttribute("user", username);
 				resp.sendRedirect("/eatime");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
-			resp.setContentType("text/html");
+			session.setAttribute("loginStatus", "false");
 			try {
-				req.getRequestDispatcher("login.html").include(req, resp);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
+				resp.sendRedirect("/login.jsp");
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

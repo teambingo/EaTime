@@ -14,14 +14,15 @@ public class EaTimeServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		resp.setContentType("text/html");
-		RequestDispatcher rd = req.getRequestDispatcher("/main.html");
+		String isLogin=(String) req.getSession().getAttribute("loginStatus");
+		if(isLogin==null)
+			resp.sendRedirect("login");
+		if(isLogin.equals("false"))
+			resp.sendRedirect("login");
+		RequestDispatcher rd = req.getRequestDispatcher("/main.jsp");
 		try {
-			rd.include(req, resp);
+			rd.forward(req, resp);
 		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

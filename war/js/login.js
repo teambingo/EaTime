@@ -1,6 +1,7 @@
+/*
 $(function() {
 	$('.alert').hide();
-	/*
+	
 	$("#signin").click(function() {
 		error();
 		var name = $('input[name="user"]').val();
@@ -16,7 +17,7 @@ $(function() {
 			}
 		});
 	});
-	*/
+	
 });
 
 function error() {
@@ -24,4 +25,4 @@ function error() {
 		direction: "up"
 	}, 1000);
 	setTimeout('$(\'.alert\').hide("fade", 1000);', 2000);
-}
+}*/
