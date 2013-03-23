@@ -12,7 +12,6 @@ public class RestaurantManager {
 
 	public RestaurantManager() {
 		mDatastoreService = DatastoreServiceFactory.getDatastoreService();
-
 	}
 
 	public void addRestaurant(Restaurant restaurant) {
