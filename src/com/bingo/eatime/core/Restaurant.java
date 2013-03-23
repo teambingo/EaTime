@@ -13,6 +13,7 @@ public class Restaurant {
 	public static final String PROPERTY_ADDRESS = "address";
 	public static final String PROPERTY_PHONENUMBER = "phonenumber";
 
+	private String key;
 	private String name;
 	private List<Category> categories;
 	private PostalAddress address;
@@ -22,12 +23,17 @@ public class Restaurant {
 
 	}
 
+	public String getKey() {
+		return key;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	private Restaurant setName(String name) {
 		this.name = name;
+		this.key = Utilities.getKeyFromName(this.name);
 
 		return this;
 	}

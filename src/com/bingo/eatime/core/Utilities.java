@@ -2,8 +2,8 @@ package com.bingo.eatime.core;
 
 public class Utilities {
 
-	public static String getCategoriesKey(String categoriesName) {
-		String keyName = categoriesName.trim().replace(' ', '-').toLowerCase();
+	public static String getKeyFromName(String name) {
+		String keyName = name.trim().replace(' ', '-').toLowerCase();
 
 		return keyName;
 	}
