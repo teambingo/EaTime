@@ -10,12 +10,16 @@ public class Restaurant {
 	private List<Category> categories;
 	private String location;
 	private File image;
+	
+	private Restaurant() {
+		
+	}
 
 	public String getName() {
 		return name;
 	}
 
-	protected Restaurant setName(String name) {
+	private Restaurant setName(String name) {
 		this.name = name;
 
 		return this;
@@ -25,17 +29,17 @@ public class Restaurant {
 		return categories;
 	}
 
-	protected Restaurant setCategories(List<Category> categories) {
+	private Restaurant setCategories(List<Category> categories) {
 		this.categories = categories;
 
 		return this;
 	}
 
-	protected Restaurant addCategory(Category category) {
+	private Restaurant addCategory(Category category) {
 		if (this.categories == null) {
 			this.categories = new ArrayList<Category>();
 		}
-		
+
 		this.categories.add(category);
 
 		return this;
@@ -45,7 +49,7 @@ public class Restaurant {
 		return location;
 	}
 
-	protected Restaurant setLocation(String location) {
+	private Restaurant setLocation(String location) {
 		this.location = location;
 
 		return this;
@@ -61,7 +65,7 @@ public class Restaurant {
 	 * @param image
 	 *            File object representing the image file in the file system.
 	 */
-	protected Restaurant setImage(File image) {
+	private Restaurant setImage(File image) {
 		this.image = image;
 
 		return this;
@@ -73,10 +77,44 @@ public class Restaurant {
 	 * @param image
 	 *            String of the image file path in the file system.
 	 */
-	protected Restaurant setImage(String image) {
+	private Restaurant setImage(String image) {
 		this.image = new File(image);
 
 		return this;
+	}
+
+	public static Restaurant createRestaurant(String name,
+			List<Category> categories, String location, File image) {
+		Restaurant restaurant = new Restaurant().setName(name)
+				.setCategories(categories).setLocation(location)
+				.setImage(image);
+
+		return restaurant;
+	}
+
+	public static Restaurant createRestaurant(String name,
+			List<Category> categories, String location, String image) {
+		Restaurant restaurant = new Restaurant().setName(name)
+				.setCategories(categories).setLocation(location)
+				.setImage(image);
+
+		return restaurant;
+	}
+
+	public static Restaurant createRestaurant(String name, Category category,
+			String location, File image) {
+		Restaurant restaurant = new Restaurant().setName(name)
+				.addCategory(category).setLocation(location).setImage(image);
+
+		return restaurant;
+	}
+
+	public static Restaurant createRestaurant(String name, Category category,
+			String location, String image) {
+		Restaurant restaurant = new Restaurant().setName(name)
+				.addCategory(category).setLocation(location).setImage(image);
+
+		return restaurant;
 	}
 
 }

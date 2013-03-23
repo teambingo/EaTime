@@ -15,7 +15,7 @@ public class RestaurantManager {
 
 	}
 	
-	public void addRestaurant() {
+	public void addRestaurant(Restaurant restaurant) {
 		
 	}
 
