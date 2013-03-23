@@ -1,17 +1,22 @@
 package com.bingo.eatime.core;
 
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+
 public class Category {
+
+	public static final String KIND_CATEGORY = "category";
 
 	public static final String PROPERTY_NAME = "name";
 
-	private String key;
+	private Key key;
 	private String name;
 
 	private Category() {
 
 	}
 
-	public String getKey() {
+	public Key getKey() {
 		return key;
 	}
 
@@ -21,7 +26,8 @@ public class Category {
 
 	private Category setName(String name) {
 		this.name = name;
-		this.key = Utilities.getKeyFromName(name);
+		this.key = KeyFactory.createKey(KIND_CATEGORY,
+				Utilities.getKeyFromName(name));
 
 		return this;
 	}

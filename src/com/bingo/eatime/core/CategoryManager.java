@@ -9,8 +9,6 @@ import com.google.appengine.api.datastore.Transaction;
 
 public class CategoryManager {
 
-	public static final String KIND_CATEGORY = "category";
-
 	private DatastoreService mDatastoreService;
 
 	public CategoryManager() {
@@ -20,14 +18,28 @@ public class CategoryManager {
 	public boolean addCategory(Category category) {
 		Transaction txn = mDatastoreService.beginTransaction();
 		try {
-			Key categoryKey = KeyFactory.createKey(KIND_CATEGORY,
+			Entity categoryEntity = new Entity(Category.KIND_CATEGORY,
 					category.getKey());
-			Entity categoryEntity = new Entity(KIND_CATEGORY, categoryKey);
 			categoryEntity.setProperty(Category.PROPERTY_NAME,
 					category.getName());
 
 			mDatastoreService.put(categoryEntity);
 			txn.commit();
+		} finally {
+			if (txn.isActive()) {
+				txn.rollback();
+
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public boolean addRestaurantToCategory(Key restaurantKey, Key categoryKey) {
+		Transaction txn = mDatastoreService.beginTransaction();
+		try {
+
 		} finally {
 			if (txn.isActive()) {
 				txn.rollback();

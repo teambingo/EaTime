@@ -9,8 +9,6 @@ import com.google.appengine.api.datastore.Transaction;
 
 public class RestaurantManager {
 
-	public static final String KIND_RESTAURANT = "restaurant";
-
 	private DatastoreService mDatastoreService;
 	private CategoryManager mCategoryManager;
 
@@ -31,9 +29,8 @@ public class RestaurantManager {
 	public boolean addRestaurant(Restaurant restaurant) {
 		Transaction txn = mDatastoreService.beginTransaction();
 		try {
-			Key restaurantKey = KeyFactory.createKey(KIND_RESTAURANT,
+			Entity restaurantEntity = new Entity(Restaurant.KIND_RESTAURANT,
 					restaurant.getKey());
-			Entity restaurantEntity = new Entity(KIND_RESTAURANT, restaurantKey);
 			restaurantEntity.setProperty(Restaurant.PROPERTY_NAME,
 					restaurant.getName());
 			restaurantEntity.setProperty(Restaurant.PROPERTY_ADDRESS,

@@ -3,17 +3,21 @@ package com.bingo.eatime.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PhoneNumber;
 import com.google.appengine.api.datastore.PostalAddress;
 
 public class Restaurant {
+
+	public static final String KIND_RESTAURANT = "restaurant";
 
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_CATEGORIES = "categories";
 	public static final String PROPERTY_ADDRESS = "address";
 	public static final String PROPERTY_PHONENUMBER = "phonenumber";
 
-	private String key;
+	private Key key;
 	private String name;
 	private List<Category> categories;
 	private PostalAddress address;
@@ -23,7 +27,7 @@ public class Restaurant {
 
 	}
 
-	public String getKey() {
+	public Key getKey() {
 		return key;
 	}
 
@@ -33,7 +37,8 @@ public class Restaurant {
 
 	private Restaurant setName(String name) {
 		this.name = name;
-		this.key = Utilities.getKeyFromName(this.name);
+		this.key = KeyFactory.createKey(KIND_RESTAURANT,
+				Utilities.getKeyFromName(this.name));
 
 		return this;
 	}
