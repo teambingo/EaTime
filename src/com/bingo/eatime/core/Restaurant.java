@@ -8,7 +8,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PhoneNumber;
 import com.google.appengine.api.datastore.PostalAddress;
 
-public class Restaurant {
+public final class Restaurant {
 
 	public static final String KIND_RESTAURANT = "restaurant";
 

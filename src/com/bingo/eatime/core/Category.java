@@ -7,7 +7,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
-public class Category {
+public final class Category {
 
 	public static final String KIND_CATEGORY = "category";
 	public static final String KIND_RESTAURANTKEY = "restaurant-key";

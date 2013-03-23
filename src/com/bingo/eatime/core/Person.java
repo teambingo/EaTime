@@ -12,7 +12,7 @@ public class Person {
 	private String lastName;
 	private Email email;
 
-	private Person() {
+	protected Person() {
 
 	}
 

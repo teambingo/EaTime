@@ -5,7 +5,7 @@ import java.util.TreeSet;
 
 import com.google.appengine.api.datastore.Key;
 
-public class Event {
+public final class Event {
 
 	public static final String KIND_EVENT = "event";
 
