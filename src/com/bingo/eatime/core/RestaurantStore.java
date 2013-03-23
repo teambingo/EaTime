@@ -16,7 +16,7 @@ public class RestaurantStore {
 	}
 
 	public void add() {
-		Entity restaurant = new Entity("restaurant");
+		
 
 	}
 
