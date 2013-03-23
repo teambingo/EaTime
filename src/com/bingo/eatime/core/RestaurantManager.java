@@ -14,5 +14,9 @@ public class RestaurantManager {
 		mDatastoreService = DatastoreServiceFactory.getDatastoreService();
 
 	}
+	
+	public void addRestaurant() {
+		
+	}
 
 }
