@@ -6,7 +6,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class GravatarUtility {
+public class Gravatar {
 
 	private static final String URL_HEAD_HTTP = "http://www.gravatar.com/avatar/";
 	private static final String URL_HEAD_HTTPS = "https://www.gravatar.com/avatar/";
