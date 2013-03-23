@@ -10,11 +10,12 @@ public class Restaurant {
 
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_CATEGORIES = "categories";
-	public static final String PROPERTY_LOCATION = "address";
+	public static final String PROPERTY_ADDRESS = "address";
+	public static final String PROPERTY_PHONENUMBER = "phonenumber";
 
 	private String name;
 	private List<Category> categories;
-	private PostalAddress location;
+	private PostalAddress address;
 	private PhoneNumber phoneNumber;
 
 	private Restaurant() {
@@ -52,11 +53,11 @@ public class Restaurant {
 	}
 
 	public PostalAddress getLocation() {
-		return location;
+		return address;
 	}
 
-	private Restaurant setLocation(PostalAddress location) {
-		this.location = location;
+	private Restaurant setLocation(PostalAddress address) {
+		this.address = address;
 
 		return this;
 	}

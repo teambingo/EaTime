@@ -19,9 +19,11 @@ public class RestaurantManager {
 		Entity restaurantEntity = new Entity(KIND_RESTAURANT);
 		restaurantEntity.setProperty(Restaurant.PROPERTY_NAME,
 				restaurant.getName());
-		restaurantEntity.setProperty(Restaurant.PROPERTY_LOCATION,
+		restaurantEntity.setProperty(Restaurant.PROPERTY_ADDRESS,
 				restaurant.getLocation());
-		
+		restaurantEntity.setProperty(Restaurant.PROPERTY_PHONENUMBER,
+				restaurant.getPhoneNumber());
+
 	}
 
 }
