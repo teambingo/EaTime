@@ -3,13 +3,23 @@ package com.bingo.eatime.core;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Restaurant {
 
+	private String key;
 	private String name;
 	private List<Category> categories;
 	private String location;
 	private File image;
+
+	public Restaurant() {
+		key = UUID.randomUUID().toString();
+	}
+
+	public String getKey() {
+		return key;
+	}
 
 	public String getName() {
 		return name;
@@ -17,7 +27,7 @@ public class Restaurant {
 
 	public Restaurant setName(String name) {
 		this.name = name;
-		
+
 		return this;
 	}
 
@@ -27,7 +37,7 @@ public class Restaurant {
 
 	public Restaurant setCategories(List<Category> categories) {
 		this.categories = categories;
-		
+
 		return this;
 	}
 
@@ -35,7 +45,7 @@ public class Restaurant {
 		if (this.categories == null) {
 			this.categories = new ArrayList<Category>();
 		}
-		
+
 		return this;
 	}
 
@@ -45,7 +55,7 @@ public class Restaurant {
 
 	public Restaurant setLocation(String location) {
 		this.location = location;
-		
+
 		return this;
 	}
 
@@ -61,7 +71,7 @@ public class Restaurant {
 	 */
 	public Restaurant setImage(File image) {
 		this.image = image;
-		
+
 		return this;
 	}
 
@@ -73,7 +83,7 @@ public class Restaurant {
 	 */
 	public Restaurant setImage(String image) {
 		this.image = new File(image);
-		
+
 		return this;
 	}
 
