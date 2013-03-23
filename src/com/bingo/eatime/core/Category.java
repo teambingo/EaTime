@@ -35,7 +35,8 @@ public class Category {
 	}
 
 	public static Category createCategory(String name) {
-		Category category = new Category().setName(name);
+		Category category = new Category();
+		category.setName(name);
 
 		return category;
 	}
