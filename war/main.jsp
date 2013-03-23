@@ -39,7 +39,9 @@
 								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
 									New Event</a>
 							</div>
-							<div>aaa</div>
+							<div>
+								
+							</div>
 							<div class="test">
 								<p class="restaurant">Rice Cafe</p>
 								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
