@@ -66,7 +66,7 @@ public class Person {
 	}
 
 	public String getGravatarUrlString() {
-		return Gravatar.getGravatarUrlString(email.getEmail(), true, 200);
+		return Gravatar.getGravatarUrlString(email.getEmail(), true, 100);
 	}
 
 	public URL getGravatarUrl() {
