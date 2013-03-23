@@ -39,8 +39,11 @@ public class RestaurantManager {
 			// addRestaurantToCategory succeed, doesn't seems like have a way to
 			// roll back though.
 			for (Category category : restaurant.getCategories()) {
-				mCategoryManager.addRestaurantToCategory(restaurant.getKey(),
-						category.getKey());
+				boolean succeed = mCategoryManager.addRestaurantToCategory(
+						restaurant.getKey(), category.getKey());
+				if (!succeed) {
+					return false;
+				}
 			}
 
 			mDatastoreService.put(restaurantEntity);
