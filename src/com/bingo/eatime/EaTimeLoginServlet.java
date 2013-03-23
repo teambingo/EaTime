@@ -2,10 +2,10 @@ package com.bingo.eatime;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.*;
-
-import com.google.appengine.labs.repackaged.org.json.JSONArray;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class EaTimeLoginServlet extends HttpServlet {
 
