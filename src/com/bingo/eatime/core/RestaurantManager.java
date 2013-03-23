@@ -8,11 +8,9 @@ import com.google.appengine.api.datastore.Transaction;
 public class RestaurantManager {
 
 	private DatastoreService mDatastore;
-	private CategoryManager mCategoryManager;
 
 	public RestaurantManager() {
 		mDatastore = DatastoreServiceFactory.getDatastoreService();
-		mCategoryManager = new CategoryManager();
 	}
 
 	/**
