@@ -12,4 +12,40 @@ public class Person {
 	private String lastName;
 	private Email email;
 
+	private Person() {
+
+	}
+
+	public Key getKey() {
+		return key;
+	}
+
+	private void setKey(Key key) {
+		this.key = key;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	private void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	private void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Email getEmail() {
+		return email;
+	}
+
+	private void setEmail(Email email) {
+		this.email = email;
+	}
+
 }

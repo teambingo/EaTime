@@ -1,6 +1,5 @@
 package com.bingo.eatime.core;
 
-
 public class Utilities {
 
 	public static String getKeyFromName(String name) {

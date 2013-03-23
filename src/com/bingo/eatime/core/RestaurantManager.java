@@ -7,12 +7,6 @@ import com.google.appengine.api.datastore.Transaction;
 
 public class RestaurantManager {
 
-	private DatastoreService mDatastore;
-
-	public RestaurantManager() {
-		mDatastore = DatastoreServiceFactory.getDatastoreService();
-	}
-
 	/**
 	 * Add restaurant to database. It is necessary to check whether the
 	 * operation is successful or not.
@@ -22,8 +16,11 @@ public class RestaurantManager {
 	 *            Restaurant.createRestaurant.
 	 * @return true if succeed, false if failed.
 	 */
-	public boolean addRestaurant(Restaurant restaurant) {
-		Transaction txn = mDatastore.beginTransaction();
+	public static boolean addRestaurant(Restaurant restaurant) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		Transaction txn = datastore.beginTransaction();
 		try {
 			Entity restaurantEntity = new Entity(Restaurant.KIND_RESTAURANT,
 					restaurant.getKey());
@@ -38,10 +35,10 @@ public class RestaurantManager {
 				Entity restaurantKeyEntity = CategoryManager
 						.createRestaurantKeyEntity(restaurant.getKey(),
 								category.getKey());
-				mDatastore.put(restaurantKeyEntity);
+				datastore.put(restaurantKeyEntity);
 			}
 
-			mDatastore.put(restaurantEntity);
+			datastore.put(restaurantEntity);
 			txn.commit();
 		} finally {
 			if (txn.isActive()) {
