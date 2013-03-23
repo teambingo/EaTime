@@ -35,7 +35,13 @@ public class RestaurantManager {
 					restaurant.getLocation());
 			restaurantEntity.setProperty(Restaurant.PROPERTY_PHONENUMBER,
 					restaurant.getPhoneNumber());
-			// TODO Add category
+			// TODO potential bug, current transaction failed but
+			// addRestaurantToCategory succeed, doesn't seems like have a way to
+			// roll back though.
+			for (Category category : restaurant.getCategories()) {
+				mCategoryManager.addRestaurantToCategory(restaurant.getKey(),
+						category.getKey());
+			}
 
 			mDatastoreService.put(restaurantEntity);
 			txn.commit();

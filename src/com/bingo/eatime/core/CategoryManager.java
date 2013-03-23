@@ -14,6 +14,15 @@ public class CategoryManager {
 		mDatastoreService = DatastoreServiceFactory.getDatastoreService();
 	}
 
+	/**
+	 * Add category to database.It is necessary to check whether the operation
+	 * is successful or not.
+	 * 
+	 * @param category
+	 *            Category object, can be created by calling
+	 *            Category.createCategory.
+	 * @return true if succeed, false if failed.
+	 */
 	public boolean addCategory(Category category) {
 		Transaction txn = mDatastoreService.beginTransaction();
 		try {
