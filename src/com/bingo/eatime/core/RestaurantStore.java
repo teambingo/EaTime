@@ -6,6 +6,8 @@ import com.google.appengine.api.datastore.Entity;
 
 public class RestaurantStore {
 
+	public static final String KIND_RESTAURANT = "restaurant";
+
 	private DatastoreService mDatastoreService;
 
 	public RestaurantStore() {
