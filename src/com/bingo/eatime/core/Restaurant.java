@@ -125,13 +125,6 @@ public class Restaurant {
 		return restaurant;
 	}
 
-	/**
-	 * Create Restaurant object using DataStore Entity object.
-	 * 
-	 * @param entity
-	 *            Entity object of Restaurant kind.
-	 * @return Restaurant object
-	 */
 	public static Restaurant createRestaurant(Entity entity) {
 		if (entity.getKind().equals(KIND_RESTAURANT)) {
 			Restaurant restaurant = new Restaurant();
