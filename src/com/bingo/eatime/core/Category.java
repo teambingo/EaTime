@@ -83,13 +83,19 @@ public final class Category {
 
 	public static TreeSet<Category> createCategories(Iterable<Entity> entities) {
 		TreeSet<Category> categories = newCategories();
+		boolean empty = true;
 
 		for (Entity entity : entities) {
+			empty = false;
 			Category category = createCategory(entity);
 			categories.add(category);
 		}
 
-		return categories;
+		if (empty) {
+			return null;
+		} else {
+			return categories;
+		}
 	}
 
 }
