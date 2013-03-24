@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -62,6 +63,13 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 		result = RestaurantManager.addRestaurant(restaurantHappyChina);
 
 		System.out.println(TAG + TAG_SPLITTER + "Add restaurant " + result);
+
+		TreeSet<Category> returnHappyChinaCategories = CategoryManager
+				.getRestaurantCategories(restaurantHappyChina.getKey());
+		for (Category category : returnHappyChinaCategories) {
+			System.out.println(TAG + TAG_SPLITTER + "Happy China are in "
+					+ category + ".");
+		}
 	}
 
 }
