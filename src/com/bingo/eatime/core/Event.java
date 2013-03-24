@@ -79,9 +79,27 @@ public final class Event {
 
 		return this;
 	}
-	
+
 	protected Event addInvite(Person invite) {
-		
+		if (this.invites == null) {
+			this.invites = Person.newPeople();
+		}
+
+		this.invites.add(invite);
+
+		return this;
+	}
+
+	protected Event addInvites(Iterable<Person> invites) {
+		if (this.invites == null) {
+			this.invites = Person.newPeople();
+		}
+
+		for (Person invite : invites) {
+			this.invites.add(invite);
+		}
+
+		return this;
 	}
 
 }
