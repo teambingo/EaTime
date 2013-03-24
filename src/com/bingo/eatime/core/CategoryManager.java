@@ -58,7 +58,7 @@ public class CategoryManager {
 	 *            Key object of the category to be added into.
 	 * @return Entity of RestaurantKey kind.
 	 */
-	public static Entity createRestaurantKeyEntity(Key restaurantKey,
+	protected static Entity createRestaurantKeyEntity(Key restaurantKey,
 			Key categoryKey) {
 		Entity restaurantKeyEntity = new Entity(Category.KIND_RESTAURANTKEY,
 				categoryKey);

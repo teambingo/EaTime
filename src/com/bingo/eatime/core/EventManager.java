@@ -38,4 +38,11 @@ public class EventManager {
 		return key;
 	}
 
+	protected static Entity createPersonKeyEntity(Key personKey, Key eventKey) {
+		Entity personKeyEntity = new Entity(Event.KIND_PERSONKEY, eventKey);
+		personKeyEntity.setProperty(Event.PROPERTY_PERSONKEY, personKey);
+
+		return personKeyEntity;
+	}
+
 }

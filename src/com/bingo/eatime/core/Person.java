@@ -69,7 +69,7 @@ public class Person {
 
 		return this;
 	}
-	
+
 	public String getFullName() {
 		return getFullName(true);
 	}
@@ -122,11 +122,13 @@ public class Person {
 		return people;
 	}
 
+	// Key will be null if created using this method.
 	public static Person createPerson(String firstName, String lastName,
 			String email) {
 		return createPerson(firstName, lastName, new Email(email));
 	}
 
+	// Key will be null if created using this method.
 	public static Person createPerson(String firstName, String lastName,
 			Email email) {
 		Person person = new Person();
