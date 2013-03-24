@@ -29,18 +29,27 @@ public class EventManager {
 					event.getRestaurantKey());
 			eventEntity.setProperty(Event.PROPERTY_TIME, event.getTime());
 
+			Key creatorKey = event.getCreator().getKey();
+			if (creatorKey == null) {
+				txn.rollback();
+				throw new NullKeyException("Creator Key is null.");
+			}
+			eventEntity.setProperty(Event.PROPERTY_CREATOR, creatorKey);
+
 			eventKey = datastore.put(eventEntity);
 
-			for (Person person : event.getInvites()) {
-				Key personKey = person.getKey();
-				if (personKey == null) {
-					txn.rollback();
-					throw new NullKeyException("Person Key is null.");
-				}
+			if (event.getInvites() != null) {
+				for (Person person : event.getInvites()) {
+					Key personKey = person.getKey();
+					if (personKey == null) {
+						txn.rollback();
+						throw new NullKeyException("Person Key is null.");
+					}
 
-				Entity personKeyEntity = createPersonKeyEntity(personKey,
-						eventKey);
-				datastore.put(personKeyEntity);
+					Entity personKeyEntity = createPersonKeyEntity(personKey,
+							eventKey);
+					datastore.put(personKeyEntity);
+				}
 			}
 
 			txn.commit();

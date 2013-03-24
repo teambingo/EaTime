@@ -3,6 +3,8 @@ package com.bingo.eatime.core;
 import java.util.Date;
 import java.util.TreeSet;
 
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 
 public final class Event {
@@ -107,6 +109,51 @@ public final class Event {
 		}
 
 		return this;
+	}
+
+	// Key will be null if created using this method.
+	public static Event createEvent(String name, Key restaurantKey,
+			Person creator, Date time) {
+		Event event = new Event();
+		event.setName(name).setRestaurantKey(restaurantKey).setCreator(creator)
+				.setTime(time);
+
+		return event;
+	}
+
+	// Key will be null if created using this method.
+	public static Event createEvent(String name, Key restaurantKey,
+			Person creator, Date time, Iterable<Person> invites) {
+		Event event = new Event();
+		event.setName(name).setRestaurantKey(restaurantKey).setCreator(creator)
+				.setTime(time).addInvites(invites);
+
+		return event;
+	}
+
+	public static Event createEvent(Entity entity) {
+		if (entity.getKind().equals(KIND_EVENT)) {
+			Event event = new Event();
+			event.setKey(entity.getKey());
+			event.setName((String) entity.getProperty(PROPERTY_NAME));
+			event.setRestaurantKey((Key) entity
+					.getProperty(PROPERTY_RESTAURANTKEY));
+
+			try {
+				Key creatorKey = (Key) entity.getProperty(PROPERTY_CREATOR);
+				Entity creatorEntity = PersonManager
+						.getPersonEntity(creatorKey);
+				Person creator = Person.createPerson(creatorEntity);
+				event.setCreator(creator);
+			} catch (EntityNotFoundException e) {
+				return null;
+			}
+
+			return event;
+		} else {
+			throw new EntityKindNotMatchException(
+					"Entity Kind must be KIND_EVENT.");
+		}
 	}
 
 }

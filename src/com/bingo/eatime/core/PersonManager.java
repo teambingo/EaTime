@@ -3,6 +3,7 @@ package com.bingo.eatime.core;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 
@@ -34,6 +35,16 @@ public class PersonManager {
 		}
 
 		return personKey;
+	}
+
+	public static Entity getPersonEntity(Key personKey)
+			throws EntityNotFoundException {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		Entity personEntity = datastore.get(personKey);
+
+		return personEntity;
 	}
 
 }
