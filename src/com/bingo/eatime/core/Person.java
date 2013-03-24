@@ -2,6 +2,8 @@ package com.bingo.eatime.core;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -92,6 +94,23 @@ public class Person {
 		Link link = new Link(getGravatarUrlString());
 
 		return link;
+	}
+
+	protected static TreeSet<Person> newPeople() {
+		TreeSet<Person> people = new TreeSet<Person>(new Comparator<Person>() {
+			@Override
+			public int compare(Person o1, Person o2) {
+				// Sort first name first, then last name.
+				int fnc = o1.getFirstName().compareTo(o2.getFirstName());
+				if (fnc != 0) {
+					return fnc;
+				} else {
+					return o1.getLastName().compareTo(o2.getLastName());
+				}
+			}
+		});
+
+		return people;
 	}
 
 	public static Person createPerson(String firstName, String lastName,

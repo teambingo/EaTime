@@ -24,48 +24,64 @@ public final class Event {
 		return key;
 	}
 
-	private void setKey(Key key) {
+	private Event setKey(Key key) {
 		this.key = key;
+
+		return this;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	private void setName(String name) {
+	private Event setName(String name) {
 		this.name = name;
+
+		return this;
 	}
 
 	public Key getRestaurantKey() {
 		return restaurantKey;
 	}
 
-	private void setRestaurantKey(Key restaurantKey) {
+	private Event setRestaurantKey(Key restaurantKey) {
 		this.restaurantKey = restaurantKey;
+
+		return this;
 	}
 
 	public Person getCreator() {
 		return creator;
 	}
 
-	private void setCreator(Person creator) {
+	private Event setCreator(Person creator) {
 		this.creator = creator;
+
+		return this;
 	}
 
 	public Date getTime() {
 		return time;
 	}
 
-	private void setTime(Date time) {
+	private Event setTime(Date time) {
 		this.time = time;
+
+		return this;
 	}
 
 	public TreeSet<Person> getInvites() {
 		return invites;
 	}
 
-	private void setInvites(TreeSet<Person> invites) {
+	private Event setInvites(TreeSet<Person> invites) {
 		this.invites = invites;
+
+		return this;
+	}
+	
+	protected Event addInvite(Person invite) {
+		
 	}
 
 }
