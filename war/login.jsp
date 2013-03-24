@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -33,14 +33,15 @@
 
 		<div class="row-fluid">
 			<%
-				String isLogin = (String) request.getSession().getAttribute("loginStatus");
-				if (isLogin != null){
+				String isLogin = (String) request.getSession().getAttribute(
+						"loginStatus");
+				if (isLogin != null) {
 					if (isLogin.equals("false")) {
 			%><div id="error" class="span6 offset3">
 				<div class="alert alert-error">Wrong Username or Password</div>
 			</div>
 			<%
-					}else{
+				} else {
 						response.sendRedirect("/main.jsp");
 					}
 				}

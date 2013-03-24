@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,9 +18,7 @@
 <body>
 	<div class="page">
 		<div class="container">
-			<div class="top">
-			Hi,${user}!!
-			</div>
+			<div class="top">Hi,${user}!!</div>
 			<div class="down">
 				<ul class="nav nav-tabs" id="myTab">
 					<li><a href="#Chinese">Chinese</a></li>
@@ -39,9 +38,7 @@
 								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
 									New Event</a>
 							</div>
-							<div>
-								
-							</div>
+							<div></div>
 							<div class="test">
 								<p class="restaurant">Rice Cafe</p>
 								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
