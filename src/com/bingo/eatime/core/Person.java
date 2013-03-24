@@ -38,7 +38,7 @@ public class Person {
 	}
 
 	private Person setFirstName(String firstName) {
-		this.firstName = WordUtils.capitalizeFully(firstName);
+		this.firstName = WordUtils.capitalizeFully(firstName.trim());
 
 		return this;
 	}
@@ -48,7 +48,7 @@ public class Person {
 	}
 
 	private Person setLastName(String lastName) {
-		this.lastName = WordUtils.capitalizeFully(lastName);
+		this.lastName = WordUtils.capitalizeFully(lastName.trim());
 
 		return this;
 	}
