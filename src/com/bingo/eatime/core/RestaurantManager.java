@@ -5,6 +5,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.datastore.TransactionOptions;
 
 public class RestaurantManager {
 
@@ -21,7 +22,8 @@ public class RestaurantManager {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
-		Transaction txn = datastore.beginTransaction();
+		TransactionOptions options = TransactionOptions.Builder.withXG(true);
+		Transaction txn = datastore.beginTransaction(options);
 		try {
 			Entity restaurantEntity = new Entity(Restaurant.KIND_RESTAURANT,
 					restaurant.getKey().getName());

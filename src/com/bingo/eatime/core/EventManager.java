@@ -9,6 +9,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.datastore.TransactionOptions;
 
 public class EventManager {
 
@@ -16,7 +17,8 @@ public class EventManager {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
-		Transaction txn = datastore.beginTransaction();
+		TransactionOptions options = TransactionOptions.Builder.withXG(true);
+		Transaction txn = datastore.beginTransaction(options);
 		Key eventKey;
 		try {
 			Key restaurantKey = event.getRestaurantKey();

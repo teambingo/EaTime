@@ -32,7 +32,7 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 	}
 
 	private void testDb() {
-		boolean result;
+		boolean result = false;
 
 		Category categoryChinese = Category.createCategory("Chinese");
 		result = CategoryManager.addCategory(categoryChinese);
