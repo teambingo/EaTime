@@ -45,7 +45,7 @@ public class Person {
 	}
 
 	private Person setFirstName(String firstName) {
-		this.firstName = WordUtils.capitalizeFully(firstName.trim());
+		this.firstName = firstName.trim();
 
 		return this;
 	}
@@ -55,7 +55,7 @@ public class Person {
 	}
 
 	private Person setLastName(String lastName) {
-		this.lastName = WordUtils.capitalizeFully(lastName.trim());
+		this.lastName = lastName.trim();
 
 		return this;
 	}
@@ -69,9 +69,18 @@ public class Person {
 
 		return this;
 	}
-
+	
 	public String getFullName() {
-		return firstName + " " + lastName;
+		return getFullName(true);
+	}
+
+	public String getFullName(boolean capitalized) {
+		if (capitalized) {
+			return WordUtils.capitalizeFully(firstName) + " "
+					+ WordUtils.capitalizeFully(lastName);
+		} else {
+			return firstName + " " + lastName;
+		}
 	}
 
 	public String getGravatarUrlString() {
