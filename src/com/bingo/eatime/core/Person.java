@@ -154,13 +154,19 @@ public class Person {
 
 	public static TreeSet<Person> createPeople(Iterable<Entity> entities) {
 		TreeSet<Person> people = newPeople();
+		boolean empty = true;
 
 		for (Entity entity : entities) {
+			empty = false;
 			Person person = createPerson(entity);
 			people.add(person);
 		}
 
-		return people;
+		if (empty) {
+			return null;
+		} else {
+			return people;
+		}
 	}
 
 }

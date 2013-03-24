@@ -149,6 +149,11 @@ public final class Event {
 				return null;
 			}
 
+			Iterable<Entity> inviteEntities = EventManager
+					.getInviteEntities(entity.getKey());
+			TreeSet<Person> invites = Person.createPeople(inviteEntities);
+			event.setInvites(invites);
+
 			return event;
 		} else {
 			throw new EntityKindNotMatchException(
