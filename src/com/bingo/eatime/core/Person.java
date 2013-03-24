@@ -152,4 +152,15 @@ public class Person {
 		}
 	}
 
+	public static TreeSet<Person> createPeople(Iterable<Entity> entities) {
+		TreeSet<Person> people = newPeople();
+
+		for (Entity entity : entities) {
+			Person person = createPerson(entity);
+			people.add(person);
+		}
+
+		return people;
+	}
+
 }
