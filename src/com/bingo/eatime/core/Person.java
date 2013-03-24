@@ -3,6 +3,8 @@ package com.bingo.eatime.core;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import com.bingo.eatime.util.Gravatar;
 import com.google.appengine.api.datastore.Email;
 import com.google.appengine.api.datastore.Key;
@@ -36,7 +38,7 @@ public class Person {
 	}
 
 	private Person setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstName = WordUtils.capitalizeFully(firstName);
 
 		return this;
 	}
@@ -46,7 +48,7 @@ public class Person {
 	}
 
 	private Person setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = WordUtils.capitalizeFully(lastName);
 
 		return this;
 	}
