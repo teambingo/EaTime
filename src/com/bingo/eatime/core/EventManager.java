@@ -13,10 +13,11 @@ public class EventManager {
 				.getDatastoreService();
 
 		Transaction txn = datastore.beginTransaction();
-		Key key;
+		Key eventKey;
 		try {
 			Key restaurantKey = event.getRestaurantKey();
 			if (restaurantKey == null) {
+				txn.rollback();
 				throw new NullKeyException("Restaurant Key is null.");
 			}
 
@@ -26,10 +27,18 @@ public class EventManager {
 					event.getRestaurantKey());
 			eventEntity.setProperty(Event.PROPERTY_TIME, event.getTime());
 
-			key = datastore.put(eventEntity);
+			eventKey = datastore.put(eventEntity);
 
 			for (Person person : event.getInvites()) {
-				
+				Key personKey = person.getKey();
+				if (personKey == null) {
+					txn.rollback();
+					throw new NullKeyException("Person Key is null.");
+				}
+
+				Entity personKeyEntity = createPersonKeyEntity(personKey,
+						eventKey);
+				datastore.put(personKeyEntity);
 			}
 
 			txn.commit();
@@ -41,7 +50,7 @@ public class EventManager {
 			}
 		}
 
-		return key;
+		return eventKey;
 	}
 
 	protected static Entity createPersonKeyEntity(Key personKey, Key eventKey) {
