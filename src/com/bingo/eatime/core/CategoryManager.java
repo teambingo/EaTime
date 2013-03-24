@@ -31,8 +31,8 @@ public class CategoryManager {
 
 		Transaction txn = datastore.beginTransaction();
 		try {
-			Entity categoryEntity = new Entity(Category.KIND_CATEGORY,
-					category.getKey());
+			Entity categoryEntity = new Entity(Category.KIND_CATEGORY, category
+					.getKey().getName());
 			categoryEntity.setProperty(Category.PROPERTY_NAME,
 					category.getName());
 

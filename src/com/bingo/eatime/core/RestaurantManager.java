@@ -23,7 +23,7 @@ public class RestaurantManager {
 		Transaction txn = datastore.beginTransaction();
 		try {
 			Entity restaurantEntity = new Entity(Restaurant.KIND_RESTAURANT,
-					restaurant.getKey());
+					restaurant.getKey().getName());
 			restaurantEntity.setProperty(Restaurant.PROPERTY_NAME,
 					restaurant.getName());
 			restaurantEntity.setProperty(Restaurant.PROPERTY_ADDRESS,
