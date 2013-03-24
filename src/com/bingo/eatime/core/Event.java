@@ -9,6 +9,11 @@ public final class Event {
 
 	public static final String KIND_EVENT = "event";
 
+	public static final String PROPERTY_NAME = "name";
+	public static final String PROPERTY_RESTAURANTKEY = "restaurant-id-key";
+	public static final String PROPERTY_CREATOR = "creator";
+	public static final String PROPERTY_TIME = "time";
+
 	private Key key;
 	private String name;
 	private Key restaurantKey;
