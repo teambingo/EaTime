@@ -98,4 +98,9 @@ public final class Category {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }

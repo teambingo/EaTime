@@ -38,8 +38,8 @@ public class RestaurantManager {
 
 			for (Category category : restaurant.getCategories()) {
 				Entity restaurantKeyEntity = CategoryManager
-						.createRestaurantKeyEntity(restaurantKey,
-								category.getKey());
+						.createRestaurantKeyEntity(restaurantKey, restaurant
+								.getKey().getName(), category.getKey());
 				datastore.put(restaurantKeyEntity);
 			}
 

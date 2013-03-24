@@ -2,6 +2,8 @@ package com.bingo.eatime.test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,9 @@ import com.google.appengine.api.datastore.PostalAddress;
 public class EaTimeDatabaseTestServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 2639400166713434665L;
+
+	private static final String TAG = "EaTimeDatabaseTestServlet";
+	private static final String TAG_SPLITTER = ": ";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -37,15 +42,26 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 		Category categoryChinese = Category.createCategory("Chinese");
 		result = CategoryManager.addCategory(categoryChinese);
 
-		System.out.println("Add category " + result);
+		System.out.println(TAG + TAG_SPLITTER + "Add category "
+				+ categoryChinese + " " + result);
 
+		Category categoryJapanese = Category.createCategory("Japanese");
+		result = CategoryManager.addCategory(categoryJapanese);
+
+		System.out.println(TAG + TAG_SPLITTER + "Add category "
+				+ categoryJapanese + " " + result);
+
+		List<Category> restaurantHappyChinaCategories = new ArrayList<Category>();
+		restaurantHappyChinaCategories.add(categoryJapanese);
+		restaurantHappyChinaCategories.add(categoryChinese);
 		Restaurant restaurantHappyChina = Restaurant.createRestaurant(
-				"Happy China", categoryChinese, new PostalAddress(
+				"Happy China", restaurantHappyChinaCategories,
+				new PostalAddress(
 						"219 E State Street, West Lafayette, IN 47906"),
 				new PhoneNumber("765-743-1666"));
 		result = RestaurantManager.addRestaurant(restaurantHappyChina);
 
-		System.out.println("Add restaurant " + result);
+		System.out.println(TAG + TAG_SPLITTER + "Add restaurant " + result);
 	}
 
 }

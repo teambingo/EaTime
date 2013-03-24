@@ -59,9 +59,9 @@ public class CategoryManager {
 	 * @return Entity of RestaurantKey kind.
 	 */
 	protected static Entity createRestaurantKeyEntity(Key restaurantKey,
-			Key categoryKey) {
+			String restaurantKeyName, Key categoryKey) {
 		Entity restaurantKeyEntity = new Entity(Category.KIND_RESTAURANTKEY,
-				categoryKey);
+				restaurantKeyName, categoryKey);
 		restaurantKeyEntity.setProperty(Category.PROPERTY_RESTAURANTKEY,
 				restaurantKey);
 
