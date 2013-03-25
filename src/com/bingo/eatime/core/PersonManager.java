@@ -30,7 +30,8 @@ public class PersonManager {
 		Transaction txn = datastore.beginTransaction();
 		Key personKey;
 		try {
-			Entity personEntity = new Entity(Person.KIND_PERSON);
+			Entity personEntity = new Entity(Person.KIND_PERSON,
+					person.getUsername());
 			personEntity.setProperty(Person.PROPERTY_USERNAME,
 					person.getUsername());
 			personEntity.setProperty(Person.PROPERTY_FIRSTNAME,
