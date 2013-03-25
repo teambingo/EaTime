@@ -111,6 +111,14 @@ public class CategoryManager {
 		return categories;
 	}
 
+	/**
+	 * Get an ordered set of Restaurant objects from a specific Category Key.
+	 * 
+	 * @param categoryKey
+	 *            Key of Category.
+	 * @return A set of Restaurant ordered by the name of the restaurant. Null
+	 *         if failed.
+	 */
 	public static TreeSet<Restaurant> getRestaurantsFromCategory(Key categoryKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();

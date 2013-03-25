@@ -49,4 +49,21 @@ public class PersonManager {
 		return personEntity;
 	}
 
+	/**
+	 * Get Person object from Person Key.
+	 * 
+	 * @param personKey
+	 *            Key of Person.
+	 * @return Person object if succeed, Null if not found.
+	 */
+	public static Person getPerson(Key personKey) {
+		try {
+			Entity personEntity = getPersonEntity(personKey);
+			Person person = Person.createPerson(personEntity);
+
+			return person;
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
+	}
 }
