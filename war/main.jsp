@@ -29,7 +29,7 @@
 						TreeSet<Category> categories = CategoryManager.getAllCategories();
 						for (Category cat : categories) {
 					%>
-					<li><a href=<%="#" + cat.toString()%>><%=cat.toString()%></a></li>
+					<li><a href=<%="#" + cat.getName()%>><%=cat.getName()%></a></li>
 					<%
 						}
 					%>
