@@ -12,14 +12,15 @@ public class EaTimeLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 4588543340482590495L;
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) {
-		
+
 		System.out.println("Success");
 		String user = req.getParameter("user");
 		String password = req.getParameter("pwd");
-		HttpSession session=req.getSession();
-		if (user.equals("ryan") && password.equals("crd")) {
+		HttpSession session = req.getSession();
+		if ((user.equals("ryan") && password.equals("crd"))
+				|| (user.equals("kevin") && password.equals("kevin"))) {
 			try {
-				String username="ryan";
+				String username = user;
 				session.setAttribute("loginStatus", "true");
 				session.setAttribute("user", username);
 				resp.sendRedirect("/eatime");
