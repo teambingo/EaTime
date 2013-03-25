@@ -1,9 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-
+<?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
 	<servlet>
 		<servlet-name>EaTime</servlet-name>
 		<servlet-class>com.bingo.eatime.EaTimeServlet</servlet-class>
@@ -15,6 +11,10 @@
 	<servlet>
 		<servlet-name>EaTimeDatabaseTest</servlet-name>
 		<servlet-class>com.bingo.eatime.test.EaTimeDatabaseTestServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DatabaseForFrontEndTest</servlet-name>
+		<servlet-class>com.bingo.eatime.test.DatabaseForFrontEndTest</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -29,7 +29,11 @@
 		<servlet-name>EaTimeDatabaseTest</servlet-name>
 		<url-pattern>/test/db</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>DatabaseForFrontEndTest</servlet-name>
+		<url-pattern>/test/ryan</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>eatime</welcome-file>
 	</welcome-file-list>
@@ -39,7 +43,7 @@
 		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
 		<init-param>
 			<param-name>services</param-name>
-			<param-value />
+			<param-value/>
 		</init-param>
 	</servlet>
 	<servlet-mapping>

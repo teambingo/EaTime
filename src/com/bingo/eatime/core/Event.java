@@ -26,7 +26,6 @@ public final class Event {
 	private TreeSet<Person> invites;
 
 	private Event() {
-
 	}
 
 	public Key getKey() {

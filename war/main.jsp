@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<%@ page import="com.bingo.eatime.core.Category"%>
+<%@ page import="com.google.appengine.api.datastore.*,java.util.*"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EaTime</title>
@@ -21,13 +24,24 @@
 			<div class="top">Hi,${user}!!</div>
 			<div class="down">
 				<ul class="nav nav-tabs" id="myTab">
-					<li><a href="#Chinese">Chinese</a></li>
-					<li><a href="#profile">Japanese</a></li>
-					<li><a href="#messages">American</a></li>
-					<li><a href="#Korean">Korean</a></li>
-					<li><a href="#Buffet">Buffet</a></li>
-					<li><a href="#Dessert">Dessert</a></li>
+					<%
+						DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+						Query q = new Query(Category.KIND_CATEGORY);
+						PreparedQuery pq = datastore.prepare(q);
+						HashSet<Entity> categoryEntities = new HashSet<Entity>();
 
+						for (Entity entity : pq.asIterable()) {
+							categoryEntities.add(entity);
+						}
+
+						TreeSet<Category> categories = Category.createCategories(categoryEntities);
+						System.out.println("Query result:");
+						for (Category cat : categories) {
+					%>
+					<li><a href=<%="#" + cat.toString()%>><%=cat.toString()%></a></li>
+					<%
+						}
+					%>
 				</ul>
 
 				<div class="tab-content">
