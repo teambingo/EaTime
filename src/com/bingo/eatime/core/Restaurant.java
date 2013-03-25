@@ -159,4 +159,22 @@ public final class Restaurant {
 		}
 	}
 
+	public static TreeSet<Restaurant> createRestaurants(
+			Iterable<Entity> entities) {
+		TreeSet<Restaurant> restaurants = newRestaurants();
+		boolean empty = true;
+
+		for (Entity entity : entities) {
+			empty = false;
+			Restaurant restaurant = createRestaurant(entity);
+			restaurants.add(restaurant);
+		}
+
+		if (empty) {
+			return null;
+		} else {
+			return restaurants;
+		}
+	}
+
 }
