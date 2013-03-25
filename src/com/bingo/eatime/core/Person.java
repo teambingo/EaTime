@@ -183,4 +183,9 @@ public class Person {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return getFullName(true);
+	}
+
 }
