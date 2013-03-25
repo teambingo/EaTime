@@ -4,6 +4,8 @@
 <head>
 
 <%@ page import="com.bingo.eatime.core.Category"%>
+<%@ page import="com.bingo.eatime.core.CategoryManager"%>
+<%@ page import="com.bingo.eatime.core.Restaurant"%>
 <%@ page import="com.google.appengine.api.datastore.*,java.util.*"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,9 +38,16 @@
 				</ul>
 
 				<div class="tab-content">
-					<div class="tab-pane" id="Chinese">
+					<%
+						for (Category cat : categories) {
+					%>
+					<div class="tab-pane" id="<%=cat.getName()%>">
 						<div class="accordion">
-							<div class="test">
+							<%
+								for (Restaurant restaurant : CategoryManager
+											.getRestaurantsFromCategory(cat.getKey())) {
+							%>
+							<!-- <div class="test">
 								<p class="restaurant">OISHI</p>
 								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
 									New Event</a>
@@ -49,9 +58,21 @@
 								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
 									New Event</a>
 							</div>
-							<div>bbb</div>
+							<div>bbb</div> -->
+							<div class="test">
+								<p class="restaurant"><%=restaurant.getName()%></p>
+								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
+									New Event</a>
+							</div>
+							<div></div>
+							<%
+								}
+							%>
 						</div>
 					</div>
+					<%
+						}
+					%>
 					<div class="tab-pane" id="profile">bbbb</div>
 					<div class="tab-pane" id="messages">cccc</div>
 					<div class="tab-pane" id="settings">dddd</div>
