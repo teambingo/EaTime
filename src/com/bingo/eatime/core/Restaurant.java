@@ -177,4 +177,9 @@ public final class Restaurant {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }
