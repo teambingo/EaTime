@@ -162,7 +162,8 @@ public class Person {
 			return person;
 		} else {
 			throw new EntityKindNotMatchException(
-					"Entity Kind must be KIND_PERSON.");
+					"Entity Kind must be KIND_PERSON instead of "
+							+ entity.getKind() + ".");
 		}
 	}
 

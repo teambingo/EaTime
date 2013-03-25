@@ -149,7 +149,8 @@ public final class Event {
 			return event;
 		} else {
 			throw new EntityKindNotMatchException(
-					"Entity Kind must be KIND_EVENT.");
+					"Entity Kind must be KIND_EVENT instead of "
+							+ entity.getKind() + ".");
 		}
 	}
 
