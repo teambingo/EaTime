@@ -175,6 +175,7 @@ public final class Event {
 			event.setName((String) entity.getProperty(PROPERTY_NAME));
 			event.setRestaurantKey((Key) entity
 					.getProperty(PROPERTY_RESTAURANTKEY));
+			event.setTime((Date) entity.getProperty(PROPERTY_TIME));
 
 			Key creatorKey = (Key) entity.getProperty(PROPERTY_CREATOR);
 			Person creator = PersonManager.getPerson(creatorKey);

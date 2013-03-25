@@ -94,5 +94,10 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 				restaurantHappyChina.getKey(), myKey,
 				new Date(System.currentTimeMillis()));
 		EventManager.addEvent(sampleEvent);
+		
+		TreeSet<Event> returnSampleEvents = EventManager.getEventsFromRestaurant(restaurantHappyChina.getKey());
+		for (Event event : returnSampleEvents) {
+			System.out.println(TAG + TAG_SPLITTER + "found event " + event);
+		}
 	}
 }
