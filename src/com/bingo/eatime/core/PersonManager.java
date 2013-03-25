@@ -17,6 +17,8 @@ public class PersonManager {
 		Key personKey;
 		try {
 			Entity personEntity = new Entity(Person.KIND_PERSON);
+			personEntity.setProperty(Person.PROPERTY_USERNAME,
+					person.getUsername());
 			personEntity.setProperty(Person.PROPERTY_FIRSTNAME,
 					person.getFirstName());
 			personEntity.setProperty(Person.PROPERTY_LASTNAME,

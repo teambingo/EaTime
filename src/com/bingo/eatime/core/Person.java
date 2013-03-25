@@ -17,11 +17,13 @@ public class Person {
 
 	public static final String KIND_PERSON = "person";
 
+	public static final String PROPERTY_USERNAME = "username";
 	public static final String PROPERTY_FIRSTNAME = "firstname";
 	public static final String PROPERTY_LASTNAME = "lastname";
 	public static final String PROPERTY_EMAIL = "email";
 
 	private Key key;
+	private String username;
 	private String firstName;
 	private String lastName;
 	private Email email;
@@ -36,6 +38,16 @@ public class Person {
 
 	private Person setKey(Key key) {
 		this.key = key;
+
+		return this;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	private Person setUsername(String username) {
+		this.username = username.trim();
 
 		return this;
 	}
@@ -123,16 +135,17 @@ public class Person {
 	}
 
 	// Key will be null if created using this method.
-	public static Person createPerson(String firstName, String lastName,
-			String email) {
-		return createPerson(firstName, lastName, new Email(email));
+	public static Person createPerson(String username, String firstName,
+			String lastName, String email) {
+		return createPerson(username, firstName, lastName, new Email(email));
 	}
 
 	// Key will be null if created using this method.
-	public static Person createPerson(String firstName, String lastName,
-			Email email) {
+	public static Person createPerson(String username, String firstName,
+			String lastName, Email email) {
 		Person person = new Person();
-		person.setFirstName(firstName).setLastName(lastName).setEmail(email);
+		person.setUsername(username).setFirstName(firstName)
+				.setLastName(lastName).setEmail(email);
 
 		return person;
 	}
@@ -141,6 +154,7 @@ public class Person {
 		if (entity.getKind().equals(KIND_PERSON)) {
 			Person person = new Person();
 			person.setKey(entity.getKey());
+			person.setUsername((String) entity.getProperty(PROPERTY_USERNAME));
 			person.setFirstName((String) entity.getProperty(PROPERTY_FIRSTNAME));
 			person.setLastName((String) entity.getProperty(PROPERTY_LASTNAME));
 			person.setEmail((Email) entity.getProperty(PROPERTY_EMAIL));
