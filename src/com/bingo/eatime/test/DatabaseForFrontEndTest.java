@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bingo.eatime.core.Category;
 import com.bingo.eatime.core.CategoryManager;
+import com.bingo.eatime.core.Restaurant;
+import com.bingo.eatime.core.RestaurantManager;
+import com.google.appengine.api.datastore.PhoneNumber;
+import com.google.appengine.api.datastore.PostalAddress;
 
 public class DatabaseForFrontEndTest extends HttpServlet {
 
@@ -40,5 +44,12 @@ public class DatabaseForFrontEndTest extends HttpServlet {
 			System.out.println(TAG + TAG_SPLITTER + "Add category "
 					+ categoryChinese + " " + result);
 		}
+		Restaurant res= Restaurant.createRestaurant(
+				"Maru", Category.createCategory("Japanese"),
+				new PostalAddress(
+						"UNKNOWN"),
+				new PhoneNumber("UNKNOWN"));
+		result = RestaurantManager.addRestaurant(res);
+
 	}
 }
