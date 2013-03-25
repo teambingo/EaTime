@@ -36,3 +36,76 @@ input[type="button"] {
 	margin-left:10%;
 	display:inline-block;
 }
+
+.events {
+	margin-left:10%;
+	width:82% !important;
+}
+
+.event {
+	margin-top:10px;
+	margin-bottom:10px;
+	background-color:#9F3;
+}
+
+.event>*{
+	height:80px;
+	width:80px;
+	text-align:center;
+	background-color:#0F3;
+	
+}
+
+.head {
+	height:80px;
+	width:80px;
+}
+
+.orgDiv {
+	padding-top:13px;
+}
+
+.timeDiv {
+	padding-top:11px;	
+}
+
+.hourNum , .minNum {
+	margin-top:6px;
+	display:inline-block;
+	width:40%;
+	height:30%;
+	background-color:#000;
+}
+
+.display {
+	margin-top:6px;
+	margin-left:10%;
+	width:80%;
+	height:30%;
+	background-color:#000;
+}
+
+.countDiv {
+	padding-top:13px;
+}
+
+.join{
+	width:70% !important;
+	margin-top: 25%;
+}
+
+.modal-body {
+	text-align:center;
+}
+
+.timepick {
+	margin-left:30%;
+	display:block;
+}
+
+#invite {
+	margin-top:10px;
+	height: 12px !important;
+	line-height: 18px !important;
+	font-size: 10px !important;
+}
