@@ -44,8 +44,10 @@
 					<div class="tab-pane" id="<%=cat.getName()%>">
 						<div class="accordion">
 							<%
-								for (Restaurant restaurant : CategoryManager
-											.getRestaurantsFromCategory(cat.getKey())) {
+								TreeSet<Restaurant> restaurants = CategoryManager
+											.getRestaurantsFromCategory(cat.getKey());
+									if (restaurants != null) {
+										for (Restaurant restaurant : restaurants) {
 							%>
 							<!-- <div class="test">
 								<p class="restaurant">OISHI</p>
@@ -67,6 +69,7 @@
 							<div></div>
 							<%
 								}
+									}
 							%>
 						</div>
 					</div>
