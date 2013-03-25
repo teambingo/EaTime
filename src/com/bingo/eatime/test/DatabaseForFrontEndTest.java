@@ -16,9 +16,9 @@ import com.google.appengine.api.datastore.PostalAddress;
 
 public class DatabaseForFrontEndTest extends HttpServlet {
 
-	private static final long serialVersionUID = 2639400166713434665L;
+	private static final long serialVersionUID = 2885283213120782778L;
 
-	private static final String TAG = "EaTimeDatabaseTestServlet";
+	private static final String TAG = "DatabaseForFrontEndTest";
 	private static final String TAG_SPLITTER = ": ";
 
 	@Override
@@ -44,10 +44,8 @@ public class DatabaseForFrontEndTest extends HttpServlet {
 			System.out.println(TAG + TAG_SPLITTER + "Add category "
 					+ categoryChinese + " " + result);
 		}
-		Restaurant res= Restaurant.createRestaurant(
-				"Maru", Category.createCategory("Japanese"),
-				new PostalAddress(
-						"UNKNOWN"),
+		Restaurant res = Restaurant.createRestaurant("Maru", Category
+				.createCategory("Japanese"), new PostalAddress("UNKNOWN"),
 				new PhoneNumber("UNKNOWN"));
 		result = RestaurantManager.addRestaurant(res);
 
