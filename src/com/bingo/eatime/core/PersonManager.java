@@ -71,7 +71,7 @@ public class PersonManager {
 	 * 
 	 * @param personKey
 	 *            Key of Person.
-	 * @return Person object, Null if not found.
+	 * @return Person object. Null if not found.
 	 */
 	public static Person getPerson(Key personKey) {
 		Entity personEntity = getPersonEntity(personKey);
@@ -84,6 +84,16 @@ public class PersonManager {
 		}
 	}
 
+	/**
+	 * Get Person Entity by username.
+	 * 
+	 * @param username
+	 *            Username String.
+	 * @return Entity of person. Null if not found.
+	 * @throws MultipleEntityException
+	 *             Throws MultipleEntityException if multiple same usernames
+	 *             found.
+	 */
 	public static Entity getPersonEntity(String username) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
