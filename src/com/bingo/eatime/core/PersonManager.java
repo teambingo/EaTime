@@ -115,4 +115,25 @@ public class PersonManager {
 			return null;
 		}
 	}
+
+	/**
+	 * Get Person Object by username.
+	 * 
+	 * @param username
+	 *            Username String.
+	 * @return Person Object. Null if not found.
+	 * @throws MultipleEntityException
+	 *             Throws MultipleEntityException if multiple same usernames
+	 *             found.
+	 */
+	public static Person getPerson(String username) {
+		Entity personEntity = getPersonEntity(username);
+		if (personEntity != null) {
+			Person person = Person.createPerson(personEntity);
+
+			return person;
+		} else {
+			return null;
+		}
+	}
 }
