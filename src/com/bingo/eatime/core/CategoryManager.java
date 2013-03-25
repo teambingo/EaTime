@@ -112,8 +112,7 @@ public class CategoryManager {
 	}
 
 	public static TreeSet<Restaurant> getRestaurantsFromCategory(Key categoryKey) {
-		// TODO
-		return null;
+		
 	}
 
 }

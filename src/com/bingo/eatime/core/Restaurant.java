@@ -1,5 +1,6 @@
 package com.bingo.eatime.core;
 
+import java.util.Comparator;
 import java.util.TreeSet;
 
 import com.google.appengine.api.datastore.Entity;
@@ -104,6 +105,18 @@ public final class Restaurant {
 		this.phoneNumber = phoneNumber;
 
 		return this;
+	}
+
+	protected static TreeSet<Restaurant> newRestaurants() {
+		TreeSet<Restaurant> restaurants = new TreeSet<Restaurant>(
+				new Comparator<Restaurant>() {
+					@Override
+					public int compare(Restaurant o1, Restaurant o2) {
+						return o1.getName().compareTo(o2.getName());
+					}
+				});
+
+		return restaurants;
 	}
 
 	public static Restaurant createRestaurant(String name,
