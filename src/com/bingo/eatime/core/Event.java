@@ -1,5 +1,6 @@
 package com.bingo.eatime.core;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.TreeSet;
 
@@ -109,6 +110,17 @@ public final class Event {
 		return this;
 	}
 
+	protected static TreeSet<Event> newEvents() {
+		TreeSet<Event> events = new TreeSet<Event>(new Comparator<Event>() {
+			@Override
+			public int compare(Event o1, Event o2) {
+				return o1.getTime().compareTo(o2.getTime());
+			}
+		});
+
+		return events;
+	}
+
 	// Key will be null if created using this method.
 	public static Event createEvent(String name, Key restaurantKey,
 			Person creator, Date time) {
@@ -151,6 +163,23 @@ public final class Event {
 			throw new EntityKindNotMatchException(
 					"Entity Kind must be KIND_EVENT instead of "
 							+ entity.getKind() + ".");
+		}
+	}
+
+	public static TreeSet<Event> createEvents(Iterable<Entity> entities) {
+		TreeSet<Event> events = newEvents();
+		boolean empty = true;
+
+		for (Entity entity : entities) {
+			empty = false;
+			Event event = createEvent(entity);
+			events.add(event);
+		}
+
+		if (empty) {
+			return null;
+		} else {
+			return events;
 		}
 	}
 
