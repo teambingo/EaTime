@@ -50,22 +50,41 @@ public class CategoryManager {
 	}
 
 	/**
-	 * Create a RestaurantKey Entity for a specific Category Key.
+	 * Get a Category entity from a Category key.
 	 * 
-	 * @param restaurantKey
-	 *            restaurant Key object.
 	 * @param categoryKey
-	 *            Key object of the category to be added into.
-	 * @return Entity of RestaurantKey kind.
+	 *            Category key.
+	 * @return Category entity. Null if failed.
 	 */
-	protected static Entity createRestaurantKeyEntity(Key restaurantKey,
-			String restaurantKeyName, Key categoryKey) {
-		Entity restaurantKeyEntity = new Entity(Category.KIND_RESTAURANTKEY,
-				restaurantKeyName, categoryKey);
-		restaurantKeyEntity.setProperty(Category.PROPERTY_RESTAURANTKEY,
-				restaurantKey);
+	public static Entity getCategoryEntity(Key categoryKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
 
-		return restaurantKeyEntity;
+		try {
+			Entity categoryEntity = datastore.get(categoryKey);
+
+			return categoryEntity;
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Get a Category object from a Category key.
+	 * 
+	 * @param categoryKey
+	 *            Category key.
+	 * @return Category object. Null if failed.
+	 */
+	public static Category getCategory(Key categoryKey) {
+		Entity categoryEntity = getCategoryEntity(categoryKey);
+		if (categoryEntity != null) {
+			Category category = Category.createCategory(categoryEntity);
+
+			return category;
+		} else {
+			return null;
+		}
 	}
 
 	public static TreeSet<Category> getAllCategories() {
@@ -144,6 +163,25 @@ public class CategoryManager {
 				.createRestaurants(restaurantEntities);
 
 		return restaurants;
+	}
+
+	/**
+	 * Create a RestaurantKey Entity for a specific Category Key.
+	 * 
+	 * @param restaurantKey
+	 *            restaurant Key object.
+	 * @param categoryKey
+	 *            Key object of the category to be added into.
+	 * @return Entity of RestaurantKey kind.
+	 */
+	protected static Entity createRestaurantKeyEntity(Key restaurantKey,
+			String restaurantKeyName, Key categoryKey) {
+		Entity restaurantKeyEntity = new Entity(Category.KIND_RESTAURANTKEY,
+				restaurantKeyName, categoryKey);
+		restaurantKeyEntity.setProperty(Category.PROPERTY_RESTAURANTKEY,
+				restaurantKey);
+
+		return restaurantKeyEntity;
 	}
 
 }
