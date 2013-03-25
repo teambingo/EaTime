@@ -1,6 +1,7 @@
 package com.bingo.eatime.core;
 
 import java.util.HashSet;
+import java.util.TreeSet;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -112,6 +113,13 @@ public class EventManager {
 		PreparedQuery pq = datastore.prepare(q);
 
 		return pq.asIterable();
+	}
+
+	public static TreeSet<Person> getInvitePeople(Key eventKey) {
+		Iterable<Entity> inviteEntities = getInviteEntities(eventKey);
+		TreeSet<Person> invitePeople = Person.createPeople(inviteEntities);
+
+		return invitePeople;
 	}
 
 	protected static Entity createPersonKeyEntity(Key personKey, Key eventKey) {
