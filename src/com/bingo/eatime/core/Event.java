@@ -152,7 +152,7 @@ public final class Event {
 			Key creatorKey, Date time, Iterable<Person> invites) {
 		Event event = new Event();
 		event.setName(name).setRestaurantKey(restaurantKey).setTime(time)
-				.setInvites(null);
+				.addInvites(invites);
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
@@ -218,7 +218,7 @@ public final class Event {
 		calendar.setTime(time);
 		return name + " created by " + creator.getFullName() + " at " + 
 				restaurantKey.getName() + " " + calendar.get(Calendar.HOUR_OF_DAY)
-				+ ":" + calendar.get(Calendar.MINUTE);
+				+ ":" + calendar.get(Calendar.MINUTE) + " invites: " + invites;
 	}
 
 }

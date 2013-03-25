@@ -11,6 +11,7 @@ import com.bingo.eatime.util.Gravatar;
 import com.google.appengine.api.datastore.Email;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Link;
 
 public class Person {
@@ -39,6 +40,12 @@ public class Person {
 	private Person setKey(Key key) {
 		this.key = key;
 
+		return this;
+	}
+	
+	private Person setKey(String username) {
+		this.key = KeyFactory.createKey(KIND_PERSON, username.trim());
+		
 		return this;
 	}
 
@@ -134,17 +141,15 @@ public class Person {
 		return people;
 	}
 
-	// Key will be null if created using this method.
 	public static Person createPerson(String username, String firstName,
 			String lastName, String email) {
 		return createPerson(username, firstName, lastName, new Email(email));
 	}
 
-	// Key will be null if created using this method.
 	public static Person createPerson(String username, String firstName,
 			String lastName, Email email) {
 		Person person = new Person();
-		person.setUsername(username).setFirstName(firstName)
+		person.setKey(username).setUsername(username).setFirstName(firstName)
 				.setLastName(lastName).setEmail(email);
 
 		return person;
