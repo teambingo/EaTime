@@ -112,7 +112,17 @@ public class CategoryManager {
 	}
 
 	public static TreeSet<Restaurant> getRestaurantsFromCategory(Key categoryKey) {
-		
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		Query q = new Query(Category.KIND_CATEGORY, categoryKey);
+
+		PreparedQuery pq = datastore.prepare(q);
+
+		TreeSet<Restaurant> restaurants = Restaurant.createRestaurants(pq
+				.asIterable());
+
+		return restaurants;
 	}
 
 }
