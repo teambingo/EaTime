@@ -115,7 +115,7 @@ public class CategoryManager {
 	 * Get an ordered set of Restaurant objects from a specific Category Key.
 	 * 
 	 * @param categoryKey
-	 *            Key of Category.
+	 *            Category key.
 	 * @return A set of Restaurant ordered by the name of the restaurant. Null
 	 *         if failed.
 	 */
