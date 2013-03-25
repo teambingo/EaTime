@@ -3,6 +3,7 @@ package com.bingo.eatime.test;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -12,8 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bingo.eatime.core.Category;
 import com.bingo.eatime.core.CategoryManager;
+import com.bingo.eatime.core.Event;
+import com.bingo.eatime.core.EventManager;
+import com.bingo.eatime.core.Person;
+import com.bingo.eatime.core.PersonManager;
 import com.bingo.eatime.core.Restaurant;
 import com.bingo.eatime.core.RestaurantManager;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PhoneNumber;
 import com.google.appengine.api.datastore.PostalAddress;
 
@@ -79,6 +85,14 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 			System.out.println(TAG + TAG_SPLITTER + restaurant
 					+ " is in category " + categoryChinese);
 		}
-	}
 
+		Person me = Person.createPerson("kevin", "Kaiwen", "Xu",
+				"kevin@kevxu.net");
+		Key myKey = PersonManager.addPerson(me);
+
+		Event sampleEvent = Event.createEvent("Sample Event",
+				restaurantHappyChina.getKey(), myKey,
+				new Date(System.currentTimeMillis()));
+		EventManager.addEvent(sampleEvent);
+	}
 }
