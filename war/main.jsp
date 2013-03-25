@@ -29,38 +29,29 @@
 				<ul class="nav nav-tabs" id="myTab">
 					<%
 						TreeSet<Category> categories = CategoryManager.getAllCategories();
-						for (Category cat : categories) {
+						if (categories != null) {
+							for (Category cat : categories) {
 					%>
 					<li><a href=<%="#" + cat.getName()%>><%=cat.getName()%></a></li>
 					<%
+						}
 						}
 					%>
 				</ul>
 
 				<div class="tab-content">
 					<%
-						for (Category cat : categories) {
+						if (categories != null) {
+							for (Category cat : categories) {
 					%>
 					<div class="tab-pane" id="<%=cat.getName()%>">
 						<div class="accordion">
 							<%
 								TreeSet<Restaurant> restaurants = CategoryManager
-											.getRestaurantsFromCategory(cat.getKey());
-									if (restaurants != null) {
-										for (Restaurant restaurant : restaurants) {
+												.getRestaurantsFromCategory(cat.getKey());
+										if (restaurants != null) {
+											for (Restaurant restaurant : restaurants) {
 							%>
-							<!-- <div class="test">
-								<p class="restaurant">OISHI</p>
-								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
-									New Event</a>
-							</div>
-							<div></div>
-							<div class="test">
-								<p class="restaurant">Rice Cafe</p>
-								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
-									New Event</a>
-							</div>
-							<div>bbb</div> -->
 							<div class="test">
 								<p class="restaurant"><%=restaurant.getName()%></p>
 								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
@@ -69,11 +60,12 @@
 							<div></div>
 							<%
 								}
-									}
+										}
 							%>
 						</div>
 					</div>
 					<%
+						}
 						}
 					%>
 					<div class="tab-pane" id="profile">bbbb</div>
