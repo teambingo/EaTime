@@ -57,7 +57,29 @@
 								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
 									New Event</a>
 							</div>
-							<div></div>
+							<div class="events">
+        <div class="row-fluid event">
+        	<div class="span2 headDiv"><img src="img/default.png" class="img-circle head"></div>
+  			<div class="span3 orgDiv">
+            	<div class="label label-info">Organizer</div>
+            	<div class="display">Ryan Chen</div>
+            </div>
+  			<div class="span3 timeDiv">
+            	<div class="label label-info">Time</div>
+            	<br>
+                	<div class="hourNum">13</div>
+                	<div class="minNum">30</div>
+                
+            </div>
+            <div class="span2 countDiv">
+            	<div class="label label-info">Attendants</div>
+            	<div class="display">10</div>
+            </div>
+            <div class="span2 joinDiv">
+            	<button type="submit" class="btn btn-info join">Join!</button>
+            </div>
+		</div>
+		</div>
 							<%
 									}
 								}
