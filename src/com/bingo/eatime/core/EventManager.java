@@ -109,15 +109,38 @@ public class EventManager {
 		return true;
 	}
 
+	/**
+	 * Get all Event entities of a Restaurant key.
+	 * 
+	 * @param restaurantKey
+	 *            Restaurant key.
+	 * @return Iterable of event entities.
+	 */
 	public static Iterable<Entity> getEventEntitiesFromRestaurant(
 			Key restaurantKey) {
 		return getEventEntitiesFromRestaurant(restaurantKey, null);
 	}
 
+	/**
+	 * Get all Event objects of a Restaurant Key.
+	 * 
+	 * @param restaurantKey
+	 *            Restaurant key.
+	 * @return A set of Event object ordered by time. Null if not found.
+	 */
 	public static TreeSet<Event> getEventsFromRestaurant(Key restaurantKey) {
 		return getEventsFromRestaurant(restaurantKey, null);
 	}
 
+	/**
+	 * Get all Event entities of a Restaurant key based on a specific date.
+	 * 
+	 * @param restaurantKey
+	 *            Restaurant key.
+	 * @param date
+	 *            A specific date.
+	 * @return Iterable of event entities.
+	 */
 	public static Iterable<Entity> getEventEntitiesFromRestaurant(
 			Key restaurantKey, Date date) {
 		DatastoreService datastore = DatastoreServiceFactory
@@ -152,6 +175,15 @@ public class EventManager {
 		return pq.asIterable();
 	}
 
+	/**
+	 * Get all Event objects of a Restaurant Key based on a specific date.
+	 * 
+	 * @param restaurantKey
+	 *            Restaurant key.
+	 * @param date
+	 *            A specific date.
+	 * @return A set of Event object ordered by time. Null if not found.
+	 */
 	public static TreeSet<Event> getEventsFromRestaurant(Key restaurantKey,
 			Date date) {
 		Iterable<Entity> eventEntities = getEventEntitiesFromRestaurant(
