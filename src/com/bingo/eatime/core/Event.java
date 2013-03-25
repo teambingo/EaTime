@@ -1,5 +1,6 @@
 package com.bingo.eatime.core;
 
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.TreeSet;
@@ -209,6 +210,15 @@ public final class Event {
 		} else {
 			return events;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(time);
+		return name + " created by " + creator.getFullName() + " at " + 
+				restaurantKey.getName() + " " + calendar.get(Calendar.HOUR_OF_DAY)
+				+ ":" + calendar.get(Calendar.MINUTE);
 	}
 
 }

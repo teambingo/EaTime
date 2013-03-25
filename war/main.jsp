@@ -34,7 +34,7 @@
 					%>
 					<li><a href=<%="#" + cat.getName()%>><%=cat.getName()%></a></li>
 					<%
-						}
+							}
 						}
 					%>
 				</ul>
@@ -48,9 +48,9 @@
 						<div class="accordion">
 							<%
 								TreeSet<Restaurant> restaurants = CategoryManager
-												.getRestaurantsFromCategory(cat.getKey());
-										if (restaurants != null) {
-											for (Restaurant restaurant : restaurants) {
+									.getRestaurantsFromCategory(cat.getKey());
+								if (restaurants != null) {
+									for (Restaurant restaurant : restaurants) {
 							%>
 							<div class="test">
 								<p class="restaurant"><%=restaurant.getName()%></p>
@@ -59,13 +59,13 @@
 							</div>
 							<div></div>
 							<%
+									}
 								}
-										}
 							%>
 						</div>
 					</div>
 					<%
-						}
+							}
 						}
 					%>
 					<div class="tab-pane" id="profile">bbbb</div>
