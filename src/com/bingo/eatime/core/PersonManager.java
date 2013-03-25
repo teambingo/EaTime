@@ -16,6 +16,13 @@ import com.google.appengine.api.datastore.Transaction;
 
 public class PersonManager {
 
+	/**
+	 * Add Person to database.
+	 * 
+	 * @param person
+	 *            Person object.
+	 * @return Key of added person. Null if failed.
+	 */
 	public static Key addPerson(Person person) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
