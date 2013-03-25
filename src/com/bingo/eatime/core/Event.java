@@ -138,15 +138,9 @@ public final class Event {
 			event.setRestaurantKey((Key) entity
 					.getProperty(PROPERTY_RESTAURANTKEY));
 
-			try {
-				Key creatorKey = (Key) entity.getProperty(PROPERTY_CREATOR);
-				Entity creatorEntity = PersonManager
-						.getPersonEntity(creatorKey);
-				Person creator = Person.createPerson(creatorEntity);
-				event.setCreator(creator);
-			} catch (EntityNotFoundException e) {
-				return null;
-			}
+			Key creatorKey = (Key) entity.getProperty(PROPERTY_CREATOR);
+			Person creator = PersonManager.getPerson(creatorKey);
+			event.setCreator(creator);
 
 			Iterable<Entity> inviteEntities = EventManager
 					.getInviteEntities(entity.getKey());
