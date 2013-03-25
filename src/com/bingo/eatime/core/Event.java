@@ -4,7 +4,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.TreeSet;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 
 public final class Event {
@@ -124,11 +127,13 @@ public final class Event {
 	// Key will be null if created using this method.
 	public static Event createEvent(String name, Key restaurantKey,
 			Person creator, Date time) {
-		Event event = new Event();
-		event.setName(name).setRestaurantKey(restaurantKey).setCreator(creator)
-				.setTime(time);
+		return createEvent(name, restaurantKey, creator, time, null);
+	}
 
-		return event;
+	// Key will be null if created using this method.
+	public static Event createEvent(String name, Key restaurantKey,
+			Key creatorKey, Date time) {
+		return createEvent(name, restaurantKey, creatorKey, time, null);
 	}
 
 	// Key will be null if created using this method.
@@ -137,6 +142,28 @@ public final class Event {
 		Event event = new Event();
 		event.setName(name).setRestaurantKey(restaurantKey).setCreator(creator)
 				.setTime(time).addInvites(invites);
+
+		return event;
+	}
+
+	// Key will be null if created using this method.
+	public static Event createEvent(String name, Key restaurantKey,
+			Key creatorKey, Date time, Iterable<Person> invites) {
+		Event event = new Event();
+		event.setName(name).setRestaurantKey(restaurantKey).setTime(time)
+				.setInvites(null);
+
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		try {
+			Entity creatorEntity = datastore.get(creatorKey);
+			Person creator = Person.createPerson(creatorEntity);
+
+			event.setCreator(creator);
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
 
 		return event;
 	}
