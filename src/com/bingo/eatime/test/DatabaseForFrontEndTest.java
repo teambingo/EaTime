@@ -2,8 +2,6 @@ package com.bingo.eatime.test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
-import java.util.TreeSet;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bingo.eatime.core.Category;
 import com.bingo.eatime.core.CategoryManager;
-import com.google.appengine.api.datastore.*;
 
 public class DatabaseForFrontEndTest extends HttpServlet {
 

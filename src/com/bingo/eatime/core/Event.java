@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.TreeSet;
 
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 
 public final class Event {
