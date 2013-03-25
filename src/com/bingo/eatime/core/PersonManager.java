@@ -39,11 +39,18 @@ public class PersonManager {
 		return personKey;
 	}
 
+	/**
+	 * Get Person Entity from Person Key.
+	 * 
+	 * @param personKey
+	 *            Key of Person.
+	 * @return Entity object.
+	 * @throws EntityNotFoundException
+	 */
 	public static Entity getPersonEntity(Key personKey)
 			throws EntityNotFoundException {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
-
 		Entity personEntity = datastore.get(personKey);
 
 		return personEntity;
@@ -54,7 +61,7 @@ public class PersonManager {
 	 * 
 	 * @param personKey
 	 *            Key of Person.
-	 * @return Person object if succeed, Null if not found.
+	 * @return Person object, Null if not found.
 	 */
 	public static Person getPerson(Key personKey) {
 		try {
