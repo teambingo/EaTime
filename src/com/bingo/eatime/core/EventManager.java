@@ -1,5 +1,6 @@
 package com.bingo.eatime.core;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.TreeSet;
 
@@ -10,6 +11,9 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.datastore.TransactionOptions;
 
@@ -103,6 +107,58 @@ public class EventManager {
 		}
 
 		return true;
+	}
+
+	public static Iterable<Entity> getEventEntitiesFromRestaurant(
+			Key restaurantKey) {
+		return getEventEntitiesFromRestaurant(restaurantKey, null);
+	}
+
+	public static TreeSet<Event> getEventsFromRestaurant(Key restaurantKey) {
+		return getEventsFromRestaurant(restaurantKey, null);
+	}
+
+	public static Iterable<Entity> getEventEntitiesFromRestaurant(
+			Key restaurantKey, Date date) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		Query q = new Query(Event.KIND_EVENT, restaurantKey);
+		Filter restaurantKeyFilter = new FilterPredicate(
+				Event.PROPERTY_RESTAURANTKEY, Query.FilterOperator.EQUAL,
+				restaurantKey);
+
+		if (date == null) {
+			q.setFilter(restaurantKeyFilter);
+		} else {
+			Date startDate = Utilities.getStartEndDate(date, true);
+			Date endDate = Utilities.getStartEndDate(date, false);
+
+			Filter startDateFilter = new FilterPredicate(Event.PROPERTY_TIME,
+					Query.FilterOperator.GREATER_THAN_OR_EQUAL, startDate);
+			Filter endDateFilter = new FilterPredicate(Event.PROPERTY_TIME,
+					Query.FilterOperator.LESS_THAN_OR_EQUAL, endDate);
+
+			Filter timeFilter = CompositeFilterOperator.and(startDateFilter,
+					endDateFilter);
+			Filter overallFilter = CompositeFilterOperator.and(
+					restaurantKeyFilter, timeFilter);
+
+			q.setFilter(overallFilter);
+		}
+
+		PreparedQuery pq = datastore.prepare(q);
+
+		return pq.asIterable();
+	}
+
+	public static TreeSet<Event> getEventsFromRestaurant(Key restaurantKey,
+			Date date) {
+		Iterable<Entity> eventEntities = getEventEntitiesFromRestaurant(
+				restaurantKey, date);
+		TreeSet<Event> events = Event.createEvents(eventEntities);
+
+		return events;
 	}
 
 	/**
