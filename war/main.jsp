@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="com.bingo.eatime.core.CategoryManager"%>
 <html>
 <head>
 
@@ -25,17 +26,7 @@
 			<div class="down">
 				<ul class="nav nav-tabs" id="myTab">
 					<%
-						DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-						Query q = new Query(Category.KIND_CATEGORY);
-						PreparedQuery pq = datastore.prepare(q);
-						HashSet<Entity> categoryEntities = new HashSet<Entity>();
-
-						for (Entity entity : pq.asIterable()) {
-							categoryEntities.add(entity);
-						}
-
-						TreeSet<Category> categories = Category.createCategories(categoryEntities);
-						System.out.println("Query result:");
+						TreeSet<Category> categories = CategoryManager.getAllCategories();
 						for (Category cat : categories) {
 					%>
 					<li><a href=<%="#" + cat.toString()%>><%=cat.toString()%></a></li>

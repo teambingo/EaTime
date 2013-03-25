@@ -62,7 +62,8 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 				new PhoneNumber("765-743-1666"));
 		result = RestaurantManager.addRestaurant(restaurantHappyChina);
 
-		System.out.println(TAG + TAG_SPLITTER + "Add restaurant " + "Happy China" + result);
+		System.out.println(TAG + TAG_SPLITTER + "Add restaurant "
+				+ "Happy China" + result);
 
 		TreeSet<Category> returnHappyChinaCategories = CategoryManager
 				.getRestaurantCategories(restaurantHappyChina.getKey());

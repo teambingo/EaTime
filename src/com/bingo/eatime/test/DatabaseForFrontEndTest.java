@@ -34,15 +34,14 @@ public class DatabaseForFrontEndTest extends HttpServlet {
 	}
 
 	private void testDb() {
-		// TODO Auto-generated method stub
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		boolean result = false;
-		String cats[] = { "Chinese", "Japanese", "Korean", "Western" };
+		String cats[] = { "Chinese", "Japanese", "Korean", "Western", "Mexican" };
 		for (String cat : cats) {
 			Category categoryChinese = Category.createCategory(cat);
 			result = CategoryManager.addCategory(categoryChinese);
 
-			System.out.println(TAG + TAG_SPLITTER + "Add category " + categoryChinese + " " + result);
+			System.out.println(TAG + TAG_SPLITTER + "Add category "
+					+ categoryChinese + " " + result);
 		}
 	}
 }
