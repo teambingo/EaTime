@@ -17,36 +17,37 @@ import com.google.appengine.api.datastore.Transaction;
 public class CategoryManager {
 
 	/**
-	 * Add category to database.It is necessary to check whether the operation
+	 * Add category to database. It is necessary to check whether the operation
 	 * is successful or not.
 	 * 
 	 * @param category
 	 *            Category object, can be created by calling
 	 *            Category.createCategory.
-	 * @return true if succeed, false if failed.
+	 * @return Key of added Category. Null if failed.
 	 */
-	public static boolean addCategory(Category category) {
+	public static Key addCategory(Category category) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
 		Transaction txn = datastore.beginTransaction();
+		Key categoryKey;
 		try {
 			Entity categoryEntity = new Entity(Category.KIND_CATEGORY, category
 					.getKey().getName());
 			categoryEntity.setProperty(Category.PROPERTY_NAME,
 					category.getName());
 
-			datastore.put(categoryEntity);
+			categoryKey = datastore.put(categoryEntity);
 			txn.commit();
 		} finally {
 			if (txn.isActive()) {
 				txn.rollback();
 
-				return false;
+				return null;
 			}
 		}
 
-		return true;
+		return categoryKey;
 	}
 
 	/**

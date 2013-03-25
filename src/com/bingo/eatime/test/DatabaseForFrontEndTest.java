@@ -11,6 +11,7 @@ import com.bingo.eatime.core.Category;
 import com.bingo.eatime.core.CategoryManager;
 import com.bingo.eatime.core.Restaurant;
 import com.bingo.eatime.core.RestaurantManager;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PhoneNumber;
 import com.google.appengine.api.datastore.PostalAddress;
 
@@ -35,7 +36,7 @@ public class DatabaseForFrontEndTest extends HttpServlet {
 	}
 
 	private void testDb() {
-		boolean result = false;
+		Key result = null;
 		String cats[] = { "Chinese", "Japanese", "Korean", "Western", "Mexican" };
 		for (String cat : cats) {
 			Category categoryChinese = Category.createCategory(cat);

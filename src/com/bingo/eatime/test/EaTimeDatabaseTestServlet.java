@@ -44,7 +44,7 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 	}
 
 	private void testDb() {
-		boolean result = false;
+		Key result = null;
 
 		Category categoryChinese = Category.createCategory("Chinese");
 		result = CategoryManager.addCategory(categoryChinese);

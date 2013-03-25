@@ -16,14 +16,15 @@ public class RestaurantManager {
 	 * @param restaurant
 	 *            Restaurant object, can be created by calling
 	 *            Restaurant.createRestaurant.
-	 * @return true if succeed, false if failed.
+	 * @return Key of added Restaurant. Null if failed.
 	 */
-	public static boolean addRestaurant(Restaurant restaurant) {
+	public static Key addRestaurant(Restaurant restaurant) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
 		TransactionOptions options = TransactionOptions.Builder.withXG(true);
 		Transaction txn = datastore.beginTransaction(options);
+		Key restaurantKey;
 		try {
 			Entity restaurantEntity = new Entity(Restaurant.KIND_RESTAURANT,
 					restaurant.getKey().getName());
@@ -34,7 +35,7 @@ public class RestaurantManager {
 			restaurantEntity.setProperty(Restaurant.PROPERTY_PHONENUMBER,
 					restaurant.getPhoneNumber());
 
-			Key restaurantKey = datastore.put(restaurantEntity);
+			restaurantKey = datastore.put(restaurantEntity);
 
 			for (Category category : restaurant.getCategories()) {
 				Entity restaurantKeyEntity = CategoryManager
@@ -48,10 +49,10 @@ public class RestaurantManager {
 			if (txn.isActive()) {
 				txn.rollback();
 
-				return false;
+				return null;
 			}
 		}
 
-		return true;
+		return restaurantKey;
 	}
 }
