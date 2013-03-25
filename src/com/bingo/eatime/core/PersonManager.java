@@ -108,8 +108,7 @@ public class PersonManager {
 		List<Entity> personEntities = pq.asList(fq);
 
 		if (personEntities.size() == 1) {
-			// TODO
-			return null;
+			return personEntities.get(0);
 		} else if (personEntities.size() > 1) {
 			throw new MultipleEntityException("Multiple same usernames exists.");
 		} else {
