@@ -155,7 +155,8 @@ public final class Restaurant {
 			return restaurant;
 		} else {
 			throw new EntityKindNotMatchException(
-					"Entity Kind must be KIND_RESTAURANT.");
+					"Entity Kind must be KIND_RESTAURANT instead of "
+							+ entity.getKind() + ".");
 		}
 	}
 

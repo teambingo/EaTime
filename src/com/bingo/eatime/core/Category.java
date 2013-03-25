@@ -77,7 +77,8 @@ public final class Category {
 			return category;
 		} else {
 			throw new EntityKindNotMatchException(
-					"Entity Kind must be KIND_CATEGORY.");
+					"Entity Kind must be KIND_CATEGORY instead of "
+							+ entity.getKind() + ".");
 		}
 	}
 

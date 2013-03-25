@@ -123,12 +123,25 @@ public class CategoryManager {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
-		Query q = new Query(Category.KIND_CATEGORY, categoryKey);
+		Query q = new Query(Category.KIND_RESTAURANTKEY, categoryKey);
 
 		PreparedQuery pq = datastore.prepare(q);
 
-		TreeSet<Restaurant> restaurants = Restaurant.createRestaurants(pq
-				.asIterable());
+		HashSet<Entity> restaurantEntities = new HashSet<Entity>();
+		try {
+			for (Entity restaurantKeyEntity : pq.asIterable()) {
+				Key restaurantKey = (Key) restaurantKeyEntity
+						.getProperty(Category.PROPERTY_RESTAURANTKEY);
+
+				Entity restaurantEntity = datastore.get(restaurantKey);
+				restaurantEntities.add(restaurantEntity);
+			}
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
+
+		TreeSet<Restaurant> restaurants = Restaurant
+				.createRestaurants(restaurantEntities);
 
 		return restaurants;
 	}

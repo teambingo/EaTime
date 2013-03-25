@@ -71,6 +71,14 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 			System.out.println(TAG + TAG_SPLITTER + restaurantHappyChina
 					+ " are in " + category + ".");
 		}
+
+		TreeSet<Restaurant> categoryChineseRestaurants = CategoryManager
+				.getRestaurantsFromCategory(categoryChinese.getKey());
+
+		for (Restaurant restaurant : categoryChineseRestaurants) {
+			System.out.println(TAG + TAG_SPLITTER + restaurant
+					+ " is in category " + categoryChinese);
+		}
 	}
 
 }
