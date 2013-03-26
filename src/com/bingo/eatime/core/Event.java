@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 public final class Event {
 
@@ -130,11 +131,29 @@ public final class Event {
 			Person creator, Date time) {
 		return createEvent(name, restaurantKey, creator, time, null);
 	}
+	
+	// Key will be null if created using this method.
+	public static Event createEvent(String name, String restaurantKeyName,
+			Person creator, Date time) {
+		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
+				restaurantKeyName);
+		
+		return createEvent(name, restaurantKey, creator, time);
+	}
 
 	// Key will be null if created using this method.
 	public static Event createEvent(String name, Key restaurantKey,
 			Key creatorKey, Date time) {
 		return createEvent(name, restaurantKey, creatorKey, time, null);
+	}
+	
+	// Key will be null if created using this method.
+	public static Event createEvent(String name, String restaurantKeyName,
+			Key creatorKey, Date time) {
+		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
+				restaurantKeyName);
+		
+		return createEvent(name, restaurantKey, creatorKey, time);
 	}
 
 	// Key will be null if created using this method.
@@ -145,6 +164,15 @@ public final class Event {
 				.setTime(time).addInvites(invites);
 
 		return event;
+	}
+	
+	// Key will be null if created using this method.
+	public static Event createEvent(String name, String restaurantKeyName,
+			Person creator, Date time, Iterable<Person> invites) {
+		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
+				restaurantKeyName);
+		
+		return createEvent(name, restaurantKey, creator, time, invites);
 	}
 
 	// Key will be null if created using this method.
@@ -167,6 +195,15 @@ public final class Event {
 		}
 
 		return event;
+	}
+	
+	// Key will be null if created using this method.
+	public static Event createEvent(String name, String restaurantKeyName,
+			Key creatorKey, Date time, Iterable<Person> invites) {
+		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
+				restaurantKeyName);
+		
+		return createEvent(name, restaurantKey, creatorKey, time, invites);
 	}
 
 	public static Event createEvent(Entity entity) {
