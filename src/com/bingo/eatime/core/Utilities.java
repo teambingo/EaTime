@@ -34,5 +34,19 @@ public class Utilities {
 			return calendar.getTime();
 		}
 	}
-
+	
+	public static int getDateHour(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		
+		return calendar.get(Calendar.HOUR_OF_DAY);
+	}
+	
+	public static int getDateMin(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		
+		return calendar.get(Calendar.MINUTE);
+	}
+	
 }
