@@ -40,19 +40,19 @@ input[type="button"] {
 .events {
 	margin-left:10%;
 	width:82% !important;
+	padding-top:0 !important;
+	padding-bottom:0 !important;
 }
 
 .event {
 	margin-top:10px;
 	margin-bottom:10px;
-	background-color:#9F3;
 }
 
 .event>*{
 	height:80px;
 	width:80px;
 	text-align:center;
-	background-color:#0F3;
 	
 }
 
@@ -73,8 +73,6 @@ input[type="button"] {
 	margin-top:6px;
 	display:inline-block;
 	width:40%;
-	height:30%;
-	background-color:#000;
 }
 
 .display {
@@ -82,7 +80,6 @@ input[type="button"] {
 	margin-left:10%;
 	width:80%;
 	height:30%;
-	background-color:#000;
 }
 
 .countDiv {

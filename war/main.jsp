@@ -65,7 +65,9 @@
 						        <% 
 						        	TreeSet<Event> events = EventManager.getEventsFromRestaurant(restaurant.getKey());
 						        	if (events != null) {
-						        		for (Event event: events) {
+						        		Iterator<Event> iter = events.iterator();
+										while(iter.hasNext()) {
+											Event event = iter.next();
 						        %>
 						        <div class="row-fluid event">
 						        	<div class="span2 headDiv"><img src="<%=event.getCreator().getGravatarUrlString()%>>" class="img-circle head"></div>
@@ -76,7 +78,7 @@
 						  			<div class="span3 timeDiv">
 						            	<div class="label label-info">Time</div>
 						            	<br>
-						                	<div class="hourNum"><%=Utilities.getDateHourString(event.getTime())%></div>
+						                	<div class="hourNum"><%=Utilities.getDateHourString(event.getTime())%></div>:
 						                	<div class="minNum"><%=Utilities.getDateMinString(event.getTime())%></div>
 						                
 						            </div>
@@ -89,6 +91,11 @@
 						            </div>
 								</div>
 								<%
+											if(iter.hasNext()) {
+								%>
+								<hr>
+								<%	
+											}
 						        		}
 						        	}
 								%>
