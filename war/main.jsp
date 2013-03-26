@@ -76,8 +76,8 @@
 						  			<div class="span3 timeDiv">
 						            	<div class="label label-info">Time</div>
 						            	<br>
-						                	<div class="hourNum"><%=Utilities.getDateHour(event.getTime())%></div>
-						                	<div class="minNum"><%=Utilities.getDateMin(event.getTime())%></div>
+						                	<div class="hourNum"><%=Utilities.getDateHourString(event.getTime())%></div>
+						                	<div class="minNum"><%=Utilities.getDateMinString(event.getTime())%></div>
 						                
 						            </div>
 						            <div class="span2 countDiv">

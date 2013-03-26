@@ -49,4 +49,22 @@ public class Utilities {
 		return calendar.get(Calendar.MINUTE);
 	}
 	
+	public static String getDateHourString(Date date) {
+		int hour = getDateHour(date);
+		if (hour < 10) {
+			return "0" + hour;
+		} else {
+			return String.valueOf(hour);
+		}
+	}
+	
+	public static String getDateMinString(Date date) {
+		int min = getDateMin(date);
+		if (min < 10) {
+			return "0" + min;
+		} else {
+			return String.valueOf(min);
+		}
+	}
+	
 }
