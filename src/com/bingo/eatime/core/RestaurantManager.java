@@ -3,7 +3,9 @@ package com.bingo.eatime.core;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.datastore.TransactionOptions;
 
@@ -56,4 +58,42 @@ public class RestaurantManager {
 		return restaurantKey;
 	}
 	
+	public static Entity getRestaurantEntity(Key restaurantKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		
+		try {
+			Entity restaurantEntity = datastore.get(restaurantKey);
+			
+			return restaurantEntity;
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
+	}
+	
+	public static Entity getRestaurantEntity(String restaurantKeyName) {
+		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
+				restaurantKeyName);
+		
+		return getRestaurantEntity(restaurantKey);
+	}
+	
+	public static Restaurant getRestaurant(Key restaurantKey) {
+		Entity restaurantEntity = getRestaurantEntity(restaurantKey);
+		
+		if (restaurantEntity != null) {
+			Restaurant restaurant = Restaurant.createRestaurant(restaurantEntity);
+			
+			return restaurant;
+		} else {
+			return null;
+		}
+	}
+	
+	public static Restaurant getRestaurant(String restaurantKeyName) {
+		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
+				restaurantKeyName);
+		
+		return getRestaurant(restaurantKey);
+	}
 }
