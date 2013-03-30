@@ -136,12 +136,22 @@
 	  </div>
 	  <div class="modal-body">
 	  	<form action="newevent" action="post">
-		  	<span class="label">Name:</span>&nbsp;&nbsp;<input type="text" id="event-name" class="modal-input" placeholder="Event name">
-		  	<br>
-		  	<!-- <span class="label">Time:</span>&nbsp;&nbsp;<input type="text" id="event-time" class="modal-input"> -->
-		  	<span class="label">Time:</span>&nbsp;&nbsp;<div class="timepick"></div>
-		  	<br>
-		    <span class="label">Invite:</span>&nbsp;&nbsp;<input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username">
+	  		<table class="new-event-table">
+	  			<tbody>
+	  				<tr>
+	  					<td><span class="label">Name:</span></td>
+	  					<td><input type="text" id="event-name" class="modal-input" placeholder="Event name"></td>
+	  				</tr>
+	  				<tr>
+	  					<td><span class="label">Time:</span></td>
+	  					<td><div class="timepick"></div></td>
+	  				</tr>
+	  				<tr>
+	  					<td><span class="label">Invite:</span></td>
+	  					<td><input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username"></td>
+	  				</tr>
+	  			</tbody>
+		    </table>
 	    </form>
 	  </div>
 	  <div class="modal-footer">
