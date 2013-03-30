@@ -104,6 +104,7 @@ input[type="button"] {
 .timepick {
 	/*margin-left: 30%;*/
 	display: block;
+	font-size: 12px;
 }
 
 .modal-input[type="text"] {
