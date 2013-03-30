@@ -144,6 +144,7 @@
   				<tr>
   					<td><span class="table-label label">Time:</span></td>
   					<td><div class="timepick"></div></td>
+  					<!-- <td><input type="text" id="event-timepicker" class="modal-input" placeholder="Pick a time"></td> -->
   				</tr>
   				<tr>
   					<td><span class="table-label label">Invite:</span></td>
@@ -151,6 +152,7 @@
   				</tr>
   			</tbody>
 	    </table>
+	    <!-- <div class="timepick"></div> -->
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

@@ -6,6 +6,7 @@ Base style across the website.
 * {
 	margin: 0px;
 	padding: 0px;
+	font-family: Helvetica, arial, freesans, clean, sans-serif !important;
 }
 
 body, html {
