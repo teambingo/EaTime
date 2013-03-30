@@ -5,11 +5,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EaTime-Login</title>
+<title>Login</title>
 
 <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.1.custom.css" />
-<link rel="stylesheet" href="css/login.css" />
 <link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/login.css" />
 
 <script src="js/jquery-1.9.1.js"></script>
 <script src="js/jquery-ui-1.10.1.custom.js"></script>
@@ -63,7 +63,7 @@
 	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã</button>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 			<h3 id="myModalLabel">New User</h3>
 		</div>
 		<div class="modal-body">
@@ -81,8 +81,7 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="verifyPassword">Confirm
-						password</label>
+					<label class="control-label" for="verifyPassword">Confirm password</label>
 					<div class="controls">
 						<input type="password" id="verifyPassword"
 							placeholder="Confirm password">
@@ -90,8 +89,7 @@
 				</div>
 				<div class="control-group">
 					<div class="controls">
-						<label class="checkbox"> <input type="checkbox"> I
-							agree the private policy
+						<label class="checkbox"> <input type="checkbox"> I agree the private policy
 						</label>
 					</div>
 				</div>

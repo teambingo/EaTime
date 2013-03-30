@@ -50,7 +50,7 @@ input[type="button"] {
 	margin-bottom: 10px;
 }
 
-.event>*{
+.event>* {
 	height: 80px;
 	width: 80px;
 	text-align: center;
@@ -87,7 +87,7 @@ input[type="button"] {
 	padding-top:13px;
 }
 
-.join{
+.join {
 	width: 70%;
 	margin-top: 25%;
 }
