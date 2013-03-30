@@ -7,6 +7,13 @@ $(function() {
 //		defaultTime: '9:20'
 //	});
 
+	$("#event-time").timePicker({
+		startTime: "12.00",
+		show24Hours: false,
+		separator: '.',
+		step: 15
+	});
+
 	$('#myTab a').click(function (e) {
 		e.preventDefault();
 		$(this).tab('show');

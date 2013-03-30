@@ -129,13 +129,15 @@
 	  </div>
 	  <div class="modal-body">
 	  	<!-- <div class="timepick"></div> -->
-	  	<span class="label">Name:</span>&nbsp;&nbsp;<input type="text" id="name" class="modal-input" placeholder="Event name">
-	    <br>
-	    <span class="label">Invite:</span>&nbsp;&nbsp;<input type="text" id="invite" class="modal-input" placeholder="Use , to separate username">
+	  	<span class="label">Name:</span>&nbsp;&nbsp;<input type="text" id="event-name" class="modal-input" placeholder="Event name">
+	  	<br>
+	  	<span class="label">Time:</span>&nbsp;&nbsp;<input type="text" id="event-time" class="modal-input">
+	  	<br>
+	    <span class="label">Invite:</span>&nbsp;&nbsp;<input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username">
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	    <button class="btn btn-primary">Save changes</button>
+	    <button class="btn btn-primary">Create</button>
 	  </div>
 	</div>
 
