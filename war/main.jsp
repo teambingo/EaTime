@@ -18,12 +18,14 @@
 <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.1.custom.css" />
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="css/bootstrap.css" />
-<link rel="stylesheet" href="css/jquery.ui.timepicker.css" />
+<!-- <link rel="stylesheet" href="css/jquery.ui.timepicker.css" /> -->
+<link rel="stylesheet" href="css/timePicker.css" />
 
 <script src="js/jquery-1.9.1.js"></script>
 <script src="js/jquery-ui-1.10.1.custom.js"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/jquery.ui.timepicker.js"></script>
+<!-- <script src="js/jquery.ui.timepicker.js"></script> -->
+<script src="js/jquery.timePicker.js"></script>
 <script src="js/main.js"></script>
 
 </head>
