@@ -132,7 +132,7 @@
 	<div id="new-event-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="new-event-modal-label" aria-hidden="true">
 	  <div class="modal-header">
 	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-	    <h3 id="new-event-modal-label">Create New Event!</h3>
+	    <h3 id="new-event-modal-label">New Event</h3>
 	  </div>
 	  <div class="modal-body">
   		<table class="new-event-table">
