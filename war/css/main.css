@@ -92,10 +92,10 @@ input[type="button"] {
 	text-align: center;
 }
 
-/*.timepick {
-	margin-left:30%;
-	display:block;
-}*/
+.timepick {
+	margin-left: 30%;
+	display: block;
+}
 
 .modal-input[type="text"] {
 	margin-top: 10px;

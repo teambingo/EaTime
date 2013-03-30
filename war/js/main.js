@@ -2,10 +2,10 @@ var isModalOn = false;
 
 $(function() {
 
-	// $('.timepick').timepicker({
-	// 	altField: '.timepick',
-	// 	defaultTime: '9:20'
-	// });
+	$('.timepick').timepicker({
+		altField: '.timepick',
+		defaultTime: '9:20'
+	});
 
 	// $("#event-time").timePicker({
 	// 	startTime: "12.00",
@@ -13,8 +13,6 @@ $(function() {
 	// 	separator: '.',
 	// 	step: 15
 	// });
-	
-	$("#event-time").timePicker();
 
 	$('#myTab a').click(function (e) {
 		e.preventDefault();
