@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<%@page import="com.bingo.eatime.core.EventManager"%>
-<%@page import="com.bingo.eatime.core.CategoryManager"%>
 <html>
 <head>
 
