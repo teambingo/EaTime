@@ -129,8 +129,9 @@
 	  </div>
 	  <div class="modal-body">
 	  	<!-- <div class="timepick"></div> -->
+	  	<span class="label">Name:</span>&nbsp;&nbsp;<input type="text" id="name" class="modal-input" placeholder="Event name">
 	    <br>
-	    <span class="label label-warning">Invite:</span>&nbsp;&nbsp;<input type="text" id="invite" placeholder="Use , to separate username">
+	    <span class="label">Invite:</span>&nbsp;&nbsp;<input type="text" id="invite" class="modal-input" placeholder="Use , to separate username">
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
