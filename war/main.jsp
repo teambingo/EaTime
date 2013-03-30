@@ -56,14 +56,13 @@
 					<div class="tab-pane" id="<%=cat.getName()%>">
 						<div class="accordion">
 							<%
-								TreeSet<Restaurant> restaurants = CategoryManager
-									.getRestaurantsFromCategory(cat.getKey());
+								TreeSet<Restaurant> restaurants = CategoryManager.getRestaurantsFromCategory(cat.getKey());
 								if (restaurants != null) {
 									for (Restaurant restaurant : restaurants) {
 							%>
-							<div class="test">
+							<div class="restaurant-header">
 								<p class="restaurant" id="<%=restaurant.getKey().getName()%>"><%=restaurant.getName()%></p>
-								<a href="#myModal" role="button" class="btn" data-toggle="modal">Create
+								<a href="#new-event-modal" role="button" class="btn" data-toggle="modal">Create
 									New Event</a>
 							</div>
 							<div class="events">
@@ -123,13 +122,13 @@
 		</div>
 	</div>
 	<!-- Modal -->
-	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div id="new-event-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="new-event-modal-label" aria-hidden="true">
 	  <div class="modal-header">
 	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-	    <h3 id="myModalLabel">Create New Event!</h3>
+	    <h3 id="new-event-modal-label">Create New Event!</h3>
 	  </div>
 	  <div class="modal-body">
-	  	<div class="timepick"></div>
+	  	<!-- <div class="timepick"></div> -->
 	    <br>
 	    <span class="label label-warning">Invite:</span>&nbsp;&nbsp;<input type="text" id="invite" placeholder="Use , to separate username">
 	  </div>

@@ -14,9 +14,7 @@ body, html {
 }
 
 body {
-	/*
-	img
-	*/
+	
 }
 
 .top {
@@ -25,7 +23,7 @@ body {
 	background-color:#F00;
 }
 
-p.restaurant {
+.restaurant {
 	width:80%;
 	margin:0;
 	display:inline-block;
@@ -95,10 +93,10 @@ input[type="button"] {
 	text-align:center;
 }
 
-.timepick {
+/*.timepick {
 	margin-left:30%;
 	display:block;
-}
+}*/
 
 #invite {
 	margin-top:10px;
