@@ -21,13 +21,14 @@
 <!-- <link rel="stylesheet" href="css/jquery.ui.timepicker.css" /> -->
 <link rel="stylesheet" href="css/timePicker.css" />
 
-<script src="js/jquery-1.9.1.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<!-- <script src="js/jquery-1.9.1.js"></script> -->
 <script src="js/jquery-ui-1.10.1.custom.js"></script>
-<script src="js/jquery.mb.browser.js"></script>
 <script src="js/bootstrap.js"></script>
-<!-- <script src="js/jquery.ui.timepicker.js"></script> -->
+<script src="js/jquery.mb.browser.js"></script>
 <script src="js/jquery.timePicker.js"></script>
 <script src="js/main.js"></script>
+<!-- <script src="js/jquery.ui.timepicker.js"></script> -->
 
 </head>
 
@@ -132,7 +133,7 @@
 	  	<!-- <div class="timepick"></div> -->
 	  	<span class="label">Name:</span>&nbsp;&nbsp;<input type="text" id="event-name" class="modal-input" placeholder="Event name">
 	  	<br>
-	  	<span class="label">Time:</span>&nbsp;&nbsp;<input type="text" id="event-time">
+	  	<span class="label">Time:</span>&nbsp;&nbsp;<input type="text" id="event-time" class="modal-input">
 	  	<br>
 	    <span class="label">Invite:</span>&nbsp;&nbsp;<input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username">
 	  </div>
