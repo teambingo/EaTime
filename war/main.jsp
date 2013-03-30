@@ -49,7 +49,8 @@
 						}
 					%>
 				</ul>
-
+				
+				<!-- restaurant body -->
 				<div class="tab-content">
 					<%
 						if (categories != null) {
@@ -72,8 +73,8 @@
 						        	TreeSet<Event> events = EventManager.getEventsFromRestaurant(restaurant.getKey());
 						        	if (events != null) {
 						        		Iterator<Event> iter = events.iterator();
-										while(iter.hasNext()) {
-											Event event = iter.next();
+												while(iter.hasNext()) {
+													Event event = iter.next();
 						        %>
 						        <div class="row-fluid event">
 						        	<div class="span2 headDiv"><img src="<%=event.getCreator().getGravatarUrlString()%>>" class="img-circle head"></div>
@@ -97,13 +98,13 @@
 						            </div>
 								</div>
 								<%
-											if(iter.hasNext()) {
+												if(iter.hasNext()) {
 								%>
 								<hr>
 								<%	
-											}
-						        		}
-						        	}
+												}
+					        		}
+					        	}
 								%>
 							</div>
 							<%
@@ -116,6 +117,9 @@
 							}
 						}
 					%>
+					<!-- restaurant body end -->
+
+					
 					<div class="tab-pane" id="profile">bbbb</div>
 					<div class="tab-pane" id="messages">cccc</div>
 					<div class="tab-pane" id="settings">dddd</div>
