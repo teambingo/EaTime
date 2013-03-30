@@ -64,7 +64,7 @@
 									for (Restaurant restaurant : restaurants) {
 							%>
 							<div class="restaurant-header">
-								<p class="restaurant" id="<%=restaurant.getKey().getName()%>"><%=restaurant.getName()%></p>
+								<p class="restaurant" id=<%=restaurant.getKey().getName()%>><%=restaurant.getName()%></p>
 								<a href="#new-event-modal" role="button" class="btn" data-toggle="modal">Create
 									New Event</a>
 							</div>
@@ -76,7 +76,7 @@
 												while(iter.hasNext()) {
 													Event event = iter.next();
 						        %>
-						        <div class="row-fluid event">
+						        <div class="row-fluid event" id=<%=event.getKey().getId()%>>
 						        	<div class="span2 headDiv"><img src="<%=event.getCreator().getGravatarUrlString()%>>" class="img-circle head"></div>
 						  			<div class="span3 orgDiv">
 						            	<div class="label label-info">Organizer</div>

@@ -9,6 +9,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
@@ -77,7 +78,14 @@ public class EventManager {
 	public static boolean addInvite(Person person, Key eventKey) {
 		HashSet<Person> people = new HashSet<Person>();
 		people.add(person);
+		
 		return addInvites(people, eventKey);
+	}
+	
+	public static boolean addInvite(Person person, long eventKeyId) {
+		Key eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventKeyId);
+		
+		return addInvite(person, eventKey);
 	}
 
 	public static boolean addInvites(Iterable<Person> people, Key eventKey) {
@@ -107,6 +115,12 @@ public class EventManager {
 		}
 
 		return true;
+	}
+	
+	public static boolean addInvites(Iterable<Person> people, long eventKeyId) {
+		Key eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventKeyId);
+		
+		return addInvites(people, eventKey);
 	}
 
 	/**
