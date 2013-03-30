@@ -16,10 +16,10 @@
 <title>EaTime</title>
 
 <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.1.custom.css" />
-<link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="css/bootstrap.css" />
 <!-- <link rel="stylesheet" href="css/jquery.ui.timepicker.css" /> -->
 <link rel="stylesheet" href="css/timePicker.css" />
+<link rel="stylesheet" href="css/main.css" />
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <!-- <script src="js/jquery-1.9.1.js"></script> -->
@@ -27,8 +27,8 @@
 <script src="js/bootstrap.js"></script>
 <!-- <script src="js/jquery.mb.browser.js"></script> -->
 <!-- <script src="js/jquery.timePicker.js"></script> -->
-<script src="js/main.js"></script>
 <script src="js/jquery.ui.timepicker.js"></script>
+<script src="js/main.js"></script>
 
 </head>
 
@@ -139,15 +139,15 @@
 	  		<table class="new-event-table">
 	  			<tbody>
 	  				<tr>
-	  					<td><span class="label">Name:</span></td>
+	  					<td><span class="table-label label">Name:</span></td>
 	  					<td><input type="text" id="event-name" class="modal-input" placeholder="Event name"></td>
 	  				</tr>
 	  				<tr>
-	  					<td><span class="label">Time:</span></td>
+	  					<td><span class="table-label label">Time:</span></td>
 	  					<td><div class="timepick"></div></td>
 	  				</tr>
 	  				<tr>
-	  					<td><span class="label">Invite:</span></td>
+	  					<td><span class="table-label label">Invite:</span></td>
 	  					<td><input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username"></td>
 	  				</tr>
 	  			</tbody>
