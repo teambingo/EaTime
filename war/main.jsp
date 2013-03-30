@@ -119,7 +119,7 @@
 					%>
 					<!-- restaurant body end -->
 
-					
+
 					<div class="tab-pane" id="profile">bbbb</div>
 					<div class="tab-pane" id="messages">cccc</div>
 					<div class="tab-pane" id="settings">dddd</div>
@@ -127,7 +127,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- Modal -->
+
+	<!-- new event modal -->
 	<div id="new-event-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="new-event-modal-label" aria-hidden="true">
 	  <div class="modal-header">
 	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
@@ -146,6 +147,7 @@
 	    <button class="btn btn-primary">Create</button>
 	  </div>
 	</div>
+	<!-- new event modal end -->
 
 </body>
 </html>
