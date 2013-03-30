@@ -135,24 +135,22 @@
 	    <h3 id="new-event-modal-label">Create New Event!</h3>
 	  </div>
 	  <div class="modal-body">
-	  	<form action="newevent" action="post">
-	  		<table class="new-event-table">
-	  			<tbody>
-	  				<tr>
-	  					<td><span class="table-label label">Name:</span></td>
-	  					<td><input type="text" id="event-name" class="modal-input" placeholder="Event name"></td>
-	  				</tr>
-	  				<tr>
-	  					<td><span class="table-label label">Time:</span></td>
-	  					<td><div class="timepick"></div></td>
-	  				</tr>
-	  				<tr>
-	  					<td><span class="table-label label">Invite:</span></td>
-	  					<td><input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username"></td>
-	  				</tr>
-	  			</tbody>
-		    </table>
-	    </form>
+  		<table class="new-event-table">
+  			<tbody>
+  				<tr>
+  					<td><span class="table-label label">Name:</span></td>
+  					<td><input type="text" id="event-name" class="modal-input" placeholder="Event name"></td>
+  				</tr>
+  				<tr>
+  					<td><span class="table-label label">Time:</span></td>
+  					<td><div class="timepick"></div></td>
+  				</tr>
+  				<tr>
+  					<td><span class="table-label label">Invite:</span></td>
+  					<td><input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username"></td>
+  				</tr>
+  			</tbody>
+	    </table>
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

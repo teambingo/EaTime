@@ -4,7 +4,7 @@ $(function() {
 
 	$('.timepick').timepicker({
 		altField: '.timepick',
-		defaultTime: '9:20'
+		defaultTime: '12:00'
 	});
 
 	// $("#event-time").timePicker({
