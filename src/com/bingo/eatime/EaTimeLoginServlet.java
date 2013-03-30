@@ -13,7 +13,7 @@ public class EaTimeLoginServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
-		System.out.println("Success");
+		// System.out.println("Success");
 		String user = req.getParameter("user");
 		String password = req.getParameter("pwd");
 		HttpSession session = req.getSession();
@@ -25,7 +25,6 @@ public class EaTimeLoginServlet extends HttpServlet {
 				session.setAttribute("user", username);
 				resp.sendRedirect("/eatime");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -33,7 +32,6 @@ public class EaTimeLoginServlet extends HttpServlet {
 			try {
 				resp.sendRedirect("/login.jsp");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
