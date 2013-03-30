@@ -135,12 +135,14 @@
 	    <h3 id="new-event-modal-label">Create New Event!</h3>
 	  </div>
 	  <div class="modal-body">
-	  	<span class="label">Name:</span>&nbsp;&nbsp;<input type="text" id="event-name" class="modal-input" placeholder="Event name">
-	  	<br>
-	  	<!-- <span class="label">Time:</span>&nbsp;&nbsp;<input type="text" id="event-time" class="modal-input"> -->
-	  	<span class="label">Time:</span>&nbsp;&nbsp;<div class="timepick"></div>
-	  	<br>
-	    <span class="label">Invite:</span>&nbsp;&nbsp;<input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username">
+	  	<form action="newevent" action="post">
+		  	<span class="label">Name:</span>&nbsp;&nbsp;<input type="text" id="event-name" class="modal-input" placeholder="Event name">
+		  	<br>
+		  	<!-- <span class="label">Time:</span>&nbsp;&nbsp;<input type="text" id="event-time" class="modal-input"> -->
+		  	<span class="label">Time:</span>&nbsp;&nbsp;<div class="timepick"></div>
+		  	<br>
+		    <span class="label">Invite:</span>&nbsp;&nbsp;<input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username">
+	    </form>
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

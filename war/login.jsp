@@ -33,8 +33,7 @@
 
 		<div class="row-fluid">
 			<%
-				String isLogin = (String) request.getSession().getAttribute(
-						"loginStatus");
+				String isLogin = (String) request.getSession().getAttribute("loginStatus");
 				if (isLogin != null) {
 					if (isLogin.equals("false")) {
 			%><div id="error" class="span6 offset3">
@@ -54,8 +53,7 @@
 					data-toggle="modal">Register</a>
 			</div>
 			<div class="span2 rightButton">
-				<button id="signin" type="submit" class="btn btn-large btn-primary">Sign
-					in</button>
+				<button id="signin" type="submit" class="btn btn-large btn-primary">Sign in</button>
 			</div>
 		</div>
 	</form>
@@ -65,8 +63,7 @@
 	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">Ã</button>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã</button>
 			<h3 id="myModalLabel">New User</h3>
 		</div>
 		<div class="modal-body">
