@@ -2,17 +2,19 @@ var isModalOn = false;
 
 $(function() {
 
-//	$('.timepick').timepicker({
-//		altField: '.timepick',
-//		defaultTime: '9:20'
-//	});
+	// $('.timepick').timepicker({
+	// 	altField: '.timepick',
+	// 	defaultTime: '9:20'
+	// });
 
-	$("#event-time").timePicker({
-		startTime: "12.00",
-		show24Hours: false,
-		separator: '.',
-		step: 15
-	});
+	// $("#event-time").timePicker({
+	// 	startTime: "12.00",
+	// 	show24Hours: false,
+	// 	separator: '.',
+	// 	step: 15
+	// });
+	
+	$("#event-time").timePicker();
 
 	$('#myTab a').click(function (e) {
 		e.preventDefault();
