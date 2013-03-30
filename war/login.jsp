@@ -40,7 +40,7 @@
 				<div class="alert alert-error">Wrong Username or Password</div>
 			</div>
 			<%
-				} else {
+					} else {
 						response.sendRedirect("/main.jsp");
 					}
 				}
@@ -49,8 +49,7 @@
 
 		<div class="row-fluid">
 			<div class="span2 offset4 leftButton">
-				<a href="#myModal" role="button" class="btn btn-large btn-primary"
-					data-toggle="modal">Register</a>
+				<a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Register</a>
 			</div>
 			<div class="span2 rightButton">
 				<button id="signin" type="submit" class="btn btn-large btn-primary">Sign in</button>
@@ -83,14 +82,12 @@
 				<div class="control-group">
 					<label class="control-label" for="verifyPassword">Confirm password</label>
 					<div class="controls">
-						<input type="password" id="verifyPassword"
-							placeholder="Confirm password">
+						<input type="password" id="verifyPassword" placeholder="Confirm password">
 					</div>
 				</div>
 				<div class="control-group">
 					<div class="controls">
-						<label class="checkbox"> <input type="checkbox"> I agree the private policy
-						</label>
+						<label class="checkbox"><input type="checkbox">I agree the private policy</label>
 					</div>
 				</div>
 			</form>
