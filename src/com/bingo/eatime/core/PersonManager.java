@@ -1,6 +1,8 @@
 package com.bingo.eatime.core;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -143,5 +145,21 @@ public class PersonManager {
 		} else {
 			return null;
 		}
+	}
+	
+	public static Iterable<Entity> getPersonEntitiesByUsername(Iterable<String> usernames) {
+		HashSet<Entity> personEntities = new HashSet<Entity>();
+		
+		for (String username : usernames) {
+			personEntities.add(getPersonEntity(username));
+		}
+		
+		return personEntities;
+	}
+	
+	public static TreeSet<Person> getPersonByUsername(Iterable<String> usernames) {
+		Iterable<Entity> personEntities = getPersonEntitiesByUsername(usernames);
+		
+		return Person.createPeople(personEntities);
 	}
 }
