@@ -33,6 +33,9 @@ public class EventAdminServlet extends HttpServlet {
 	private static final int ERROR_UNKNOWN_ACTION = -2;
 	private static final int ERROR_DATABASE_FAILED = -3;
 	private static final int ERROR_USERNAME_NOT_FOUND = -4;
+	private static final int ERROR_CURRENT_USER_NOT_FOUND = -5;
+	private static final int ERROR_MALFORMED_ARGUMENT = -6;
+	private static final int ERROR_RESTAURANT_NOT_FOUND = -7;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
 		int status = STATUS_SUCCEED;
@@ -52,6 +55,7 @@ public class EventAdminServlet extends HttpServlet {
 				long timeMillisecond = Long.valueOf(dateString);
 				time = new Date(timeMillisecond);
 			} catch (IllegalArgumentException e) {
+				status = ERROR_MALFORMED_ARGUMENT;
 				log.warning("Cannot parse date to long.");
 			}
 		}
@@ -59,6 +63,9 @@ public class EventAdminServlet extends HttpServlet {
 		Person creator = null;
 		if (creatorUsername != null) {
 			creator = PersonManager.getPersonByUsername(creatorUsername);
+			if (creator == null) {
+				status = ERROR_CURRENT_USER_NOT_FOUND;
+			}
 		}
 		
 		List<Person> invites = null;
@@ -78,6 +85,9 @@ public class EventAdminServlet extends HttpServlet {
 		Restaurant restaurant = null;
 		if (restaurantKeyName != null) {
 			restaurant = RestaurantManager.getRestaurant(restaurantKeyName);
+			if (restaurant == null) {
+				status = ERROR_RESTAURANT_NOT_FOUND;
+			}
 		}
 		
 		Long eventId = null;
@@ -85,6 +95,7 @@ public class EventAdminServlet extends HttpServlet {
 			try {
 				eventId = Long.valueOf(eventIdString);
 			} catch (IllegalArgumentException e) {
+				status =  ERROR_MALFORMED_ARGUMENT;
 				log.warning("Cannot parse event id to interger.");
 			}
 		}
@@ -99,7 +110,9 @@ public class EventAdminServlet extends HttpServlet {
 						status = ERROR_DATABASE_FAILED;
 					}
 				} else {
-					status = ERROR_MISSING_ARGUMENT;
+					if (status == STATUS_SUCCEED) {
+						status = ERROR_MISSING_ARGUMENT;
+					}
 				}
 			} else if (action.equals("append")) {
 				if (eventId != null && invites != null) {
@@ -110,7 +123,9 @@ public class EventAdminServlet extends HttpServlet {
 						status = ERROR_DATABASE_FAILED;
 					}
 				} else {
-					status = ERROR_MISSING_ARGUMENT;
+					if (status == STATUS_SUCCEED) {
+						status = ERROR_MISSING_ARGUMENT;
+					}
 				}
 			} else {
 				status = ERROR_UNKNOWN_ACTION;
@@ -159,6 +174,15 @@ public class EventAdminServlet extends HttpServlet {
 				sb.delete(sb.length() - 2, sb.length());
 				sb.append(".");
 				reason = sb.toString();
+				break;
+			case ERROR_CURRENT_USER_NOT_FOUND:
+				reason = "Current user not found.";
+				break;
+			case ERROR_MALFORMED_ARGUMENT:
+				reason = "Malformed argument.";
+				break;
+			case ERROR_RESTAURANT_NOT_FOUND:
+				reason = "Restaurant not found.";
 				break;
 			default:
 				break;
