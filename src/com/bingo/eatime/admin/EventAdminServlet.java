@@ -27,15 +27,18 @@ public class EventAdminServlet extends HttpServlet {
 	
 	private static final Logger log = Logger.getLogger(EventAdminServlet.class.getName());
 	
-	private static final int STATUS_SUCCEED = 1;
-	private static final int ERROR_UNKNOWN = 0;
-	private static final int ERROR_MISSING_ARGUMENT = -1;
-	private static final int ERROR_UNKNOWN_ACTION = -2;
-	private static final int ERROR_DATABASE_FAILED = -3;
-	private static final int ERROR_USERNAME_NOT_FOUND = -4;
-	private static final int ERROR_CURRENT_USER_NOT_FOUND = -5;
-	private static final int ERROR_MALFORMED_ARGUMENT = -6;
-	private static final int ERROR_RESTAURANT_NOT_FOUND = -7;
+	private static final int STATUS_SUCCEED = 0;
+	
+	private static final int ERROR_UNKNOWN = 100;
+	private static final int ERROR_UNKNOWN_ACTION = 101;
+	private static final int ERROR_MISSING_ARGUMENT = 102;
+	
+	private static final int ERROR_USERNAME_NOT_FOUND = 200;
+	private static final int ERROR_RESTAURANT_NOT_FOUND = 201;
+	private static final int ERROR_MALFORMED_ARGUMENT = 202;
+	private static final int ERROR_CURRENT_USER_NOT_FOUND = 203;
+	
+	private static final int ERROR_DATABASE_FAILED = 300;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
 		int status = STATUS_SUCCEED;
@@ -55,7 +58,9 @@ public class EventAdminServlet extends HttpServlet {
 				long timeMillisecond = Long.valueOf(dateString);
 				time = new Date(timeMillisecond);
 			} catch (IllegalArgumentException e) {
-				status = ERROR_MALFORMED_ARGUMENT;
+				if (ERROR_MALFORMED_ARGUMENT > status) {
+					status = ERROR_MALFORMED_ARGUMENT;
+				}
 				log.warning("Cannot parse date to long.");
 			}
 		}
@@ -63,7 +68,7 @@ public class EventAdminServlet extends HttpServlet {
 		Person creator = null;
 		if (creatorUsername != null) {
 			creator = PersonManager.getPersonByUsername(creatorUsername);
-			if (creator == null) {
+			if (creator == null && ERROR_CURRENT_USER_NOT_FOUND > status) {
 				status = ERROR_CURRENT_USER_NOT_FOUND;
 			}
 		}
@@ -73,7 +78,7 @@ public class EventAdminServlet extends HttpServlet {
 			invites = new ArrayList<Person>();
 			for (String inviteUsername : invitesUsername) {
 				Person invite = PersonManager.getPersonByUsername(inviteUsername);
-				if (invite == null) {
+				if (invite == null && ERROR_USERNAME_NOT_FOUND > status) {
 					status = ERROR_USERNAME_NOT_FOUND;
 					usernameNotFoundList.add(inviteUsername);
 				} else {
@@ -85,7 +90,7 @@ public class EventAdminServlet extends HttpServlet {
 		Restaurant restaurant = null;
 		if (restaurantKeyName != null) {
 			restaurant = RestaurantManager.getRestaurant(restaurantKeyName);
-			if (restaurant == null) {
+			if (restaurant == null && ERROR_RESTAURANT_NOT_FOUND > status) {
 				status = ERROR_RESTAURANT_NOT_FOUND;
 			}
 		}
@@ -95,7 +100,9 @@ public class EventAdminServlet extends HttpServlet {
 			try {
 				eventId = Long.valueOf(eventIdString);
 			} catch (IllegalArgumentException e) {
-				status =  ERROR_MALFORMED_ARGUMENT;
+				if (ERROR_MALFORMED_ARGUMENT > status) {
+					status =  ERROR_MALFORMED_ARGUMENT;
+				}
 				log.warning("Cannot parse event id to interger.");
 			}
 		}
@@ -106,28 +113,24 @@ public class EventAdminServlet extends HttpServlet {
 				if (eventName != null && restaurant != null && creator != null && time != null) {
 					Event event = Event.createEvent(eventName, restaurant, creator, time, invites);
 					eventKey = EventManager.addEvent(event);
-					if (eventKey == null) {
+					if (eventKey == null && ERROR_DATABASE_FAILED > status) {
 						status = ERROR_DATABASE_FAILED;
 					}
-				} else {
-					if (status == STATUS_SUCCEED) {
-						status = ERROR_MISSING_ARGUMENT;
-					}
+				} else if (ERROR_MISSING_ARGUMENT > status) {
+					status = ERROR_MISSING_ARGUMENT;
 				}
 			} else if (action.equals("append")) {
 				if (eventId != null && invites != null) {
 					boolean result = EventManager.addInvites(invites, eventId);
 					if (result) {
 						eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventId);
-					} else {
+					} else if (ERROR_DATABASE_FAILED > status) {
 						status = ERROR_DATABASE_FAILED;
 					}
-				} else {
-					if (status == STATUS_SUCCEED) {
-						status = ERROR_MISSING_ARGUMENT;
-					}
+				} else if (ERROR_MISSING_ARGUMENT > status) {
+					status = ERROR_MISSING_ARGUMENT;
 				}
-			} else {
+			} else if (ERROR_UNKNOWN_ACTION > status) {
 				status = ERROR_UNKNOWN_ACTION;
 			}
 		}
@@ -136,7 +139,7 @@ public class EventAdminServlet extends HttpServlet {
 			resp.setContentType("application/json");
 			PrintWriter writer = resp.getWriter();
 			if (status == STATUS_SUCCEED && eventKey != null) {
-				writer.print(generateResponseJson((int) eventKey.getId(), null));
+				writer.print(generateResponseJson(status, null));
 			} else {
 				writer.print(generateResponseJson(status, usernameNotFoundList));
 			}
@@ -147,7 +150,7 @@ public class EventAdminServlet extends HttpServlet {
 	}
 	
 	private String generateResponseJson(int status, List<String> bundle) {
-		if (status > 0) {
+		if (status == STATUS_SUCCEED) {
 			return "{ \"status\": " + status + " }";
 		} else {
 			String reason = "";

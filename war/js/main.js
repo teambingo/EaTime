@@ -84,7 +84,7 @@ $(function() {
 					var status = response['status'];
 					console.log('response', response);
 
-					if (status > 0) {
+					if (status === 0) {
 						// succeed
 						location.reload();
 					} else {
