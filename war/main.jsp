@@ -96,7 +96,7 @@
 						            </div>
 						            <div class="span2 countDiv">
 						            	<div class="label label-info">Attendants</div>
-						            	<div class="display"><%=event.getInvites().size()%></div>
+						            	<div class="display"><%=event.getInvites() != null ? event.getInvites().size() : 0%></div>
 						            </div>
 						            <div class="span2 joinDiv">
 						            	<button type="submit" class="btn btn-info join">Join!</button>
