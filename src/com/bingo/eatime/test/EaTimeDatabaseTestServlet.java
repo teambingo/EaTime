@@ -101,7 +101,7 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 		invites.add(p2);
 
 		Event sampleEvent = Event.createEvent("Sample Event",
-				restaurantHappyChina.getKey(), myKey,
+				restaurantHappyChina, me,
 				new Date(System.currentTimeMillis()), invites);
 		EventManager.addEvent(sampleEvent);
 		

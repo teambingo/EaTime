@@ -2,8 +2,9 @@ package com.bingo.eatime.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,16 +41,12 @@ public class EventAdminServlet extends HttpServlet {
 		
 		Person creator = null;
 		if (creatorUsername != null) {
-			creator = PersonManager.getPerson(creatorUsername);
+			creator = PersonManager.getPersonByUsername(creatorUsername);
 		}
 		
-		HashSet<Person> invites = null;
+		TreeSet<Person> invites = null;
 		if (invitesUsername != null) {
-			invites = new HashSet<Person>();
-			for (String inviteUsername : invitesUsername) {
-				Person invite = PersonManager.getPerson(inviteUsername);
-				invites.add(invite);
-			}
+			invites = PersonManager.getPeopleByUsername(Arrays.asList(invitesUsername));
 		}
 		
 		Restaurant restaurant = null;

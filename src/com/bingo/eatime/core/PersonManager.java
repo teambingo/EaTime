@@ -104,7 +104,7 @@ public class PersonManager {
 	 *             Throws MultipleEntityException if multiple same usernames
 	 *             found.
 	 */
-	public static Entity getPersonEntity(String username) {
+	public static Entity getPersonEntityByUsername(String username) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -136,8 +136,8 @@ public class PersonManager {
 	 *             Throws MultipleEntityException if multiple same usernames
 	 *             found.
 	 */
-	public static Person getPerson(String username) {
-		Entity personEntity = getPersonEntity(username);
+	public static Person getPersonByUsername(String username) {
+		Entity personEntity = getPersonEntityByUsername(username);
 		if (personEntity != null) {
 			Person person = Person.createPerson(personEntity);
 
@@ -151,7 +151,7 @@ public class PersonManager {
 		HashSet<Entity> personEntities = new HashSet<Entity>();
 		
 		for (String username : usernames) {
-			Entity personEntity = getPersonEntity(username);
+			Entity personEntity = getPersonEntityByUsername(username);
 			if (personEntity != null) {
 				personEntities.add(personEntity);
 			}
@@ -160,7 +160,7 @@ public class PersonManager {
 		return personEntities;
 	}
 	
-	public static TreeSet<Person> getPersonByUsername(Iterable<String> usernames) {
+	public static TreeSet<Person> getPeopleByUsername(Iterable<String> usernames) {
 		Iterable<Entity> personEntities = getPersonEntitiesByUsername(usernames);
 		
 		return Person.createPeople(personEntities);
