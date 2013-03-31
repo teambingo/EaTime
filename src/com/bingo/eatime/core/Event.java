@@ -5,12 +5,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.TreeSet;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 
 public final class Event {
 
@@ -127,83 +123,23 @@ public final class Event {
 	}
 
 	// Key will be null if created using this method.
-	public static Event createEvent(String name, Key restaurantKey,
+	public static Event createEvent(String name, Restaurant restaurant,
 			Person creator, Date time) {
-		return createEvent(name, restaurantKey, creator, time, null);
+		return createEvent(name, restaurant, creator, time, null);
 	}
 	
 	// Key will be null if created using this method.
-	public static Event createEvent(String name, String restaurantKeyName,
-			Person creator, Date time) {
-		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
-				restaurantKeyName);
-		
-		return createEvent(name, restaurantKey, creator, time);
-	}
-
-	// Key will be null if created using this method.
-	public static Event createEvent(String name, Key restaurantKey,
-			Key creatorKey, Date time) {
-		return createEvent(name, restaurantKey, creatorKey, time, null);
-	}
-	
-	// Key will be null if created using this method.
-	public static Event createEvent(String name, String restaurantKeyName,
-			Key creatorKey, Date time) {
-		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
-				restaurantKeyName);
-		
-		return createEvent(name, restaurantKey, creatorKey, time);
-	}
-
-	// Key will be null if created using this method.
-	public static Event createEvent(String name, Key restaurantKey,
+	public static Event createEvent(String name, Restaurant restaurant,
 			Person creator, Date time, Iterable<Person> invites) {
-		Event event = new Event();
-		event.setName(name).setRestaurantKey(restaurantKey).setCreator(creator)
-				.setTime(time).addInvites(invites);
+		if (name != null && restaurant != null && creator != null && time != null) {
+			Event event = new Event();
+			event.setName(name).setRestaurantKey(restaurant.getKey()).setCreator(creator)
+					.setTime(time).addInvites(invites);
 
-		return event;
-	}
-	
-	// Key will be null if created using this method.
-	public static Event createEvent(String name, String restaurantKeyName,
-			Person creator, Date time, Iterable<Person> invites) {
-		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
-				restaurantKeyName);
-		
-		return createEvent(name, restaurantKey, creator, time, invites);
-	}
-
-	// Key will be null if created using this method.
-	public static Event createEvent(String name, Key restaurantKey,
-			Key creatorKey, Date time, Iterable<Person> invites) {
-		Event event = new Event();
-		event.setName(name).setRestaurantKey(restaurantKey).setTime(time)
-				.addInvites(invites);
-
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
-		try {
-			Entity creatorEntity = datastore.get(creatorKey);
-			Person creator = Person.createPerson(creatorEntity);
-
-			event.setCreator(creator);
-		} catch (EntityNotFoundException e) {
+			return event;
+		} else {
 			return null;
 		}
-
-		return event;
-	}
-	
-	// Key will be null if created using this method.
-	public static Event createEvent(String name, String restaurantKeyName,
-			Key creatorKey, Date time, Iterable<Person> invites) {
-		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
-				restaurantKeyName);
-		
-		return createEvent(name, restaurantKey, creatorKey, time, invites);
 	}
 
 	public static Event createEvent(Entity entity) {
