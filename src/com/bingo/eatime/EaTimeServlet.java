@@ -26,8 +26,7 @@ public class EaTimeServlet extends HttpServlet {
 		try {
 			rd.forward(req, resp);
 		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.severe("Cannot forward request to response.");
 		}
 	}
 
