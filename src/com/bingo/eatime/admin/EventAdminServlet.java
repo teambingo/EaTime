@@ -19,6 +19,7 @@ import com.bingo.eatime.core.PersonManager;
 import com.bingo.eatime.core.Restaurant;
 import com.bingo.eatime.core.RestaurantManager;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 public class EventAdminServlet extends HttpServlet {
 
@@ -33,10 +34,16 @@ public class EventAdminServlet extends HttpServlet {
 		String creatorUsername = req.getParameter("username");
 		String dateString = req.getParameter("date");
 		String[] invitesUsername = req.getParameterValues("invite");
+		String eventIdString = req.getParameter("id");
 		
 		Date time = null;
 		if (dateString != null) {
-			time = new Date(Long.valueOf(dateString));
+			try {
+				long timeMillisecond = Long.valueOf(dateString);
+				time = new Date(timeMillisecond);
+			} catch (IllegalArgumentException e) {
+				log.warning("Cannot parse date to long.");
+			}
 		}
 		
 		Person creator = null;
@@ -54,11 +61,25 @@ public class EventAdminServlet extends HttpServlet {
 			restaurant = RestaurantManager.getRestaurant(restaurantKeyName);
 		}
 		
+		Integer eventId = null;
+		if (eventIdString != null) {
+			try {
+				eventId = Integer.valueOf(eventIdString);
+			} catch (IllegalArgumentException e) {
+				log.warning("Cannot parse event id to interger.");
+			}
+		}
+		
 		Key eventKey = null;
 		if (action != null) {
 			if (action.equals("add") && eventName != null && restaurant != null && creator != null && time != null) {
 				Event event = Event.createEvent(eventName, restaurant, creator, time, invites);
 				eventKey = EventManager.addEvent(event);
+			} else if (action.equals("append") && eventId != null && invites != null) {
+				boolean result = EventManager.addInvites(invites, eventId);
+				if (result) {
+					eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventId);
+				}
 			}
 		}
 		
