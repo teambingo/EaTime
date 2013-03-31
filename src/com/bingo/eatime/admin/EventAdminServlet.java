@@ -48,6 +48,7 @@ public class EventAdminServlet extends HttpServlet {
 		int status = STATUS_SUCCEED;
 		List<String> usernameNotFoundList = new ArrayList<String>();
 		
+		// Get arguments strings from parameters
 		String action = req.getParameter("action");
 		String eventName = req.getParameter("name");
 		String restaurantKeyName = req.getParameter("restaurant");
@@ -56,6 +57,7 @@ public class EventAdminServlet extends HttpServlet {
 		String[] invitesUsername = req.getParameterValues("invite");
 		String eventIdString = req.getParameter("id");
 		
+		// Parsing argument strings
 		Date time = null;
 		if (dateString != null) {
 			try {
@@ -111,9 +113,11 @@ public class EventAdminServlet extends HttpServlet {
 			}
 		}
 		
+		// Conduct action
 		Key eventKey = null;
 		if (action != null) {
 			if (action.equals("add")) {
+				// Create new event
 				if (eventName != null && restaurant != null && creator != null && time != null) {
 					Event event = Event.createEvent(eventName, restaurant, creator, time, invites);
 					eventKey = EventManager.addEvent(event);
@@ -124,6 +128,7 @@ public class EventAdminServlet extends HttpServlet {
 					status = ERROR_MISSING_ARGUMENT;
 				}
 			} else if (action.equals("append")) {
+				// Add new invites
 				if (eventId != null && invites != null) {
 					boolean result = EventManager.addInvites(invites, eventId);
 					if (result) {
@@ -135,10 +140,12 @@ public class EventAdminServlet extends HttpServlet {
 					status = ERROR_MISSING_ARGUMENT;
 				}
 			} else if (ERROR_UNKNOWN_ACTION > status) {
+				// Unknown action
 				status = ERROR_UNKNOWN_ACTION;
 			}
 		}
 		
+		// Write to client
 		try {
 			resp.setContentType("application/json");
 			PrintWriter writer = resp.getWriter();
