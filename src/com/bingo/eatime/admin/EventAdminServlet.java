@@ -25,7 +25,7 @@ public class EventAdminServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
 		String action = req.getParameter("action");
-		String eventEvent = req.getParameter("name");
+		String eventName = req.getParameter("name");
 		String restaurantKeyName = req.getParameter("restaurant");
 		String creatorUsername = req.getParameter("username");
 		String dateString = req.getParameter("date");
@@ -51,9 +51,11 @@ public class EventAdminServlet extends HttpServlet {
 		}
 		
 		Key eventKey = null;
-		if (action.equals("add")) {
-			Event event = Event.createEvent(eventEvent, restaurantKeyName, creator, time, invites);
-			eventKey = EventManager.addEvent(event);
+		if (action != null) {
+			if (action.equals("add") && eventName != null && restaurantKeyName != null && creator != null && time != null) {
+				Event event = Event.createEvent(eventName, restaurantKeyName, creator, time, invites);
+				eventKey = EventManager.addEvent(event);
+			}
 		}
 		
 		try {
