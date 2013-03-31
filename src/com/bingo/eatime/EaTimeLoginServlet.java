@@ -1,6 +1,7 @@
 package com.bingo.eatime;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpSession;
 public class EaTimeLoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 4588543340482590495L;
+	
+	private static final Logger log = Logger.getLogger(EaTimeLoginServlet.class.getName());
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
