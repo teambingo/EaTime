@@ -125,9 +125,9 @@ input[type="button"] {
 
 .modal-input[type="text"] {
 	margin-top: 10px;
-	height: 12px;
+	/*height: 14px;*/
 	line-height: 18px;
-	font-size: 10px;
+	/*font-size: 12px;*/
 }
 
 .error {
