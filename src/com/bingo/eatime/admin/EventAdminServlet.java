@@ -36,7 +36,7 @@ public class EventAdminServlet extends HttpServlet {
 		
 		Date time = null;
 		if (dateString != null) {
-			time = new Date(Integer.valueOf(dateString));
+			time = new Date(Long.valueOf(dateString));
 		}
 		
 		Person creator = null;
