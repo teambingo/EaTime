@@ -61,10 +61,10 @@ public class EventAdminServlet extends HttpServlet {
 			restaurant = RestaurantManager.getRestaurant(restaurantKeyName);
 		}
 		
-		Integer eventId = null;
+		Long eventId = null;
 		if (eventIdString != null) {
 			try {
-				eventId = Integer.valueOf(eventIdString);
+				eventId = Long.valueOf(eventIdString);
 			} catch (IllegalArgumentException e) {
 				log.warning("Cannot parse event id to interger.");
 			}
