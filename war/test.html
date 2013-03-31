@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EaTime</title>
+
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.1.custom.css" />
+<link rel="stylesheet" href="css/bootstrap.css" />
+<!-- <link rel="stylesheet" href="css/jquery.ui.timepicker.css" /> -->
+<link rel="stylesheet" href="css/timePicker.css" />
+<link rel="stylesheet" href="css/main.css" />
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<!-- <script src="js/jquery-1.9.1.js"></script> -->
+<script src="js/jquery-ui-1.10.1.custom.js"></script>
+<script src="js/bootstrap.js"></script>
+<!-- <script src="js/jquery.mb.browser.js"></script> -->
+<!-- <script src="js/jquery.timePicker.js"></script> -->
+<script src="js/jquery.ui.timepicker.js"></script>
+<script src="js/main.js"></script>
+
+</head>
+
+<body>
+	<div class="page">
+		<div class="container">
+			<div class="top">Hi,ryan!!
+				<div class="logout">Log out</div>
+    			<div class="topTag" id="notification">Notification
+  					<div class="alert">
+  						<button type="button" class="close" data-dismiss="alert">&times;</button>
+  						You have 3 invitations
+					</div>
+				</div>
+       			<div class="topTag" id="events">Events</div>
+       			<div class="topTag" id="profile">Profile</div>
+			</div>
+			<div class="down">
+				<ul class="nav nav-tabs" id="myTab">
+					
+					<li><a href=#Chinese>Chinese</a></li>
+					
+					<li><a href=#Japanese>Japanese</a></li>
+					
+				</ul>
+				
+				<!-- restaurant body -->
+				<div class="tab-content">
+					
+					<div class="tab-pane" id="Chinese">
+						<div class="accordion">
+							
+							<div class="restaurant-header">
+								<p class="restaurant" id=happy-china>Happy China</p>
+								<a href="#new-event-modal" role="button" class="btn" data-toggle="modal">Create
+									New Event</a>
+							</div>
+							<div class="events">
+						        
+						        <div class="row-fluid event" id=1>
+						        	<div class="span2 headDiv"><img src="http://www.gravatar.com/avatar/7c46aa86b25a0d1e343affd790e10700.jpg?s=100>" class="img-circle head"></div>
+						  			<div class="span3 orgDiv">
+						            	<div class="label label-info">Organizer</div>
+						            	<div class="display">Kaiwen Xu</div>
+						            </div>
+						  			<div class="span3 timeDiv">
+						            	<div class="label label-info">Time</div>
+						            	<br>
+										<div class="hourNum">19</div>
+										:
+										<div class="minNum">50</div>
+						            </div>
+						            <div class="span2 countDiv">
+						            	<div class="label label-info">Attendants</div>
+						            	<div class="display">2</div>
+						            </div>
+						            <div class="span2 joinDiv">
+						            	<button type="submit" class="btn btn-info join">Join!</button>
+						            </div>
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+					
+					<div class="tab-pane" id="Japanese">
+						<div class="accordion">
+							
+							<div class="restaurant-header">
+								<p class="restaurant" id=happy-china>Happy China</p>
+								<a href="#new-event-modal" role="button" class="btn" data-toggle="modal">Create
+									New Event</a>
+							</div>
+							<div class="events">
+						        
+						        <div class="row-fluid event" id=1>
+						        	<div class="span2 headDiv"><img src="http://www.gravatar.com/avatar/7c46aa86b25a0d1e343affd790e10700.jpg?s=100>" class="img-circle head"></div>
+						  			<div class="span3 orgDiv">
+						            	<div class="label label-info">Organizer</div>
+						            	<div class="display">Kaiwen Xu</div>
+						            </div>
+						  			<div class="span3 timeDiv">
+						            	<div class="label label-info">Time</div>
+						            	<br>
+										<div class="hourNum">19</div>
+										:
+										<div class="minNum">50</div>
+						            </div>
+						            <div class="span2 countDiv">
+						            	<div class="label label-info">Attendants</div>
+						            	<div class="display">2</div>
+						            </div>
+						            <div class="span2 joinDiv">
+						            	<button type="submit" class="btn btn-info join">Join!</button>
+						            </div>
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+					
+					<!-- restaurant body end -->
+
+
+					<div class="tab-pane" id="profile">bbbb</div>
+					<div class="tab-pane" id="messages">cccc</div>
+					<div class="tab-pane" id="settings">dddd</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- new event modal -->
+	<div id="new-event-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="new-event-modal-label" aria-hidden="true">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+	    <h3 id="new-event-modal-label">New Event</h3>
+	  </div>
+	  <div class="modal-body">
+  		<table class="new-event-table">
+  			<tbody>
+  				<tr>
+  					<td><span class="table-label label">Name:</span></td>
+  					<td><input type="text" id="event-name" class="modal-input" placeholder="Event name"></td>
+  				</tr>
+  				<tr>
+  					<td><span class="table-label label">Time:</span></td>
+  					<td><div class="timepick"></div></td>
+  					<!-- <td><input type="text" id="event-timepicker" class="modal-input" placeholder="Pick a time"></td> -->
+  				</tr>
+  				<tr>
+  					<td><span class="table-label label">Invite:</span></td>
+  					<td><input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username"></td>
+  				</tr>
+  			</tbody>
+	    </table>
+	    <!-- <div class="timepick"></div> -->
+	  </div>
+	  <div class="modal-footer">
+	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	    <button class="btn btn-primary">Create</button>
+	  </div>
+	</div>
+	<!-- new event modal end -->
+
+</body>
+</html>

@@ -37,7 +37,12 @@
 		<div class="container">
 			<div class="top">Hi,${user}!!
 				<div class="logout">Log out</div>
-    			<div class="topTag" id="notification">Notification</div>
+    			<div class="topTag" id="notification">Notification
+  					<div class="alert">
+  						<button type="button" class="close" data-dismiss="alert">&times;</button>
+  						You have 3 invitations
+					</div>
+				</div>
        			<div class="topTag" id="events">Events</div>
        			<div class="topTag" id="profile">Profile</div>
 			</div>
@@ -125,9 +130,6 @@
 					<!-- restaurant body end -->
 
 
-					<div class="tab-pane" id="profile">bbbb</div>
-					<div class="tab-pane" id="messages">cccc</div>
-					<div class="tab-pane" id="settings">dddd</div>
 				</div>
 			</div>
 		</div>
@@ -144,7 +146,7 @@
   			<tbody>
   				<tr>
   					<td><span class="table-label label">Name:</span></td>
-  					<td><input type="text" id="event-name" class="modal-input" placeholder="Event name"></td>
+  					<td><input type="text" id="event-name" class="modal-input" placeholder="Event name"><span class="alert alert-error error">Please Enter Event Name</span></td>
   				</tr>
   				<tr>
   					<td><span class="table-label label">Time:</span></td>
@@ -161,7 +163,7 @@
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	    <button class="btn btn-primary">Create</button>
+	    <button class="btn btn-primary" id="create">Create</button>
 	  </div>
 	</div>
 	<!-- new event modal end -->
