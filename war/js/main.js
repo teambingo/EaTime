@@ -1,6 +1,7 @@
 var isModalOn = false;
 
 $(function() {
+
 	$(".error").css("visibility","hidden");
 
 	$('.timepick').timepicker({
@@ -58,6 +59,11 @@ $(function() {
 			url += "&name=" + name;
 			url += "&restaurant=" + $(this).data("restaurant");
 			url += "&date=" + date;
+
+			if (typeof username !== 'undefined') {
+				// url += '&username=' + username;
+			}
+
 			if (invites) {
 				for (var i = 0;  i < invites.length; i++) {
 					url += "&invite=" + invites[i];
@@ -65,6 +71,20 @@ $(function() {
 			}
 
 			console.log('url', url);
+
+			var req = new XMLHttpRequest();
+
+			req.onreadystatechange = function() {
+				if (req.readyState == 4 && req.status == 200) {
+					var response = parseInt(req.responseText, 10);
+					console.log('response', response);
+
+					
+				}
+			};
+			req.open('GET', url);
+			req.send();
 		}
 	});
+
 });

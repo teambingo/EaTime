@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bingo.eatime.EaTimeLoginServlet;
 import com.bingo.eatime.core.Category;
 import com.bingo.eatime.core.CategoryManager;
 import com.bingo.eatime.core.Event;
@@ -26,6 +28,8 @@ import com.google.appengine.api.datastore.PostalAddress;
 public class EaTimeDatabaseTestServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 2639400166713434665L;
+	
+	private static final Logger log = Logger.getLogger(EaTimeDatabaseTestServlet.class.getName());
 
 	private static final String TAG = "EaTimeDatabaseTestServlet";
 	private static final String TAG_SPLITTER = ": ";
@@ -49,14 +53,12 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 		Category categoryChinese = Category.createCategory("Chinese");
 		result = CategoryManager.addCategory(categoryChinese);
 
-		System.out.println(TAG + TAG_SPLITTER + "Add category "
-				+ categoryChinese + " " + result);
+		log.info("Add category " + categoryChinese + " " + result);
 
 		Category categoryJapanese = Category.createCategory("Japanese");
 		result = CategoryManager.addCategory(categoryJapanese);
 
-		System.out.println(TAG + TAG_SPLITTER + "Add category "
-				+ categoryJapanese + " " + result);
+		log.info("Add category " + categoryJapanese + " " + result);
 
 		List<Category> restaurantHappyChinaCategories = new ArrayList<Category>();
 		restaurantHappyChinaCategories.add(categoryJapanese);
@@ -68,8 +70,7 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 				new PhoneNumber("765-743-1666"));
 		result = RestaurantManager.addRestaurant(restaurantHappyChina);
 
-		System.out.println(TAG + TAG_SPLITTER + "Add restaurant "
-				+ restaurantHappyChina + " " + result);
+		log.info("Add restaurant " + restaurantHappyChina + " " + result);
 
 		TreeSet<Category> returnHappyChinaCategories = CategoryManager
 				.getRestaurantCategories(restaurantHappyChina.getKey());
@@ -82,12 +83,10 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 				.getRestaurantsFromCategory(categoryChinese.getKey());
 
 		for (Restaurant restaurant : categoryChineseRestaurants) {
-			System.out.println(TAG + TAG_SPLITTER + restaurant
-					+ " is in category " + categoryChinese);
+			log.info(restaurant + " is in category " + categoryChinese);
 		}
 
-		Person me = Person.createPerson("kevin", "Kaiwen", "Xu",
-				"kevin@kevxu.net");
+		Person me = Person.createPerson("kevin", "Kaiwen", "Xu", "kevin@kevxu.net");
 		Key myKey = PersonManager.addPerson(me);
 		
 		Person p1 = Person.createPerson("p1", "Random", "Guy", "randomguy1@example.com");
@@ -107,7 +106,7 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 		
 		TreeSet<Event> returnSampleEvents = EventManager.getEventsFromRestaurant(restaurantHappyChina.getKey());
 		for (Event event : returnSampleEvents) {
-			System.out.println(TAG + TAG_SPLITTER + "found event " + event);
+			log.info("found event " + event);
 		}
 	}
 }

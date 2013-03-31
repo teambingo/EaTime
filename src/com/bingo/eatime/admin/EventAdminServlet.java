@@ -86,9 +86,9 @@ public class EventAdminServlet extends HttpServlet {
 		try {
 			PrintWriter writer = resp.getWriter();
 			if (eventKey != null) {
-				writer.println(String.valueOf(eventKey.getId()));
+				writer.print(String.valueOf(eventKey.getId()));
 			} else {
-				writer.println("-1");
+				writer.print("-1");
 			}
 		} catch (IOException e) {
 			log.log(Level.SEVERE, "Cannot get print writer.", e);

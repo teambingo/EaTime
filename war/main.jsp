@@ -33,6 +33,11 @@
 </head>
 
 <body>
+	<script>
+		/* Makes session username accessible via javascript */
+		var username = '${user}';
+	</script>
+
 	<div class="page">
 		<div class="container">
 			<div class="top">Hi,${user}!!
