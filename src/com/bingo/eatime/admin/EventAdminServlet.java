@@ -24,16 +24,24 @@ public class EventAdminServlet extends HttpServlet {
 	private static final Logger log = Logger.getLogger(EventAdminServlet.class.getName());
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
+		String action = req.getParameter("action");
 		String eventEvent = req.getParameter("name");
 		String restaurantKeyName = req.getParameter("restaurant");
 		String creatorUsername = req.getParameter("username");
 		String dateString = req.getParameter("date");
 		String[] invitesUsername = req.getParameterValues("invite");
 		
-		Date time = new Date(Integer.valueOf(dateString));
-		Person creator = PersonManager.getPerson(creatorUsername);
-		HashSet<Person> invites = null;
+		Date time = null;
+		if (dateString != null) {
+			time = new Date(Integer.valueOf(dateString));
+		}
 		
+		Person creator = null;
+		if (creatorUsername != null) {
+			creator = PersonManager.getPerson(creatorUsername);
+		}
+		
+		HashSet<Person> invites = null;
 		if (invitesUsername != null) {
 			invites = new HashSet<Person>();
 			for (String inviteUsername : invitesUsername) {
@@ -42,18 +50,23 @@ public class EventAdminServlet extends HttpServlet {
 			}
 		}
 		
-		Event event = Event.createEvent(eventEvent, restaurantKeyName, creator, time, invites);
-		Key eventKey = EventManager.addEvent(event);
-		
-		if (eventKey != null) {
-			
-		} else {
-			try {
-				PrintWriter writer = resp.getWriter();
-			} catch (IOException e) {
-				log.log(Level.SEVERE, "Cannot get print writer.", e);
-			}
+		Key eventKey = null;
+		if (action.equals("add")) {
+			Event event = Event.createEvent(eventEvent, restaurantKeyName, creator, time, invites);
+			eventKey = EventManager.addEvent(event);
 		}
+		
+		try {
+			PrintWriter writer = resp.getWriter();
+			if (eventKey != null) {
+				writer.println(String.valueOf(eventKey.getId()));
+			} else {
+				writer.println("-1");
+			}
+		} catch (IOException e) {
+			log.log(Level.SEVERE, "Cannot get print writer.", e);
+		}
+		
 	}
 
 }

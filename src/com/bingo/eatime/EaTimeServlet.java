@@ -1,6 +1,7 @@
 package com.bingo.eatime;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -26,7 +27,7 @@ public class EaTimeServlet extends HttpServlet {
 		try {
 			rd.forward(req, resp);
 		} catch (ServletException e) {
-			log.severe("Cannot forward request to response.");
+			log.log(Level.SEVERE, "Cannot forward request to response.", e);
 		}
 	}
 

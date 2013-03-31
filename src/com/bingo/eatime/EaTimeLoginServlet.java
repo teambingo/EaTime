@@ -1,6 +1,7 @@
 package com.bingo.eatime;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
@@ -25,14 +26,14 @@ public class EaTimeLoginServlet extends HttpServlet {
 				session.setAttribute("user", username);
 				resp.sendRedirect("/eatime");
 			} catch (IOException e) {
-				log.severe("Cannot redirect to /eatime.");
+				log.log(Level.SEVERE, "Cannot redirect to /eatime.", e);
 			}
 		} else {
 			try {
 				session.setAttribute("loginStatus", "false");
 				resp.sendRedirect("/login.jsp");
 			} catch (IOException e) {
-				log.severe("Cannot redirect to /login.jsp");
+				log.log(Level.SEVERE, "Cannot redirect to /login.jsp", e);
 			}
 		}
 	}

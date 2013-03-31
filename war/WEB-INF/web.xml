@@ -16,6 +16,10 @@
 		<servlet-name>DatabaseForFrontEndTest</servlet-name>
 		<servlet-class>com.bingo.eatime.test.DatabaseForFrontEndTest</servlet-class>
 	</servlet>
+	<servlet>
+	    <servlet-name>EventAdminServlet</servlet-name>
+	    <servlet-class>com.bingo.eatime.admin.EventAdminServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>EaTime</servlet-name>
@@ -32,6 +36,10 @@
 	<servlet-mapping>
 		<servlet-name>DatabaseForFrontEndTest</servlet-name>
 		<url-pattern>/test/ryan</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>EventAdminServlet</servlet-name>
+	    <url-pattern>/event</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>
