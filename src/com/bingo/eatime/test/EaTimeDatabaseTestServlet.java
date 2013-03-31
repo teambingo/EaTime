@@ -75,8 +75,7 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 		TreeSet<Category> returnHappyChinaCategories = CategoryManager
 				.getRestaurantCategories(restaurantHappyChina.getKey());
 		for (Category category : returnHappyChinaCategories) {
-			System.out.println(TAG + TAG_SPLITTER + restaurantHappyChina
-					+ " are in " + category + ".");
+			log.info(restaurantHappyChina + " are in " + category + ".");
 		}
 
 		TreeSet<Restaurant> categoryChineseRestaurants = CategoryManager
