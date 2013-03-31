@@ -27,17 +27,21 @@ public class EventAdminServlet extends HttpServlet {
 	
 	private static final Logger log = Logger.getLogger(EventAdminServlet.class.getName());
 	
+	// Status succeed
 	private static final int STATUS_SUCCEED = 0;
 	
+	// Level 100 error - low priority error
 	private static final int ERROR_UNKNOWN = 100;
-	private static final int ERROR_UNKNOWN_ACTION = 101;
-	private static final int ERROR_MISSING_ARGUMENT = 102;
 	
-	private static final int ERROR_USERNAME_NOT_FOUND = 200;
-	private static final int ERROR_RESTAURANT_NOT_FOUND = 201;
-	private static final int ERROR_MALFORMED_ARGUMENT = 202;
-	private static final int ERROR_CURRENT_USER_NOT_FOUND = 203;
+	// Level 200 error - argument error
+	private static final int ERROR_MISSING_ARGUMENT = 200;
+	private static final int ERROR_MALFORMED_ARGUMENT = 201;
+	private static final int ERROR_USERNAME_NOT_FOUND = 202;
+	private static final int ERROR_RESTAURANT_NOT_FOUND = 203;
+	private static final int ERROR_CURRENT_USER_NOT_FOUND = 204;
+	private static final int ERROR_UNKNOWN_ACTION = 299;
 	
+	// Level 300 error - database error
 	private static final int ERROR_DATABASE_FAILED = 300;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
