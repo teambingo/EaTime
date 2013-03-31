@@ -57,8 +57,7 @@ public class EventManager {
 						throw new NullKeyException("Person Key is null.");
 					}
 
-					Entity personKeyEntity = createPersonKeyEntity(personKey,
-							eventKey);
+					Entity personKeyEntity = createPersonKeyEntity(personKey, eventKey);
 					datastore.put(personKeyEntity);
 				}
 			}
@@ -101,8 +100,7 @@ public class EventManager {
 					throw new NullKeyException("Person Key is null.");
 				}
 
-				Entity personKeyEntity = createPersonKeyEntity(personKey,
-						eventKey);
+				Entity personKeyEntity = createPersonKeyEntity(personKey, eventKey);
 				datastore.put(personKeyEntity);
 			}
 			txn.commit();

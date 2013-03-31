@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
@@ -75,6 +76,12 @@ public class PersonManager {
 			return null;
 		}
 	}
+	
+	public static Entity getPersonEntity(String personKeyName) {
+		Key personKey = KeyFactory.createKey(Person.KIND_PERSON, personKeyName);
+		
+		return getPersonEntity(personKey);
+	}
 
 	/**
 	 * Get Person object from Person Key.
@@ -85,6 +92,7 @@ public class PersonManager {
 	 */
 	public static Person getPerson(Key personKey) {
 		Entity personEntity = getPersonEntity(personKey);
+		
 		if (personEntity != null) {
 			Person person = Person.createPerson(personEntity);
 
@@ -92,6 +100,12 @@ public class PersonManager {
 		} else {
 			return null;
 		}
+	}
+	
+	public static Person getPerson(String personKeyName) {
+		Key personKey = KeyFactory.createKey(Person.KIND_PERSON, personKeyName);
+		
+		return getPerson(personKey);
 	}
 
 	/**
