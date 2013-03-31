@@ -15,6 +15,8 @@ import com.bingo.eatime.core.Event;
 import com.bingo.eatime.core.EventManager;
 import com.bingo.eatime.core.Person;
 import com.bingo.eatime.core.PersonManager;
+import com.bingo.eatime.core.Restaurant;
+import com.bingo.eatime.core.RestaurantManager;
 import com.google.appengine.api.datastore.Key;
 
 public class EventAdminServlet extends HttpServlet {
@@ -50,10 +52,15 @@ public class EventAdminServlet extends HttpServlet {
 			}
 		}
 		
+		Restaurant restaurant = null;
+		if (restaurantKeyName != null) {
+			restaurant = RestaurantManager.getRestaurant(restaurantKeyName);
+		}
+		
 		Key eventKey = null;
 		if (action != null) {
-			if (action.equals("add") && eventName != null && restaurantKeyName != null && creator != null && time != null) {
-				Event event = Event.createEvent(eventName, restaurantKeyName, creator, time, invites);
+			if (action.equals("add") && eventName != null && restaurant != null && creator != null && time != null) {
+				Event event = Event.createEvent(eventName, restaurant, creator, time, invites);
 				eventKey = EventManager.addEvent(event);
 			}
 		}

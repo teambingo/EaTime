@@ -151,7 +151,10 @@ public class PersonManager {
 		HashSet<Entity> personEntities = new HashSet<Entity>();
 		
 		for (String username : usernames) {
-			personEntities.add(getPersonEntity(username));
+			Entity personEntity = getPersonEntity(username);
+			if (personEntity != null) {
+				personEntities.add(personEntity);
+			}
 		}
 		
 		return personEntities;
