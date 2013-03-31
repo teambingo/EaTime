@@ -47,28 +47,24 @@ $(function() {
 		var date = d.getTime();
 
 		var invites = $("#event-invite").val().split(/[\s,]+/);
-		for (var i = 0;  i < invites.length; i++) {
-			console.log(invites[i]);
-		}
+		console.log('invites', invites);
 
 		if (name === '') {
 			$("#event-name").css("border","1px solid #C83135");
 			$(".error").css("visibility","visible");
 		} else {
-			var url = "event?";
+			var url = "/event?";
 			url += "action=add";
 			url += "&name=" + name;
 			url += "&restaurant=" + $(this).data("restaurant");
 			url += "&date=" + date;
-			if ($("#event-invite").val() !== '') {
-				for (i = 0;  i < invites.length; i++) {
+			if (invites) {
+				for (var i = 0;  i < invites.length; i++) {
 					url += "&invite=" + invites[i];
 				}
 			}
 
-
-
-			window.location.href = "event";
+			console.log('url', url);
 		}
 	});
 });
