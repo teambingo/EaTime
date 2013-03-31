@@ -73,7 +73,6 @@ $(function() {
 			console.log('url', url);
 
 			var req = new XMLHttpRequest();
-
 			req.onreadystatechange = function() {
 				if (req.readyState == 4 && req.status == 200) {
 					var response = parseInt(req.responseText, 10);
