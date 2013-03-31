@@ -103,9 +103,11 @@ public final class Event {
 		if (this.invites == null) {
 			this.invites = Person.newPeople();
 		}
-
-		for (Person invite : invites) {
-			this.invites.add(invite);
+		
+		if (invites != null) {
+			for (Person invite : invites) {
+				this.invites.add(invite);
+			}
 		}
 
 		return this;
