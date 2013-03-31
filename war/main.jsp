@@ -35,7 +35,12 @@
 <body>
 	<div class="page">
 		<div class="container">
-			<div class="top">Hi,${user}!!</div>
+			<div class="top">Hi,${user}!!
+				<div class="logout">Log out</div>
+    			<div class="topTag" id="notification">Notification</div>
+       			<div class="topTag" id="events">Events</div>
+       			<div class="topTag" id="profile">Profile</div>
+			</div>
 			<div class="down">
 				<ul class="nav nav-tabs" id="myTab">
 					<%

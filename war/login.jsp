@@ -46,7 +46,7 @@
 				}
 			%>
 		</div>
-
+		
 		<div class="row-fluid">
 			<div class="span2 offset4 leftButton">
 				<a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Register</a>
