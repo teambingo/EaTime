@@ -34,7 +34,7 @@
 
 <body>
 	<script>
-		/* Makes session username accessible via javascript */
+		// Makes session username accessible via javascript
 		var username = '${user}';
 	</script>
 

@@ -61,7 +61,7 @@ $(function() {
 			url += "&date=" + date;
 
 			if (typeof username !== 'undefined') {
-				// url += '&username=' + username;
+				url += '&username=' + username;
 			}
 
 			if (invites) {
@@ -79,7 +79,15 @@ $(function() {
 					var response = parseInt(req.responseText, 10);
 					console.log('response', response);
 
-					
+					if (response > 0) {
+						// succeed
+
+						location.reload();
+					} else {
+						// failed
+
+						console.log('create event failed.');
+					}
 				}
 			};
 			req.open('GET', url);
