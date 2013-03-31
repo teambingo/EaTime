@@ -2,8 +2,9 @@ package com.bingo.eatime.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,8 +27,18 @@ public class EventAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 8208066016833205326L;
 	
 	private static final Logger log = Logger.getLogger(EventAdminServlet.class.getName());
+	
+	private static final int STATUS_SUCCEED = 1;
+	private static final int ERROR_UNKNOWN = 0;
+	private static final int ERROR_MISSING_ARGUMENT = -1;
+	private static final int ERROR_UNKNOWN_ACTION = -2;
+	private static final int ERROR_DATABASE_FAILED = -3;
+	private static final int ERROR_USERNAME_NOT_FOUND = -4;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
+		int status = STATUS_SUCCEED;
+		List<String> usernameNotFoundList = new ArrayList<String>();
+		
 		String action = req.getParameter("action");
 		String eventName = req.getParameter("name");
 		String restaurantKeyName = req.getParameter("restaurant");
@@ -51,9 +62,18 @@ public class EventAdminServlet extends HttpServlet {
 			creator = PersonManager.getPersonByUsername(creatorUsername);
 		}
 		
-		TreeSet<Person> invites = null;
+		List<Person> invites = null;
 		if (invitesUsername != null) {
-			invites = PersonManager.getPeopleByUsername(Arrays.asList(invitesUsername));
+			invites = new ArrayList<Person>();
+			for (String inviteUsername : invitesUsername) {
+				Person invite = PersonManager.getPersonByUsername(inviteUsername);
+				if (invite == null) {
+					status = ERROR_USERNAME_NOT_FOUND;
+					usernameNotFoundList.add(inviteUsername);
+				} else {
+					invites.add(invite);
+				}
+			}
 		}
 		
 		Restaurant restaurant = null;
@@ -72,28 +92,81 @@ public class EventAdminServlet extends HttpServlet {
 		
 		Key eventKey = null;
 		if (action != null) {
-			if (action.equals("add") && eventName != null && restaurant != null && creator != null && time != null) {
-				Event event = Event.createEvent(eventName, restaurant, creator, time, invites);
-				eventKey = EventManager.addEvent(event);
-			} else if (action.equals("append") && eventId != null && invites != null) {
-				boolean result = EventManager.addInvites(invites, eventId);
-				if (result) {
-					eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventId);
+			if (action.equals("add")) {
+				if (eventName != null && restaurant != null && creator != null && time != null) {
+					Event event = Event.createEvent(eventName, restaurant, creator, time, invites);
+					eventKey = EventManager.addEvent(event);
+					if (eventKey == null) {
+						status = ERROR_DATABASE_FAILED;
+					}
+				} else {
+					status = ERROR_MISSING_ARGUMENT;
 				}
+			} else if (action.equals("append")) {
+				if (eventId != null && invites != null) {
+					boolean result = EventManager.addInvites(invites, eventId);
+					if (result) {
+						eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventId);
+					} else {
+						status = ERROR_DATABASE_FAILED;
+					}
+				} else {
+					status = ERROR_MISSING_ARGUMENT;
+				}
+			} else {
+				status = ERROR_UNKNOWN_ACTION;
 			}
 		}
 		
 		try {
+			resp.setContentType("application/json");
 			PrintWriter writer = resp.getWriter();
-			if (eventKey != null) {
-				writer.print(String.valueOf(eventKey.getId()));
+			if (status == STATUS_SUCCEED && eventKey != null) {
+				writer.print(generateResponseJson((int) eventKey.getId(), null));
 			} else {
-				writer.print("-1");
+				writer.print(generateResponseJson(status, usernameNotFoundList));
 			}
 		} catch (IOException e) {
 			log.log(Level.SEVERE, "Cannot get print writer.", e);
 		}
 		
+	}
+	
+	private String generateResponseJson(int status, List<String> bundle) {
+		if (status > 0) {
+			return "{ \"status\": " + status + " }";
+		} else {
+			String reason = "";
+			switch(status) {
+			case ERROR_UNKNOWN:
+				reason = "Unknown error.";
+				break;
+			case ERROR_MISSING_ARGUMENT:
+				reason = "Missing argument.";
+				break;
+			case ERROR_UNKNOWN_ACTION:
+				reason = "Unknown action.";
+				break;
+			case ERROR_DATABASE_FAILED:
+				reason = "Update database failed.";
+				break;
+			case ERROR_USERNAME_NOT_FOUND:
+				StringBuilder sb = new StringBuilder();
+				sb.append("Following username not found: ");
+				for (String username : bundle) {
+					sb.append(username);
+					sb.append(", ");
+				}
+				sb.delete(sb.length() - 2, sb.length());
+				sb.append(".");
+				reason = sb.toString();
+				break;
+			default:
+				break;
+			}
+			
+			return "{ \"status\": " + status + ", \"reason\": \"" + reason + "\" }";
+		}
 	}
 
 }

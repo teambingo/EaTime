@@ -51,9 +51,12 @@ $(function() {
 		console.log('invites', invites);
 
 		if (name === '') {
-			$("#event-name").css("border","1px solid #C83135");
-			$(".error").css("visibility","visible");
+			$("#event-name").css("border", "1px solid #C83135");
+			$(".error").css("visibility", "visible");
 		} else {
+			$('#event-name').css('border', '');
+			$('.error').css('visibility', 'hidden');
+
 			var url = "/event?";
 			url += "action=add";
 			url += "&name=" + name;
@@ -64,9 +67,11 @@ $(function() {
 				url += '&username=' + username;
 			}
 
-			if (invites) {
+			if ($("#event-invite").val() !== '') {
 				for (var i = 0;  i < invites.length; i++) {
-					url += "&invite=" + invites[i];
+					if (invites[i] !== '') {
+						url += "&invite=" + invites[i];
+					}
 				}
 			}
 
@@ -75,17 +80,17 @@ $(function() {
 			var req = new XMLHttpRequest();
 			req.onreadystatechange = function() {
 				if (req.readyState == 4 && req.status == 200) {
-					var response = parseInt(req.responseText, 10);
+					var response = $.parseJSON(req.responseText);
+					var status = response['status'];
 					console.log('response', response);
 
-					if (response > 0) {
+					if (status > 0) {
 						// succeed
-
 						location.reload();
 					} else {
 						// failed
-
-						console.log('create event failed.');
+						var reason = response['reason'];
+						console.log('create event failed', reason);
 					}
 				}
 			};
