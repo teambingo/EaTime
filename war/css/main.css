@@ -17,6 +17,21 @@ table {
 	margin: auto;
 }
 
+.leftArrow {
+	position: fixed;
+	margin-left: -130px;
+	margin-top: 250px;
+}
+
+.rightArrow {
+	position: fixed;
+	margin-left: 970px;
+	margin-top: 250px;
+}
+.arrowImg {
+	width: 100px;
+	height: 100px;
+}
 
 .top {
 	width: 100%;
@@ -84,6 +99,9 @@ input[type="button"] {
 	padding-top: 13px;
 }
 
+.eNameDiv{
+	padding-top: 13px;
+}
 .timeDiv {
 	padding-top: 11px;
 }

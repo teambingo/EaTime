@@ -40,6 +40,8 @@
 
 	<div class="page">
 		<div class="container">
+			<div class="leftArrow"><img class="arrowImg" src="img/left.png"></div>
+			<div class="rightArrow"><img class="arrowImg" src="img/right.png"></div>
 			<div class="top">Hi,${user}!!
 				<div class="logout"><a href="logout">Log out</a></div>
     			<div class="topTag" id="notification">Notification
@@ -93,11 +95,15 @@
 						        %>
 						        <div class="row-fluid event" id=<%=event.getKey().getId()%>>
 						        	<div class="span2 headDiv"><img src="<%=event.getCreator().getGravatarUrlString()%>>" class="img-circle head"></div>
-						  			<div class="span3 orgDiv">
+						  			<div class="span2 orgDiv">
 						            	<div class="label label-info">Organizer</div>
 						            	<div class="display"><%=event.getCreator().getFullName(true)%></div>
 						            </div>
-						  			<div class="span3 timeDiv">
+						            <div class="span2 eNameDiv">
+										<div class="label label-info">Event Name</div>
+										<div class="display"><%=event.getName()%></div>
+						            </div>
+						  			<div class="span2 timeDiv">
 						            	<div class="label label-info">Time</div>
 						            	<br>
 										<div class="hourNum"><%=Utilities.getDateHourString(event.getTime())%></div>

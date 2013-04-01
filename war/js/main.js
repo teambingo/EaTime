@@ -3,12 +3,12 @@ var isModalOn = false;
 
 // TODO CHANGE img
 // TODO display user's full name instead of username.
-function createEvent(restaurant,hour,min){
+function createEvent(restaurant,hour,min,eventname){
 	var br='<hr>';
 	if($("*[value="+restaurant+"]").next().children('.event').length === 0){
 		br='';
 	}
-	var newEvent=$(br+'<div class="row-fluid event" id=1><div class="span2 headDiv"><img src="http://www.gravatar.com/avatar/7c46aa86b25a0d1e343affd790e10700.jpg?s=100>" class="img-circle head"></div><div class="span3 orgDiv"><div class="label label-info">Organizer</div><div class="display">'+username+'</div></div><div class="span3 timeDiv"><div class="label label-info">Time</div><br><div class="hourNum">'+hour+'</div>:<div class="minNum">'+min+'</div></div><div class="span2 countDiv"><div class="label label-info">Attendants</div><div class="display">0</div></div><div class="span2 joinDiv"><button type="submit" class="btn btn-info join">Join!</button></div>');
+	var newEvent=$(br+'<div class="row-fluid event" id=1><div class="span2 headDiv"><img src="http://www.gravatar.com/avatar/7c46aa86b25a0d1e343affd790e10700.jpg?s=100>" class="img-circle head"></div><div class="span2 orgDiv"><div class="label label-info">Organizer</div><div class="display">'+username+'</div></div><div class="span2 eNameDiv"><div class="label label-info">Event Name</div><div class="display">'+eventname+'</div></div><div class="span2 timeDiv"><div class="label label-info">Time</div><br><div class="hourNum">'+hour+'</div> : <div class="minNum">'+min+'</div></div><div class="span2 countDiv"><div class="label label-info">Attendants</div><div class="display">0</div></div><div class="span2 joinDiv"><button type="submit" class="btn btn-info join">Join!</button></div>');
 	//newEvent.hide();
 	$("*[value="+restaurant+"]").next().each(function(){
 		$(this).append(newEvent.clone(true));
@@ -22,7 +22,7 @@ function testClick(){
 }
 
 $(function() {
-
+alert($('.container').css('width'));
 	$(".error").css("visibility","hidden");
 
 	$('.timepick').timepicker({
@@ -108,7 +108,7 @@ $(function() {
 					if (status === 0) {
 						// succeed
 						//location.reload();
-						createEvent(restaurant,hourandmin[0],hourandmin[1]);
+						createEvent(restaurant,hourandmin[0],hourandmin[1],name);
 						$('#new-event-modal').modal('hide');
 					} else {
 						// failed
