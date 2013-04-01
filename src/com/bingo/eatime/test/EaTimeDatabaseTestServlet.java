@@ -59,6 +59,32 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 
 		log.info("Add category " + categoryJapanese + " " + result);
 
+		Category categoryKorean = Category.createCategory("Korean");
+		result = CategoryManager.addCategory(categoryKorean);
+
+		log.info("Add category " + categoryJapanese + " " + result);
+
+		Category categoryIndian = Category.createCategory("Indian");
+		result = CategoryManager.addCategory(categoryIndian);
+
+		log.info("Add category " + categoryJapanese + " " + result);
+
+		Category categoryMexico = Category.createCategory("Mexico");
+		result = CategoryManager.addCategory(categoryMexico);
+
+		log.info("Add category " + categoryJapanese + " " + result);
+
+		Category categoryThai = Category.createCategory("Thai");
+		result = CategoryManager.addCategory(categoryThai);
+
+		log.info("Add category " + categoryJapanese + " " + result);
+
+		Category categoryDessert = Category.createCategory("Dessert");
+		result = CategoryManager.addCategory(categoryDessert);
+
+		log.info("Add category " + categoryJapanese + " " + result);
+
+		
 		List<Category> restaurantHappyChinaCategories = new ArrayList<Category>();
 		restaurantHappyChinaCategories.add(categoryJapanese);
 		restaurantHappyChinaCategories.add(categoryChinese);
@@ -71,6 +97,16 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 
 		log.info("Add restaurant " + restaurantHappyChina + " " + result);
 
+		Restaurant restaurantOishi = Restaurant.createRestaurant(
+				"Oishi", categoryChinese,
+				new PostalAddress(
+						"2243 US HWY 52 W, West Lafayette, IN 47906"),
+				new PhoneNumber("765-491-0417"));
+		result = RestaurantManager.addRestaurant(restaurantOishi);
+
+		log.info("Add restaurant " + restaurantOishi + " " + result);
+
+		
 		TreeSet<Category> returnHappyChinaCategories = CategoryManager
 				.getRestaurantCategories(restaurantHappyChina.getKey());
 		for (Category category : returnHappyChinaCategories) {
