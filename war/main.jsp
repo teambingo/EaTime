@@ -40,7 +40,9 @@
 
 	<div class="page">
 		<div class="container">
-			<div class="leftArrow"><img class="arrowImg" src="img/left.png"></div>
+			
+		<div class="leftArrow"><img class="arrowImg" src="img/left.png"></div>
+		
 			<div class="rightArrow"><img class="arrowImg" src="img/right.png"></div>
 			<div class="content">
 			<div class="top">Hi,${user}!!
