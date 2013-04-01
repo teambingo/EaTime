@@ -42,6 +42,7 @@
 		<div class="container">
 			<div class="leftArrow"><img class="arrowImg" src="img/left.png"></div>
 			<div class="rightArrow"><img class="arrowImg" src="img/right.png"></div>
+			<div class="content">
 			<div class="top">Hi,${user}!!
 				<div class="logout"><a href="logout">Log out</a></div>
     			<div class="topTag" id="notification">Notification
@@ -143,6 +144,7 @@
 
 				</div>
 			</div>
+		</div>
 		</div>
 	</div>
 

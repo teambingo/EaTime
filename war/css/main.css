@@ -18,21 +18,23 @@ table {
 }
 
 .leftArrow {
-	position: fixed;
-	margin-left: -130px;
+	float: left;
 	margin-top: 250px;
 }
 
 .rightArrow {
-	position: fixed;
-	margin-left: 970px;
+	float: right;
 	margin-top: 250px;
 }
+
 .arrowImg {
 	width: 100px;
 	height: 100px;
 }
-
+.content {
+	margin-left: 100px;
+	margin-right: 100px;
+}
 .top {
 	width: 100%;
 	height: 100px;
