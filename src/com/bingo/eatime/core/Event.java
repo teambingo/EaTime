@@ -205,6 +205,8 @@ public final class Event {
 
 			TreeSet<Person> invites = EventManager.getInvitePeople(entity.getKey());
 			event.setInvites(invites);
+			TreeSet<Person> joins = EventManager.getJoinPeople(entity.getKey());
+			event.setJoins(joins);
 
 			return event;
 		} else {

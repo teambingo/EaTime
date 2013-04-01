@@ -14,6 +14,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.datastore.TransactionOptions;
@@ -132,6 +133,53 @@ public class EventManager {
 		Key eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventKeyId);
 		
 		return addInvites(people, eventKey);
+	}
+	
+	public static boolean addJoin(Person person, Key eventKey) {
+		HashSet<Person> people = new HashSet<Person>();
+		people.add(person);
+		
+		return addJoins(people, eventKey);
+	}
+	
+	public static boolean addJoin(Person person, long eventKeyId) {
+		Key eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventKeyId);
+		
+		return addJoin(person, eventKey);
+	}
+
+	public static boolean addJoins(Iterable<Person> people, Key eventKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		Transaction txn = datastore.beginTransaction();
+		try {
+			for (Person person : people) {
+				Key personKey = person.getKey();
+				if (personKey == null) {
+					txn.rollback();
+					throw new NullKeyException("Person Key is null.");
+				}
+
+				Entity personKeyEntity = createJoinPersonKeyEntity(personKey, eventKey);
+				datastore.put(personKeyEntity);
+			}
+			txn.commit();
+		} finally {
+			if (txn.isActive()) {
+				txn.rollback();
+
+				return false;
+			}
+		}
+
+		return true;
+	}
+	
+	public static boolean addJoins(Iterable<Person> people, long eventKeyId) {
+		Key eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventKeyId);
+		
+		return addJoins(people, eventKey);
 	}
 
 	/**
@@ -299,6 +347,38 @@ public class EventManager {
 			return joinPeople;
 		} else {
 			return null;
+		}
+	}
+	
+	public static boolean removePersonFromInvites(Key personKey, Key eventKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		
+		Query q = new Query(Event.KIND_PERSONKEY, eventKey);
+		Filter personKeyFilter = new FilterPredicate(Event.PROPERTY_PERSONKEY, 
+				FilterOperator.EQUAL, personKey);
+		q.setFilter(personKeyFilter);
+		
+		PreparedQuery pq = datastore.prepare(q);
+		try {
+			for (Entity entity : pq.asIterable()) {
+				datastore.delete(entity.getKey());
+			}
+		} catch (RuntimeException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public static boolean joinEvent(Key personKey, Key eventKey) {
+		Person person = PersonManager.getPerson(personKey);
+		boolean addResult = addJoin(person, eventKey);
+		if (addResult) {
+			boolean removeResult = removePersonFromInvites(personKey, eventKey);
+			return removeResult;
+		} else {
+			return addResult;
 		}
 	}
 
