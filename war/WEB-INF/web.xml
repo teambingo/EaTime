@@ -9,6 +9,10 @@
 		<servlet-class>com.bingo.eatime.EaTimeLoginServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>EaTimeLogOut</servlet-name>
+		<servlet-class>com.bingo.eatime.EaTimeLogOut</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>EaTimeDatabaseTest</servlet-name>
 		<servlet-class>com.bingo.eatime.test.EaTimeDatabaseTestServlet</servlet-class>
 	</servlet>
@@ -28,6 +32,10 @@
 	<servlet-mapping>
 		<servlet-name>EaTimeLogin</servlet-name>
 		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EaTimeLogOut</servlet-name>
+		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>EaTimeDatabaseTest</servlet-name>

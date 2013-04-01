@@ -40,9 +40,8 @@
 
 	<div class="page">
 		<div class="container">
-			<button onclick="testClick()">Check it out</button>
 			<div class="top">Hi,${user}!!
-				<div class="logout">Log out</div>
+				<div class="logout"><a href="logout">Log out</a></div>
     			<div class="topTag" id="notification">Notification
   					<div class="alert">
   						<button type="button" class="close" data-dismiss="alert">&times;</button>
