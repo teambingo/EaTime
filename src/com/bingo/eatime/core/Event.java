@@ -117,7 +117,12 @@ public final class Event {
 		TreeSet<Event> events = new TreeSet<Event>(new Comparator<Event>() {
 			@Override
 			public int compare(Event o1, Event o2) {
-				int timeDiff = o1.getTime().compareTo(o2.getTime());
+				Calendar o1Time = Calendar.getInstance();
+				o1Time.setTime(o1.getTime());
+				Calendar o2Time = Calendar.getInstance();
+				o2Time.setTime(o2.getTime());
+				int timeDiff = (o1Time.get(Calendar.HOUR_OF_DAY) * 60 + o1Time.get(Calendar.MINUTE)
+						) - (o2Time.get(Calendar.HOUR_OF_DAY) * 60 + o2Time.get(Calendar.MINUTE));
 				if (timeDiff == 0) {
 					return (int) (o1.getKey().getId() - o2.getKey().getId());
 				} else {
