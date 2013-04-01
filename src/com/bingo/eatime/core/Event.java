@@ -11,6 +11,7 @@ import com.google.appengine.api.datastore.Key;
 public final class Event {
 
 	public static final String KIND_EVENT = "event";
+	public static final String KIND_JOIN_PERSONKEY = "join-person-key";
 	public static final String KIND_PERSONKEY = "person-key";
 
 	public static final String PROPERTY_NAME = "name";
@@ -24,6 +25,7 @@ public final class Event {
 	private Key restaurantKey;
 	private Person creator;
 	private Date time;
+	private TreeSet<Person> joins;
 	private TreeSet<Person> invites;
 
 	private Event() {
@@ -76,6 +78,40 @@ public final class Event {
 	private Event setTime(Date time) {
 		this.time = time;
 
+		return this;
+	}
+
+	public TreeSet<Person> getJoins() {
+		return joins;
+	}
+
+	private Event setJoins(TreeSet<Person> joins) {
+		this.joins = joins;
+		
+		return this;
+	}
+	
+	protected Event addJoin(Person join) {
+		if (this.joins == null) {
+			this.joins = Person.newPeople();
+		}
+		
+		this.joins.add(join);
+		
+		return this;
+	}
+	
+	protected Event addJoins(Iterable<Person> joins) {
+		if (this.joins == null) {
+			this.joins = Person.newPeople();
+		}
+		
+		if (joins != null) {
+			for (Person join : joins) {
+				this.joins.add(join);
+			}
+		}
+		
 		return this;
 	}
 
@@ -167,9 +203,7 @@ public final class Event {
 			Person creator = PersonManager.getPerson(creatorKey);
 			event.setCreator(creator);
 
-			Iterable<Entity> inviteEntities = EventManager
-					.getInviteEntities(entity.getKey());
-			TreeSet<Person> invites = Person.createPeople(inviteEntities);
+			TreeSet<Person> invites = EventManager.getInvitePeople(entity.getKey());
 			event.setInvites(invites);
 
 			return event;

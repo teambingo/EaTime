@@ -61,6 +61,19 @@ public class EventManager {
 					datastore.put(personKeyEntity);
 				}
 			}
+			
+			if (event.getJoins() != null) {
+				for (Person person : event.getJoins()) {
+					Key personKey = person.getKey();
+					if (personKey == null) {
+						txn.rollback();
+						throw new NullKeyException("Person Key is null.");
+					}
+					
+					Entity joinPersonKeyEntity = createJoinPersonKeyEntity(personKey, eventKey);
+					datastore.put(joinPersonKeyEntity);
+				}
+			}
 
 			txn.commit();
 		} finally {
@@ -254,12 +267,53 @@ public class EventManager {
 			return null;
 		}
 	}
+	
+	public static Iterable<Entity> getJoinEntities(Key eventKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		Query q = new Query(Event.KIND_JOIN_PERSONKEY, eventKey);
+
+		PreparedQuery pq = datastore.prepare(q);
+
+		HashSet<Entity> joinEntities = new HashSet<Entity>();
+		try {
+			for (Entity entity : pq.asIterable()) {
+				Key personKey = (Key) entity.getProperty(Event.PROPERTY_PERSONKEY);
+
+				Entity personEntity = datastore.get(personKey);
+				joinEntities.add(personEntity);
+			}
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
+
+		return joinEntities;
+	}
+
+	public static TreeSet<Person> getJoinPeople(Key eventKey) {
+		Iterable<Entity> joinEntities = getJoinEntities(eventKey);
+		if (joinEntities != null) {
+			TreeSet<Person> joinPeople = Person.createPeople(joinEntities);
+
+			return joinPeople;
+		} else {
+			return null;
+		}
+	}
 
 	protected static Entity createPersonKeyEntity(Key personKey, Key eventKey) {
 		Entity personKeyEntity = new Entity(Event.KIND_PERSONKEY, eventKey);
 		personKeyEntity.setProperty(Event.PROPERTY_PERSONKEY, personKey);
 
 		return personKeyEntity;
+	}
+	
+	protected static Entity createJoinPersonKeyEntity(Key personKey, Key eventKey) {
+		Entity joinPersonKeyEntity = new Entity(Event.KIND_JOIN_PERSONKEY, eventKey);
+		joinPersonKeyEntity.setProperty(Event.PROPERTY_PERSONKEY, personKey);
+		
+		return joinPersonKeyEntity;
 	}
 
 }
