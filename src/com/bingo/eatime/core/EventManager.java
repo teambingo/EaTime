@@ -372,7 +372,14 @@ public class EventManager {
 	}
 	
 	public static boolean joinEvent(Key personKey, Key eventKey) {
-		return true;
+		Person person = PersonManager.getPerson(personKey);
+		boolean addResult = addJoin(person, eventKey);
+		if (addResult) {
+			boolean removeResult = removePersonFromInvites(personKey, eventKey);
+			return removeResult;
+		} else {
+			return addResult;
+		}
 	}
 
 	protected static Entity createPersonKeyEntity(Key personKey, Key eventKey) {
