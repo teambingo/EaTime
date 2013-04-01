@@ -29,17 +29,18 @@
 <!-- <script src="js/jquery.timePicker.js"></script> -->
 <script src="js/jquery.ui.timepicker.js"></script>
 <script src="js/main.js"></script>
-
+<script>
+		// Makes session username accessible via javascript
+		var username = '${user}';
+</script>
 </head>
 
 <body>
-	<script>
-		// Makes session username accessible via javascript
-		var username = '${user}';
-	</script>
+	
 
 	<div class="page">
 		<div class="container">
+			<button onclick="testClick()">Check it out</button>
 			<div class="top">Hi,${user}!!
 				<div class="logout">Log out</div>
     			<div class="topTag" id="notification">Notification
@@ -78,14 +79,14 @@
 								if (restaurants != null) {
 									for (Restaurant restaurant : restaurants) {
 							%>
-							<div class="restaurant-header">
-								<p class="restaurant" id=<%=restaurant.getKey().getName()%>><%=restaurant.getName()%></p>
+							<div class="restaurant-header" value="<%=restaurant.getKey().getName()%>">
+								<p class="restaurant" ><%=restaurant.getName()%></p>
 								<a href="#new-event-modal" role="button" class="btn" data-toggle="modal">Create
 									New Event</a>
 							</div>
 							<div class="events">
 						        <% 
-						        	TreeSet<Event> events = EventManager.getEventsFromRestaurant(restaurant.getKey());
+						        		TreeSet<Event> events = EventManager.getEventsFromRestaurant(restaurant.getKey());
 						        	if (events != null) {
 						        		Iterator<Event> iter = events.iterator();
 												while(iter.hasNext()) {

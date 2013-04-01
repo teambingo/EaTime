@@ -90,7 +90,7 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 		Person p1 = Person.createPerson("p1", "Random", "Guy", "randomguy1@example.com");
 		Key p1Key = PersonManager.addPerson(p1);
 		
-		Person p2 = Person.createPerson("p2", "Random", "Guy 2", "randomguy2@example.com");
+		Person p2 = Person.createPerson("ryan", "Ryan", "Chen", "chen769@example.com");
 		Key p2Key = PersonManager.addPerson(p2);
 		
 		List<Person> invites = new ArrayList<Person>();
