@@ -108,6 +108,7 @@ $(function() {
 						// succeed
 						//location.reload();
 						createEvent(restaurant,hourandmin[0],hourandmin[1]);
+						$('#new-event-modal').modal('hide');
 					} else {
 						// failed
 						// TODO display error message
