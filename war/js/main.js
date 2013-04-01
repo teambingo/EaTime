@@ -115,8 +115,7 @@ $(function() {
 						// TODO display error message
 						var reason = response['reason'];
 						console.log('create event failed', reason);
-						alert("succeed");
-						$('#new-event-modal').modal('hide');
+						
 					}
 				} else if (req.readyState == 4 && req.status == 500) {
 					// Internal Server Error
