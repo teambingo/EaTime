@@ -40,11 +40,17 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-//		testDb();
+		testDb();
+//		testRetrieveInvites();
 	}
 	
 	private void testRetrieveInvites() {
+		Key eventKey = Event.createKey(1, "happy-china");
+		Event event = EventManager.getEvent(eventKey);
 		
+		for (Person invite : event.getInvites()) {
+			log.info("invite: " + invite);
+		}
 	}
 
 	private void testDb() {
@@ -131,13 +137,13 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 		Key ryanKey = PersonManager.addPerson(ryan);
 		
 		Person p2 = Person.createPerson("p2", "Random", "Guy 2", "randomguy2@example.com");
-		Key p2Key = PersonManager.addPerson(p1);
+		Key p2Key = PersonManager.addPerson(p2);
 		
 		Person p3 = Person.createPerson("p3", "Random", "Guy 3", "randomguy3@example.com");
-		Key p3Key = PersonManager.addPerson(p1);
+		Key p3Key = PersonManager.addPerson(p3);
 		
 		Person p4 = Person.createPerson("p4", "Random", "Guy 4", "randomguy4@example.com");
-		Key p4Key = PersonManager.addPerson(p1);
+		Key p4Key = PersonManager.addPerson(p4);
 		
 		List<Person> invites = new ArrayList<Person>();
 		invites.add(p1);
