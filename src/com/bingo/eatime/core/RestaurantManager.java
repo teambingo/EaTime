@@ -72,8 +72,7 @@ public class RestaurantManager {
 	}
 	
 	public static Entity getRestaurantEntity(String restaurantKeyName) {
-		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
-				restaurantKeyName);
+		Key restaurantKey = Restaurant.createKey(restaurantKeyName);
 		
 		return getRestaurantEntity(restaurantKey);
 	}
@@ -91,8 +90,7 @@ public class RestaurantManager {
 	}
 	
 	public static Restaurant getRestaurant(String restaurantKeyName) {
-		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, 
-				restaurantKeyName);
+		Key restaurantKey = Restaurant.createKey(restaurantKeyName);
 		
 		return getRestaurant(restaurantKey);
 	}

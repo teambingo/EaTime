@@ -234,11 +234,11 @@ public final class Event {
 		}
 	}
 	
-	public Key createKey(long eventKeyId, Key restaurantKey) {
+	public static Key createKey(long eventKeyId, Key restaurantKey) {
 		return KeyFactory.createKey(restaurantKey, KIND_EVENT, eventKeyId);
 	}
 	
-	public Key createKey(long eventKeyId, String restaurantKeyName) {
+	public static Key createKey(long eventKeyId, String restaurantKeyName) {
 		return createKey(eventKeyId, Restaurant.createKey(restaurantKeyName));
 	}
 	

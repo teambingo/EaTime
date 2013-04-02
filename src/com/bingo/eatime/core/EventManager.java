@@ -96,8 +96,7 @@ public class EventManager {
 	}
 	
 	public static boolean addInvite(Person person, long eventKeyId, String restaurantKeyName) {
-		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, restaurantKeyName);
-		Key eventKey = KeyFactory.createKey(restaurantKey, Event.KIND_EVENT, eventKeyId);
+		Key eventKey = Event.createKey(eventKeyId, restaurantKeyName);
 		
 		return addInvite(person, eventKey);
 	}
@@ -131,8 +130,7 @@ public class EventManager {
 	}
 	
 	public static boolean addInvites(Iterable<Person> people, long eventKeyId, String restaurantKeyName) {
-		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, restaurantKeyName);
-		Key eventKey = KeyFactory.createKey(restaurantKey, Event.KIND_EVENT, eventKeyId);
+		Key eventKey = Event.createKey(eventKeyId, restaurantKeyName);
 		
 		return addInvites(people, eventKey);
 	}
@@ -145,8 +143,7 @@ public class EventManager {
 	}
 	
 	public static boolean addJoin(Person person, long eventKeyId, String restaurantKeyName) {
-		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, restaurantKeyName);
-		Key eventKey = KeyFactory.createKey(restaurantKey, Event.KIND_EVENT, eventKeyId);
+		Key eventKey = Event.createKey(eventKeyId, restaurantKeyName);
 		
 		return addJoin(person, eventKey);
 	}
@@ -180,8 +177,7 @@ public class EventManager {
 	}
 	
 	public static boolean addJoins(Iterable<Person> people, long eventKeyId, String restaurantKeyName) {
-		Key restaurantKey = KeyFactory.createKey(Restaurant.KIND_RESTAURANT, restaurantKeyName);
-		Key eventKey = KeyFactory.createKey(restaurantKey, Event.KIND_EVENT, eventKeyId);
+		Key eventKey = Event.createKey(eventKeyId, restaurantKeyName);
 		
 		return addJoins(people, eventKey);
 	}
