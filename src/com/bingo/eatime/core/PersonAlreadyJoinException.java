@@ -8,8 +8,8 @@ public class PersonAlreadyJoinException extends RuntimeException {
 
 	}
 	
-	public PersonAlreadyJoinException(String msg) {
-		super(msg);
+	public PersonAlreadyJoinException(String message) {
+		super(message);
 
 	}
 
@@ -18,8 +18,8 @@ public class PersonAlreadyJoinException extends RuntimeException {
 		
 	}
 
-	public PersonAlreadyJoinException(String msg, Throwable cause) {
-		super(msg, cause);
+	public PersonAlreadyJoinException(String message, Throwable cause) {
+		super(message, cause);
 		
 	}
 

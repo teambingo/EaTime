@@ -8,6 +8,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
@@ -179,6 +180,23 @@ public class EventManager {
 		Key eventKey = Event.createKey(eventKeyId, restaurantKeyName);
 		
 		return addJoins(people, eventKey);
+	}
+	
+	public static boolean isJoined(Key personKey, Key eventKey) {
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		
+		Query q = new Query(eventKey);
+		Filter personKeyFilter = new FilterPredicate(Event.PROPERTY_PERSONKEY, FilterOperator.EQUAL, personKey);
+		q.setFilter(personKeyFilter);
+		
+		PreparedQuery pq = datastore.prepare(q);
+		
+		FetchOptions fo = FetchOptions.Builder.withLimit(1);
+		if (pq.countEntities(fo) > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public static Entity getEventEntity(Key eventKey) {

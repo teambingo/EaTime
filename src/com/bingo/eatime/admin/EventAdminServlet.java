@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bingo.eatime.core.Event;
 import com.bingo.eatime.core.EventManager;
 import com.bingo.eatime.core.Person;
+import com.bingo.eatime.core.PersonAlreadyJoinException;
 import com.bingo.eatime.core.PersonManager;
 import com.bingo.eatime.core.Restaurant;
 import com.bingo.eatime.core.RestaurantManager;
@@ -31,6 +32,7 @@ public class EventAdminServlet extends HttpServlet {
 	
 	// Level 100 error - low priority error
 	private static final int ERROR_UNKNOWN = 100;
+	private static final int ERROR_ALREADY_JOINED = 101;
 	
 	// Level 200 error - argument error
 	private static final int ERROR_MISSING_ARGUMENT = 200;
@@ -212,6 +214,9 @@ public class EventAdminServlet extends HttpServlet {
 				break;
 			case ERROR_RESTAURANT_NOT_FOUND:
 				reason = "Restaurant not found.";
+				break;
+			case ERROR_ALREADY_JOINED:
+				reason = "Already joined this event.";
 				break;
 			default:
 				break;

@@ -176,8 +176,8 @@ public class PersonManager {
 
 		PreparedQuery pq = datastore.prepare(q);
 
-		FetchOptions fq = FetchOptions.Builder.withLimit(2);
-		List<Entity> personEntities = pq.asList(fq);
+		FetchOptions fo = FetchOptions.Builder.withLimit(2);
+		List<Entity> personEntities = pq.asList(fo);
 
 		if (personEntities.size() == 1) {
 			return personEntities.get(0);
