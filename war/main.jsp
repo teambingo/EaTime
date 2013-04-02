@@ -41,7 +41,13 @@
 	<div class="page">
 		<div class="container">
 			<div class="top">Hi,${user}!!
-			<% Person me=PersonManager.getPersonByUsername((String)request.getSession().getAttribute("user")); %>
+			<%
+				String username = (String) request.getSession().getAttribute("user");
+				Person me = null;
+				if (username != null) {
+					me = PersonManager.getPersonByUsername(username);
+				}
+			%>
 				<div class="logout"><a href="logout">Log out</a></div>
 				<div class="topTag" id="notification"><a href="profile.html">Notification</a>
 					<div class="alert">
@@ -120,10 +126,15 @@
 									%>
 										<button type="submit" class="btn btn-info join" onclick="invite(this)" value="invite">Invite!</button>
 									<%
-									}else{
-										System.out.println(me.getKey());
-										System.out.println(event.getKey());
-										if(EventManager.isJoined(me.getKey(), event.getKey())){
+									} else {
+										// System.out.println(me.getKey());
+										// System.out.println(event.getKey());
+										boolean isJoined = false;
+										if (me != null) {
+											isJoined = EventManager.isJoined(me.getKey(), event.getKey());
+										}
+										
+										if (isJoined){
 											
 									%>
 										<button type="submit" class="btn btn-info disabled join" value="join">Join!</button>

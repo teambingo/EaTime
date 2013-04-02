@@ -133,11 +133,17 @@ public class EventAdminServlet extends HttpServlet {
 				// Add new invites
 				if (status == STATUS_SUCCEED && eventId != null && invites != null 
 						&& restaurantKeyName != null) {
-					boolean result = EventManager.addInvites(invites, eventId, restaurantKeyName);
-					if (result) {
-						eventKey = Event.createKey(eventId, restaurantKeyName);
-					} else if (ERROR_DATABASE_FAILED > status) {
-						status = ERROR_DATABASE_FAILED;
+					try {
+						boolean result = EventManager.addInvites(invites, eventId, restaurantKeyName);
+						if (result) {
+							eventKey = Event.createKey(eventId, restaurantKeyName);
+						} else if (ERROR_DATABASE_FAILED > status) {
+							status = ERROR_DATABASE_FAILED;
+						}
+					} catch (PersonAlreadyJoinException e) {
+						if (ERROR_ALREADY_JOINED > status) {
+							status = ERROR_ALREADY_JOINED;
+						}
 					}
 				} else if (ERROR_MISSING_ARGUMENT > status) {
 					status = ERROR_MISSING_ARGUMENT;

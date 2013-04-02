@@ -113,6 +113,12 @@ public class EventManager {
 					txn.rollback();
 					throw new NullKeyException("Person Key is null.");
 				}
+				
+				if (isJoined(personKey, eventKey)) {
+					txn.rollback();
+					throw new PersonAlreadyJoinException("Person " + personKey.getName() + 
+							" already joined event " + eventKey.getId() + ".");
+				}
 
 				Entity personKeyEntity = createPersonKeyEntity(personKey, eventKey);
 				datastore.put(personKeyEntity);

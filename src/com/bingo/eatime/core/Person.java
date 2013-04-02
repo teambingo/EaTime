@@ -204,6 +204,10 @@ public class Person {
 			return people;
 		}
 	}
+	
+	public static Key createKey(String personKeyName) {
+		return KeyFactory.createKey(KIND_PERSON, personKeyName);
+	}
 
 	@Override
 	public String toString() {
