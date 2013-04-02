@@ -407,14 +407,14 @@ public class EventManager {
 	}
 
 	protected static Entity createPersonKeyEntity(Key personKey, Key eventKey) {
-		Entity personKeyEntity = new Entity(Event.KIND_PERSONKEY, eventKey);
+		Entity personKeyEntity = new Entity(Event.KIND_PERSONKEY, personKey.getName(), eventKey);
 		personKeyEntity.setProperty(Event.PROPERTY_PERSONKEY, personKey);
 
 		return personKeyEntity;
 	}
 	
 	protected static Entity createJoinPersonKeyEntity(Key personKey, Key eventKey) {
-		Entity joinPersonKeyEntity = new Entity(Event.KIND_JOIN_PERSONKEY, eventKey);
+		Entity joinPersonKeyEntity = new Entity(Event.KIND_JOIN_PERSONKEY, personKey.getName(), eventKey);
 		joinPersonKeyEntity.setProperty(Event.PROPERTY_PERSONKEY, personKey);
 		
 		return joinPersonKeyEntity;
