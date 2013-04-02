@@ -22,7 +22,6 @@ function testClick(){
 }
 
 $(function() {
-alert($('.container').css('width'));
 	$(".error").css("visibility","hidden");
 
 	$('.timepick').timepicker({
