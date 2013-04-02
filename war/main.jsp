@@ -92,7 +92,7 @@
 												while(iter.hasNext()) {
 													Event event = iter.next();
 						        %>
-						        <div class="row-fluid event" id=<%=event.getKey().getId()%>>
+						        <div class="row-fluid event" eventid=<%=event.getKey().getId()%>>
 						        	<div class="span2 headDiv"><img src="<%=event.getCreator().getGravatarUrlString()%>>" class="img-circle head"></div>
 						  			<div class="span2 orgDiv">
 						            	<div class="label label-info">Organizer</div>

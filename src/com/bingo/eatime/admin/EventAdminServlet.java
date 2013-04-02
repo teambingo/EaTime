@@ -127,7 +127,7 @@ public class EventAdminServlet extends HttpServlet {
 				} else if (ERROR_MISSING_ARGUMENT > status) {
 					status = ERROR_MISSING_ARGUMENT;
 				}
-			} else if (action.equals("append")) {
+			} else if (action.equals("invite")) {
 				// Add new invites
 				if (eventId != null && invites != null) {
 					boolean result = EventManager.addInvites(invites, eventId);
