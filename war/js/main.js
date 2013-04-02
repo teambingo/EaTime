@@ -8,7 +8,7 @@ function createEvent(restaurant,hour,min,eventname){
 	if($("*[value="+restaurant+"]").next().children('.event').length === 0){
 		br='';
 	}
-	var newEvent=$(br+'<div class="row-fluid event" id=1><div class="span2 headDiv"><img src="http://www.gravatar.com/avatar/7c46aa86b25a0d1e343affd790e10700.jpg?s=100>" class="img-circle head"></div><div class="span2 orgDiv"><div class="label label-info">Organizer</div><div class="display">'+username+'</div></div><div class="span2 eNameDiv"><div class="label label-info">Event Name</div><div class="display">'+eventname+'</div></div><div class="span2 timeDiv"><div class="label label-info">Time</div><br><div class="hourNum">'+hour+'</div> : <div class="minNum">'+min+'</div></div><div class="span2 countDiv"><div class="label label-info">Attendants</div><div class="display">0</div></div><div class="span2 joinDiv"><button type="submit" class="btn btn-info join">Join!</button></div>');
+	var newEvent=$(br+'<div class="row-fluid event" id=1><div class="span2 headDiv"><img src="http://www.gravatar.com/avatar/7c46aa86b25a0d1e343affd790e10700.jpg?s=100>" class="img-circle head"></div><div class="span2 orgDiv"><div class="label label-info">Organizer</div><div class="display">'+username+'</div></div><div class="span2 eNameDiv"><div class="label label-info">Event Name</div><div class="display">'+eventname+'</div></div><div class="span2 timeDiv"><div class="label label-info">Time</div><br><div class="hourNum">'+hour+'</div> : <div class="minNum">'+min+'</div></div><div class="span2 countDiv"><div class="label label-info">Attendants</div><div class="display">0</div></div><div class="span2 joinDiv"><button type="submit" class="btn btn-info join" onclick="invite(this)">Invite!</button></div>');
 	//newEvent.hide();
 	$("*[value="+restaurant+"]").next().each(function(){
 		$(this).append(newEvent.clone(true));
@@ -20,7 +20,10 @@ function createEvent(restaurant,hour,min,eventname){
 function testClick(){
 	createEvent('happy-china',11,10);
 }
-
+$(function() {
+    $( "#datepicker" ).datepicker();
+    $( "#datepicker" ).datepicker( "option", "defaultDate", +7 );
+  });
 $(function() {
 	$(".error").css("visibility","hidden");
 
@@ -126,3 +129,12 @@ $(function() {
 	});
 
 });
+
+function join(obj){
+	var restaurant=$(obj).parent().parent().parent().prev().attr('value');
+
+}
+
+function invite(obj){
+	var restaurant=$(obj).parent().parent().parent().prev().attr('value');
+}

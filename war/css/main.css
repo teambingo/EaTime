@@ -43,6 +43,16 @@ table {
 	margin-top: 5px;
 }
 
+.date {
+	float: right;
+	height: 38px;
+	margin-right: 30px;
+}
+
+#datepicker {
+	margin-top: 5px;
+	width: 80px !important;
+}
 
 .restaurant {
 	width: 80%;

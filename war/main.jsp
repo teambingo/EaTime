@@ -42,7 +42,7 @@
 		<div class="container">
 			<div class="top">Hi,${user}!!
 				<div class="logout"><a href="logout">Log out</a></div>
-    			<div class="topTag" id="notification">Notification
+    			<div class="topTag" id="notification"><a href="profile.html">Notification</a>
   					<div class="alert">
   						<button type="button" class="close" data-dismiss="alert">&times;</button>
   						You have 3 invitations
@@ -63,6 +63,7 @@
 							}
 						}
 					%>
+					<div class='date'>Date: <input type="text" id="datepicker" value="04/01/2013"/></div>
 				</ul>
 				
 				<!-- restaurant body -->
@@ -113,7 +114,17 @@
 						            	<div class="display"><%=event.getInvites() != null ? event.getInvites().size() : 0%></div>
 						            </div>
 						            <div class="span2 joinDiv">
-						            	<button type="submit" class="btn btn-info join">Join!</button>
+						            	<% 
+						            if(event.getCreator().getUsername().equals(request.getSession().getAttribute("user"))){
+						            %>
+						            	<button type="submit" class="btn btn-info join" onclick="invite(this)">Invite!</button>
+						            <%
+						            }else{
+						            %>
+										<button type="submit" class="btn btn-info join" onclick="join(this)">Join!</button>
+						            <%
+						            }
+						            %>
 						            </div>
 								</div>
 								<%
