@@ -145,18 +145,18 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 		Person p4 = Person.createPerson("p4", "Random", "Guy 4", "randomguy4@example.com");
 		Key p4Key = PersonManager.addPerson(p4);
 		
-		List<Person> invites = new ArrayList<Person>();
-		invites.add(p1);
-		invites.add(ryan);
-
-		Event sampleEvent = Event.createEvent("Sample Event",
-				restaurantHappyChina, me,
-				new Date(System.currentTimeMillis()), invites);
-		EventManager.addEvent(sampleEvent);
-		
-		TreeSet<Event> returnSampleEvents = EventManager.getEventsFromRestaurant(restaurantHappyChina.getKey());
-		for (Event event : returnSampleEvents) {
-			log.info("found event " + event);
-		}
+//		List<Person> invites = new ArrayList<Person>();
+//		invites.add(p1);
+//		invites.add(ryan);
+//
+//		Event sampleEvent = Event.createEvent("Sample Event",
+//				restaurantHappyChina, me,
+//				new Date(System.currentTimeMillis()), invites);
+//		EventManager.addEvent(sampleEvent);
+//		
+//		TreeSet<Event> returnSampleEvents = EventManager.getEventsFromRestaurant(restaurantHappyChina.getKey());
+//		for (Event event : returnSampleEvents) {
+//			log.info("found event " + event);
+//		}
 	}
 }
