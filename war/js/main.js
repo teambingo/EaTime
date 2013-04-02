@@ -146,7 +146,7 @@ function invite(obj){
 		var url = "/event?";
 			url += "action=invite";
 			url += "&id=" + eventID;
-			url += "&rid=" + restaurant;
+			url += "&restaurant=" + restaurant;
 
 			if ($("#inviteContent").val() !== '') {
 				for (var i = 0;  i < invites.length; i++) {
