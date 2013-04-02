@@ -181,6 +181,31 @@ public class EventManager {
 		
 		return addJoins(people, eventKey);
 	}
+	
+	public static Entity getEventEntity(Key eventKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		
+		try {
+			Entity eventEntity = datastore.get(eventKey);
+			
+			return eventEntity;
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
+	}
+	
+	public static Event getEvent(Key eventKey) {
+		Entity eventEntity = getEventEntity(eventKey);
+		
+		if (eventEntity != null) {
+			Event event = Event.createEvent(eventEntity);
+			
+			return event;
+		} else {
+			return null;
+		}
+	}
 
 	/**
 	 * Get all Event entities of a Restaurant key.
