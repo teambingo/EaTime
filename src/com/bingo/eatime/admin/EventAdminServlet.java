@@ -118,7 +118,8 @@ public class EventAdminServlet extends HttpServlet {
 		if (action != null) {
 			if (action.equals("add")) {
 				// Create new event
-				if (eventName != null && restaurant != null && creator != null && time != null) {
+				if (status == STATUS_SUCCEED && eventName != null && 
+						restaurant != null && creator != null && time != null) {
 					Event event = Event.createEvent(eventName, restaurant, creator, time, invites);
 					eventKey = EventManager.addEvent(event);
 					if (eventKey == null && ERROR_DATABASE_FAILED > status) {
@@ -129,7 +130,8 @@ public class EventAdminServlet extends HttpServlet {
 				}
 			} else if (action.equals("invite")) {
 				// Add new invites
-				if (eventId != null && invites != null && restaurantKeyName != null) {
+				if (status == STATUS_SUCCEED && eventId != null && invites != null 
+						&& restaurantKeyName != null) {
 					boolean result = EventManager.addInvites(invites, eventId, restaurantKeyName);
 					if (result) {
 						eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventId);

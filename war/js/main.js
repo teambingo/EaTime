@@ -98,50 +98,67 @@ $(function() {
 				}
 			}
 
-			console.log('url', url);
+			console.log('create url', url);
 
-			var req = new XMLHttpRequest();
-			req.onreadystatechange = function() {
-				if (req.readyState == 4 && req.status == 200) {
-					var response = $.parseJSON(req.responseText);
-					var status = response['status'];
-					console.log('response', response);
+			$.getJSON(url, function(data) {
+				var status = data['status'];
 
-					if (status === 0) {
-						// succeed
-						//location.reload();
-						createEvent(restaurant,hourandmin[0],hourandmin[1],name);
-						$('#new-event-modal').modal('hide');
-					} else {
-						// failed
-						// TODO display error message
-						var reason = response['reason'];
-						console.log('create event failed', reason);
-					}
-				} else if (req.readyState == 4 && req.status == 500) {
-					// Internal Server Error
-					// TODO deal with it
+				if (status === 0) {
+					// succeed
+					createEvent(restaurant,hourandmin[0],hourandmin[1],name);
+					$('#new-event-modal').modal('hide');
+				} else {
+					// failed
+					var reason = data['reason'];
+					console.log('create failed', reason);
 				}
-			};
-			req.open('GET', url);
-			req.send();
+			})
+			.error(function() {
+				// Error
+				console.log('create request failed.');
+			});
+
+			// var req = new XMLHttpRequest();
+			// req.onreadystatechange = function() {
+			// 	if (req.readyState == 4 && req.status == 200) {
+			// 		var response = $.parseJSON(req.responseText);
+			// 		var status = response['status'];
+			// 		console.log('response', response);
+
+			// 		if (status === 0) {
+			// 			// succeed
+			// 			//location.reload();
+			// 			createEvent(restaurant,hourandmin[0],hourandmin[1],name);
+			// 			$('#new-event-modal').modal('hide');
+			// 		} else {
+			// 			// failed
+			// 			// TODO display error message
+			// 			var reason = response['reason'];
+			// 			console.log('create event failed', reason);
+			// 		}
+			// 	} else if (req.readyState == 4 && req.status == 500) {
+			// 		// Internal Server Error
+			// 		// TODO deal with it
+			// 	}
+			// };
+			// req.open('GET', url);
+			// req.send();
 		}
 	});
 
 });
 
-function join(obj){
+function join(obj) {
 	var restaurant=$(obj).parent().parent().parent().prev().attr('value');
 
 }
 
-function invite(obj){
+function invite(obj) {
 	$('#new-invite-modal').modal('show');
-	var restaurant=$(obj).parent().parent().parent().prev().attr('value');
-	var eventID=$(obj).parent().parent().attr('eventid');
-	$('#inviteBtn').click(function(){
+	var restaurant = $(obj).parent().parent().parent().prev().attr('value');
+	var eventID = $(obj).parent().parent().attr('eventid');
+	$('#inviteBtn').click(function() {
 		var invites=$('#inviteContent').val().split(',');
-
 
 		var url = "/event?";
 			url += "action=invite";
@@ -155,7 +172,12 @@ function invite(obj){
 					}
 				}
 			}
-		//TODO AJAX TO CONNECT SERVER
 
+		console.log('invite url', url);
+
+		//TODO AJAX TO CONNECT SERVER
+		$.getJSON(url, function(data) {
+
+		});
 	});
 }
