@@ -47,7 +47,7 @@ public class EventAdminServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
 		int status = STATUS_SUCCEED;
-		List<String> usernameNotFoundList = new ArrayList<String>();
+		List<String> usernameList = new ArrayList<String>();
 		
 		// Get arguments strings from parameters
 		String action = req.getParameter("action");
@@ -87,7 +87,7 @@ public class EventAdminServlet extends HttpServlet {
 				Person invite = PersonManager.getPersonByUsername(inviteUsername);
 				if (invite == null && ERROR_USERNAME_NOT_FOUND > status) {
 					status = ERROR_USERNAME_NOT_FOUND;
-					usernameNotFoundList.add(inviteUsername);
+					usernameList.add(inviteUsername);
 				} else {
 					invites.add(invite);
 				}
@@ -133,16 +133,19 @@ public class EventAdminServlet extends HttpServlet {
 				// Add new invites
 				if (status == STATUS_SUCCEED && eventId != null && invites != null 
 						&& restaurantKeyName != null) {
-					try {
-						boolean result = EventManager.addInvites(invites, eventId, restaurantKeyName);
-						if (result) {
-							eventKey = Event.createKey(eventId, restaurantKeyName);
-						} else if (ERROR_DATABASE_FAILED > status) {
-							status = ERROR_DATABASE_FAILED;
-						}
-					} catch (PersonAlreadyJoinException e) {
-						if (ERROR_ALREADY_JOINED > status) {
-							status = ERROR_ALREADY_JOINED;
+					for (Person invite : invites) {
+						try {
+							boolean result = EventManager.addInvite(invite, eventId, restaurantKeyName);
+							if (result) {
+								eventKey = Event.createKey(eventId, restaurantKeyName);
+							} else if (ERROR_DATABASE_FAILED > status) {
+								status = ERROR_DATABASE_FAILED;
+							}
+						} catch (PersonAlreadyJoinException e) {
+							if (ERROR_ALREADY_JOINED > status) {
+								status = ERROR_ALREADY_JOINED;
+								usernameList.add(invite.getUsername());
+							}
 						}
 					}
 				} else if (ERROR_MISSING_ARGUMENT > status) {
@@ -175,7 +178,7 @@ public class EventAdminServlet extends HttpServlet {
 			if (status == STATUS_SUCCEED && eventKey != null) {
 				writer.print(generateResponseJson(status, null));
 			} else {
-				writer.print(generateResponseJson(status, usernameNotFoundList));
+				writer.print(generateResponseJson(status, usernameList));
 			}
 		} catch (IOException e) {
 			log.log(Level.SEVERE, "Cannot get print writer.", e);
@@ -188,6 +191,7 @@ public class EventAdminServlet extends HttpServlet {
 			return "{ \"status\": " + status + " }";
 		} else {
 			String reason = "";
+			StringBuilder sb;
 			switch(status) {
 			case ERROR_UNKNOWN:
 				reason = "Unknown error.";
@@ -202,7 +206,7 @@ public class EventAdminServlet extends HttpServlet {
 				reason = "Update database failed.";
 				break;
 			case ERROR_USERNAME_NOT_FOUND:
-				StringBuilder sb = new StringBuilder();
+				sb = new StringBuilder();
 				sb.append("Following username not found: ");
 				for (String username : bundle) {
 					sb.append(username);
@@ -222,7 +226,15 @@ public class EventAdminServlet extends HttpServlet {
 				reason = "Restaurant not found.";
 				break;
 			case ERROR_ALREADY_JOINED:
-				reason = "Already joined this event.";
+				sb = new StringBuilder();
+				sb.append("Following people already joined this event: ");
+				for (String username : bundle) {
+					sb.append(username);
+					sb.append(", ");
+				}
+				sb.delete(sb.length() - 2, sb.length());
+				sb.append(".");
+				reason = sb.toString();
 				break;
 			default:
 				break;
