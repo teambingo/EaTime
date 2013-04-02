@@ -22,15 +22,16 @@ function createEvent(restaurant,hour,min,eventname){
 // }
 
 $(function() {
-    $( "#datepicker" ).datepicker();
-    $( "#datepicker" ).datepicker( "option", "defaultDate", +7 );
-  });
-$(function() {
 	$(".error").css("visibility","hidden");
+
 	$('.timepick').timepicker({
 		altField: '.timepick',
 		defaultTime: '12:00'
 	});
+
+	$( "#datepicker" ).datepicker();
+
+    $( "#datepicker" ).datepicker( "option", "defaultDate", +7 );
 
 	$('#myTab a').click(function (e) {
 		e.preventDefault();
