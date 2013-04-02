@@ -8,6 +8,8 @@
 <%@ page import="com.bingo.eatime.core.EventManager" %>
 <%@ page import="com.bingo.eatime.core.Restaurant"%>
 <%@ page import="com.bingo.eatime.core.Utilities"%>
+<%@ page import="com.bingo.eatime.core.Person"%>
+<%@ page import="com.bingo.eatime.core.PersonManager"%>
 <%@ page import="com.google.appengine.api.datastore.*,java.util.*"%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -39,6 +41,7 @@
 	<div class="page">
 		<div class="container">
 			<div class="top">Hi,${user}!!
+			<% Person me=PersonManager.getPersonByUsername((String)request.getSession().getAttribute("user")); %>
 				<div class="logout"><a href="logout">Log out</a></div>
 				<div class="topTag" id="notification"><a href="profile.html">Notification</a>
 					<div class="alert">
@@ -118,9 +121,18 @@
 										<button type="submit" class="btn btn-info join" onclick="invite(this)" value="invite">Invite!</button>
 									<%
 									}else{
+										System.out.println(me.getKey());
+										System.out.println(event.getKey());
+										if(EventManager.isJoined(me.getKey(), event.getKey())){
+											
+									%>
+										<button type="submit" class="btn btn-info disabled join" value="join">Join!</button>
+									<%
+										}else{
 									%>
 										<button type="submit" class="btn btn-info join" onclick="join(this)" value="join">Join!</button>
 									<%
+										}
 									}
 									%>
 									</div>

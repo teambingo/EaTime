@@ -185,7 +185,7 @@ public class EventManager {
 	public static boolean isJoined(Key personKey, Key eventKey) {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		
-		Query q = new Query(eventKey);
+		Query q = new Query(Event.KIND_JOIN_PERSONKEY, eventKey);
 		Filter personKeyFilter = new FilterPredicate(Event.PROPERTY_PERSONKEY, FilterOperator.EQUAL, personKey);
 		q.setFilter(personKeyFilter);
 		
