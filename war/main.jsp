@@ -52,7 +52,7 @@
        			<div class="topTag" id="profile">Profile</div>
 			</div>
 			<div class="down">
-				<ul class="nav nav-tabs" id="myTab">
+				<ul class="nav nav-tabs" id="cattabs">
 					<%
 						TreeSet<Category> categories = CategoryManager.getAllCategories();
 						if (categories != null) {

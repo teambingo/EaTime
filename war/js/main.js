@@ -33,7 +33,7 @@ $(function() {
 
     $( "#datepicker" ).datepicker( "option", "defaultDate", +7 );
 
-	$('#myTab a').click(function (e) {
+	$('#cattabs a').click(function (e) {
 		e.preventDefault();
 		$(this).tab('show');
 	});
