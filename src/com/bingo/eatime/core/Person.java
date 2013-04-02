@@ -17,17 +17,20 @@ import com.google.appengine.api.datastore.Link;
 public class Person {
 
 	public static final String KIND_PERSON = "person";
+	public static final String KIND_READ_EVENTKEY = "read-event-key";
 
 	public static final String PROPERTY_USERNAME = "username";
 	public static final String PROPERTY_FIRSTNAME = "firstname";
 	public static final String PROPERTY_LASTNAME = "lastname";
 	public static final String PROPERTY_EMAIL = "email";
+	public static final String PROPERTY_EVENTKEY = "event-id-key";
 
 	private Key key;
 	private String username;
 	private String firstName;
 	private String lastName;
 	private Email email;
+	private TreeSet<Event> readEvents;
 
 	protected Person() {
 
@@ -86,6 +89,16 @@ public class Person {
 	private Person setEmail(Email email) {
 		this.email = email;
 
+		return this;
+	}
+
+	public TreeSet<Event> getReadEvents() {
+		return readEvents;
+	}
+
+	private Person setReadEvents(TreeSet<Event> readEvents) {
+		this.readEvents = readEvents;
+		
 		return this;
 	}
 
@@ -163,6 +176,9 @@ public class Person {
 			person.setFirstName((String) entity.getProperty(PROPERTY_FIRSTNAME));
 			person.setLastName((String) entity.getProperty(PROPERTY_LASTNAME));
 			person.setEmail((Email) entity.getProperty(PROPERTY_EMAIL));
+			
+			TreeSet<Event> readEvents = PersonManager.getReadEvents(entity.getKey());
+			person.setReadEvents(readEvents);
 
 			return person;
 		} else {

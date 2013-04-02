@@ -14,6 +14,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Transaction;
 
@@ -44,6 +45,19 @@ public class PersonManager {
 			personEntity.setProperty(Person.PROPERTY_EMAIL, person.getEmail());
 
 			personKey = datastore.put(personEntity);
+			
+			if (person.getReadEvents() != null) {
+				for (Event event : person.getReadEvents()) {
+					Key eventKey = event.getKey();
+					if (eventKey == null) {
+						txn.rollback();
+						throw new NullKeyException("Event Key is null.");
+					}
+					
+					Entity eventKeyEntity = createReadEventKeyEntity(eventKey, personKey);
+					datastore.put(eventKeyEntity);
+				}
+			}
 
 			txn.commit();
 		} finally {
@@ -55,6 +69,40 @@ public class PersonManager {
 		}
 
 		return personKey;
+	}
+	
+	public static boolean addReadEvent(Key eventKey, Key personKey) {
+		HashSet<Key> eventKeys = new HashSet<Key>();
+		eventKeys.add(eventKey);
+		
+		return addReadEvents(eventKeys, personKey);
+	}
+	
+	public static boolean addReadEvents(Iterable<Key> eventKeys, Key personKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		
+		Transaction txn = datastore.beginTransaction();
+		try {
+			for (Key eventKey : eventKeys) {
+				if (eventKey == null) {
+					txn.rollback();
+					throw new NullKeyException("Event Key is null");
+				}
+				
+				Entity eventKeyEntity = createReadEventKeyEntity(eventKey, personKey);
+				datastore.put(eventKeyEntity);
+			}
+			txn.commit();
+		} finally {
+			if (txn.isActive()) {
+				txn.rollback();
+
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 	/**
@@ -178,5 +226,141 @@ public class PersonManager {
 		Iterable<Entity> personEntities = getPersonEntitiesByUsername(usernames);
 		
 		return Person.createPeople(personEntities);
+	}
+	
+	public static Iterable<Entity> getReadEventEntities(Key personKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		
+		Query q = new Query(Person.KIND_READ_EVENTKEY, personKey);
+		
+		PreparedQuery pq = datastore.prepare(q);
+		
+		HashSet<Entity> readEventEntities = new HashSet<Entity>();
+		try {
+			for (Entity entity : pq.asIterable()) {
+				Key eventKey = (Key) entity.getProperty(Person.PROPERTY_EVENTKEY);
+			
+				Entity readEventEntity = datastore.get(eventKey);
+				readEventEntities.add(readEventEntity);
+			}
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
+		
+		return readEventEntities;
+	}
+	
+	public static TreeSet<Event> getReadEvents(Key personKey) {
+		Iterable<Entity> readEventEntities = getReadEventEntities(personKey);
+		if (readEventEntities != null) {
+			TreeSet<Event> readEvents = Event.createEvents(readEventEntities);
+			
+			return readEvents;
+		} else {
+			return null;
+		}
+	}
+	
+	public static Iterable<Entity> getInviteEventEntities(Key personKey, boolean filterReadEvent) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		
+		Query q = new Query(Event.KIND_PERSONKEY);
+		Filter personKeyFilter = new FilterPredicate(Event.PROPERTY_PERSONKEY, FilterOperator.EQUAL, personKey);
+		q.setFilter(personKeyFilter);
+		
+		PreparedQuery pq = datastore.prepare(q);
+		
+		HashSet<Key> readEventKeys = null;
+		if (filterReadEvent) {
+			Iterable<Entity> readEventEntities = getReadEventEntities(personKey);
+			if (readEventEntities != null) {
+				readEventKeys = new HashSet<Key>();
+				for (Entity entity : readEventEntities) {
+					readEventKeys.add((Key) entity.getProperty(Person.PROPERTY_EVENTKEY));
+				}
+			}
+		}
+		
+		HashSet<Entity> inviteEventEntities = new HashSet<Entity>();
+		try {
+			for (Entity entity : pq.asIterable()) {
+				Key inviteEventKey = entity.getParent();
+				if (filterReadEvent && readEventKeys != null) {
+					if (!readEventKeys.contains(inviteEventKey)) {
+						Entity inviteEventEntity = datastore.get(inviteEventKey);
+						inviteEventEntities.add(inviteEventEntity);
+					}
+				} else {
+					Entity inviteEventEntity = datastore.get(inviteEventKey);
+					inviteEventEntities.add(inviteEventEntity);
+				}
+			}
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
+		
+		return inviteEventEntities;
+	}
+	
+	public static TreeSet<Event> getInviteEvents(Key personKey, boolean filterReadEvent) {
+		Iterable<Entity> inviteEventEntities = getInviteEventEntities(personKey, filterReadEvent);
+		
+		if (inviteEventEntities != null) {
+			TreeSet<Event> inviteEvents = Event.createEvents(inviteEventEntities);
+			
+			return inviteEvents;
+		} else {
+			return null;
+		}
+	}
+	
+	public static TreeSet<Event> getInviteEvents(Key personKey) {
+		return getInviteEvents(personKey, false);
+	}
+	
+	public static Iterable<Entity> getJoinEventEntities(Key personKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		
+		Query q = new Query(Event.KIND_JOIN_PERSONKEY);
+		Filter personKeyFilter = new FilterPredicate(Event.PROPERTY_PERSONKEY, FilterOperator.EQUAL, personKey);
+		q.setFilter(personKeyFilter);
+		
+		PreparedQuery pq = datastore.prepare(q);
+		
+		HashSet<Entity> joinEventEntities = new HashSet<Entity>();
+		try {
+			for (Entity entity : pq.asIterable()) {
+				Key joinEventKey = entity.getParent();
+				
+				Entity joinEventEntity = datastore.get(joinEventKey);
+				joinEventEntities.add(joinEventEntity);
+			}
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
+		
+		return joinEventEntities;
+	}
+	
+	public static TreeSet<Event> getJoinEvents(Key personKey) {
+		Iterable<Entity> joinEventEntities = getJoinEventEntities(personKey);
+		
+		if (joinEventEntities != null) {
+			TreeSet<Event> joinEvents = Event.createEvents(joinEventEntities);
+			
+			return joinEvents;
+		} else {
+			return null;
+		}
+	}
+	
+	protected static Entity createReadEventKeyEntity(Key eventKey, Key personKey) {
+		Entity readEventKeyEntity = new Entity(Person.KIND_READ_EVENTKEY, personKey);
+		readEventKeyEntity.setProperty(Person.PROPERTY_EVENTKEY, eventKey);
+		
+		return readEventKeyEntity;
 	}
 }
