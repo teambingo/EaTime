@@ -36,8 +36,6 @@
 </head>
 
 <body>
-	
-
 	<div class="page">
 		<div class="container">
 			<div class="top">Hi,${user}!!
