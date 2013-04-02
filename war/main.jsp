@@ -200,6 +200,5 @@
 			<button class="btn btn-primary" id="inviteBtn">Invite</button>
 	  	</div>
 	</div>
-
 </body>
 </html>

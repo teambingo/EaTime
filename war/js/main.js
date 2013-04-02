@@ -23,7 +23,6 @@ function createEvent(restaurant,hour,min,eventname){
 
 $(function() {
 	$(".error").css("visibility","hidden");
-
 	$('.timepick').timepicker({
 		altField: '.timepick',
 		defaultTime: '12:00'
@@ -140,6 +139,8 @@ function join(obj) {
 
 		if (status === 0) {
 			// succeed
+			console.log('join success');
+			$(obj).addClass('disabled');
 		} else {
 			// failed
 			var reason = data['reason'];
@@ -183,7 +184,7 @@ function invite(obj) {
 			} else {
 				// failed
 				var reason = data['reason'];
-				console.log('invite failed', reason);
+				console.log('invite failed', reason);	
 			}
 		})
 		.error(function() {
