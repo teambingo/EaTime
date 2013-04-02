@@ -17,9 +17,9 @@ function createEvent(restaurant,hour,min,eventname){
 	//newEvent.show(1000);
 }
 
-function testClick(){
-	createEvent('happy-china',11,10);
-}
+// function testClick(){
+// 	createEvent('happy-china',11,10);
+// }
 
 $(function() {
     $( "#datepicker" ).datepicker();
@@ -117,32 +117,6 @@ $(function() {
 				// Error
 				console.log('create request failed.');
 			});
-
-			// var req = new XMLHttpRequest();
-			// req.onreadystatechange = function() {
-			// 	if (req.readyState == 4 && req.status == 200) {
-			// 		var response = $.parseJSON(req.responseText);
-			// 		var status = response['status'];
-			// 		console.log('response', response);
-
-			// 		if (status === 0) {
-			// 			// succeed
-			// 			//location.reload();
-			// 			createEvent(restaurant,hourandmin[0],hourandmin[1],name);
-			// 			$('#new-event-modal').modal('hide');
-			// 		} else {
-			// 			// failed
-			// 			// TODO display error message
-			// 			var reason = response['reason'];
-			// 			console.log('create event failed', reason);
-			// 		}
-			// 	} else if (req.readyState == 4 && req.status == 500) {
-			// 		// Internal Server Error
-			// 		// TODO deal with it
-			// 	}
-			// };
-			// req.open('GET', url);
-			// req.send();
 		}
 	});
 
@@ -177,7 +151,19 @@ function invite(obj) {
 
 		//TODO AJAX TO CONNECT SERVER
 		$.getJSON(url, function(data) {
+			var status = data['status'];
 
+			if (status === 0) {
+				// succeed
+			} else {
+				// failed
+				var reason = data['reason'];
+				console.log('invite failed', reason);
+			}
+		})
+		.error(function() {
+			// Error
+			console.log('invite request failed.');
 		});
 	});
 }
