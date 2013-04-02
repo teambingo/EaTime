@@ -124,8 +124,32 @@ $(function() {
 });
 
 function join(obj) {
-	var restaurant=$(obj).parent().parent().parent().prev().attr('value');
+	var restaurant = $(obj).parent().parent().parent().prev().attr('value');
+	var eventID = $(obj).parent().parent().attr('eventid');
 
+	var url = "/event?";
+		url += "action=join";
+		url += "&id=" + eventID;
+		url += '&restaurant=' + restaurant;
+		url += "&username=" + username;
+
+	console.log('join url', url);
+
+	$.getJSON(url, function(data) {
+		var status = data['status'];
+
+		if (status === 0) {
+			// succeed
+		} else {
+			// failed
+			var reason = data['reason'];
+			console.log('join failed', reason);
+		}
+	})
+	.error(function() {
+		// Error
+		console.log('join request failed.');
+	});
 }
 
 function invite(obj) {

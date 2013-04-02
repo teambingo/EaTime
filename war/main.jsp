@@ -30,8 +30,8 @@
 <script src="js/jquery.ui.timepicker.js"></script>
 <script src="js/main.js"></script>
 <script>
-		// Makes session username accessible via javascript
-		var username = '${user}';
+	// Makes session username accessible via javascript
+	var username = '${user}';
 </script>
 </head>
 
@@ -40,14 +40,14 @@
 		<div class="container">
 			<div class="top">Hi,${user}!!
 				<div class="logout"><a href="logout">Log out</a></div>
-    			<div class="topTag" id="notification"><a href="profile.html">Notification</a>
-  					<div class="alert">
-  						<button type="button" class="close" data-dismiss="alert">&times;</button>
-  						You have 3 invitations
+				<div class="topTag" id="notification"><a href="profile.html">Notification</a>
+					<div class="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						You have 3 invitations
 					</div>
 				</div>
-       			<div class="topTag" id="events">Events</div>
-       			<div class="topTag" id="profile">Profile</div>
+				<div class="topTag" id="events">Events</div>
+				<div class="topTag" id="profile">Profile</div>
 			</div>
 			<div class="down">
 				<ul class="nav nav-tabs" id="cattabs">
@@ -83,47 +83,47 @@
 									New Event</a>
 							</div>
 							<div class="events">
-						        <% 
-						        		TreeSet<Event> events = EventManager.getEventsFromRestaurant(restaurant.getKey());
-						        	if (events != null) {
-						        		Iterator<Event> iter = events.iterator();
+								<% 
+										TreeSet<Event> events = EventManager.getEventsFromRestaurant(restaurant.getKey());
+									if (events != null) {
+										Iterator<Event> iter = events.iterator();
 												while(iter.hasNext()) {
 													Event event = iter.next();
-						        %>
-						        <div class="row-fluid event" eventid=<%=event.getKey().getId()%>>
-						        	<div class="span2 headDiv"><img src="<%=event.getCreator().getGravatarUrlString()%>>" class="img-circle head"></div>
-						  			<div class="span2 orgDiv">
-						            	<div class="label label-info">Organizer</div>
-						            	<div class="display"><%=event.getCreator().getFullName(true)%></div>
-						            </div>
-						            <div class="span2 eNameDiv">
+								%>
+								<div class="row-fluid event" eventid=<%=event.getKey().getId()%>>
+									<div class="span2 headDiv"><img src="<%=event.getCreator().getGravatarUrlString()%>>" class="img-circle head"></div>
+									<div class="span2 orgDiv">
+										<div class="label label-info">Organizer</div>
+										<div class="display"><%=event.getCreator().getFullName(true)%></div>
+									</div>
+									<div class="span2 eNameDiv">
 										<div class="label label-info">Event Name</div>
 										<div class="display"><%=event.getName()%></div>
-						            </div>
-						  			<div class="span2 timeDiv">
-						            	<div class="label label-info">Time</div>
-						            	<br>
+									</div>
+									<div class="span2 timeDiv">
+										<div class="label label-info">Time</div>
+										<br>
 										<div class="hourNum"><%=Utilities.getDateHourString(event.getTime())%></div>
 										:
 										<div class="minNum"><%=Utilities.getDateMinString(event.getTime())%></div>
-						            </div>
-						            <div class="span2 countDiv">
-						            	<div class="label label-info">Attendants</div>
-						            	<div class="display"><%=event.getInvites() != null ? event.getInvites().size() : 0%></div>
-						            </div>
-						            <div class="span2 joinDiv">
-						            	<% 
-						            if(event.getCreator().getUsername().equals(request.getSession().getAttribute("user"))){
-						            %>
-						            	<button type="submit" class="btn btn-info join" onclick="invite(this)" value="invite">Invite!</button>
-						            <%
-						            }else{
-						            %>
+									</div>
+									<div class="span2 countDiv">
+										<div class="label label-info">Attendants</div>
+										<div class="display"><%=event.getJoins() != null ? event.getJoins().size() : 0%></div>
+									</div>
+									<div class="span2 joinDiv">
+										<% 
+									if(event.getCreator().getUsername().equals(request.getSession().getAttribute("user"))){
+									%>
+										<button type="submit" class="btn btn-info join" onclick="invite(this)" value="invite">Invite!</button>
+									<%
+									}else{
+									%>
 										<button type="submit" class="btn btn-info join" onclick="join(this)" value="join">Join!</button>
-						            <%
-						            }
-						            %>
-						            </div>
+									<%
+									}
+									%>
+									</div>
 								</div>
 								<%
 												if(iter.hasNext()) {
@@ -131,8 +131,8 @@
 								<hr>
 								<%	
 												}
-					        		}
-					        	}
+									}
+								}
 								%>
 							</div>
 							<%
@@ -156,48 +156,50 @@
 	<!-- new event modal -->
 	<div id="new-event-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="new-event-modal-label" aria-hidden="true">
 	  <div class="modal-header">
-	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-	    <h3 id="new-event-modal-label">New Event</h3>
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+		<h3 id="new-event-modal-label">New Event</h3>
 	  </div>
 	  <div class="modal-body">
-  		<table class="new-event-table">
-  			<tbody>
-  				<tr>
-  					<td><span class="table-label label">Name:</span></td>
-  					<td><input type="text" id="event-name" class="modal-input" placeholder="Event name"><span class="alert alert-error error">Please Enter Event Name</span></td>
-  				</tr>
-  				<tr>
-  					<td><span class="table-label label">Time:</span></td>
-  					<td><div class="timepick"></div></td>
-  					<!-- <td><input type="text" id="event-timepicker" class="modal-input" placeholder="Pick a time"></td> -->
-  				</tr>
-  				<tr>
-  					<td><span class="table-label label">Invite:</span></td>
-  					<td><input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username"></td>
-  				</tr>
-  			</tbody>
-	    </table>
-	    <!-- <div class="timepick"></div> -->
+		<table class="new-event-table">
+			<tbody>
+				<tr>
+					<td><span class="table-label label">Name:</span></td>
+					<td><input type="text" id="event-name" class="modal-input" placeholder="Event name"><span class="alert alert-error error">Please Enter Event Name</span></td>
+				</tr>
+				<tr>
+					<td><span class="table-label label">Time:</span></td>
+					<td><div class="timepick"></div></td>
+					<!-- <td><input type="text" id="event-timepicker" class="modal-input" placeholder="Pick a time"></td> -->
+				</tr>
+				<tr>
+					<td><span class="table-label label">Invite:</span></td>
+					<td><input type="text" id="event-invite" class="modal-input" placeholder="Use , to separate username"></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- <div class="timepick"></div> -->
 	  </div>
 	  <div class="modal-footer">
-	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	    <button class="btn btn-primary" id="create">Create</button>
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button class="btn btn-primary" id="create">Create</button>
 	  </div>
 	</div>
 	<!-- new event modal end -->
+
 	<div id="new-invite-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="new-event-modal-label" aria-hidden="true">
-	  <div class="modal-header">
-	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-	    <h3 id="new-invite-modal-label">Who you want invite?</h3>
-	  </div>
-	  <div class="modal-body">
-	    <input type="text" id="inviteContent" class="modal-input" placeholder="Use , to separate username">
-	    <!-- <div class="timepick"></div> -->
-	  </div>
-	  <div class="modal-footer">
-	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	    <button class="btn btn-primary" id="inviteBtn">Invite</button>
-	  </div>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+			<h3 id="new-invite-modal-label">Who you want invite?</h3>
+		</div>
+		<div class="modal-body">
+			<input type="text" id="inviteContent" class="modal-input" placeholder="Use , to separate username">
+			<!-- <div class="timepick"></div> -->
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button class="btn btn-primary" id="inviteBtn">Invite</button>
+	  	</div>
 	</div>
+
 </body>
 </html>
