@@ -30,9 +30,6 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 	
 	private static final Logger log = Logger.getLogger(EaTimeDatabaseTestServlet.class.getName());
 
-	private static final String TAG = "EaTimeDatabaseTestServlet";
-	private static final String TAG_SPLITTER = ": ";
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 		try {
@@ -43,7 +40,11 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		testDb();
+//		testDb();
+	}
+	
+	private void testRetrieveInvites() {
+		
 	}
 
 	private void testDb() {
@@ -126,12 +127,21 @@ public class EaTimeDatabaseTestServlet extends HttpServlet {
 		Person p1 = Person.createPerson("p1", "Random", "Guy", "randomguy1@example.com");
 		Key p1Key = PersonManager.addPerson(p1);
 		
-		Person p2 = Person.createPerson("ryan", "Ryan", "Chen", "chen769@example.com");
-		Key p2Key = PersonManager.addPerson(p2);
+		Person ryan = Person.createPerson("ryan", "Ryan", "Chen", "chen769@example.com");
+		Key ryanKey = PersonManager.addPerson(ryan);
+		
+		Person p2 = Person.createPerson("p2", "Random", "Guy 2", "randomguy2@example.com");
+		Key p2Key = PersonManager.addPerson(p1);
+		
+		Person p3 = Person.createPerson("p3", "Random", "Guy 3", "randomguy3@example.com");
+		Key p3Key = PersonManager.addPerson(p1);
+		
+		Person p4 = Person.createPerson("p4", "Random", "Guy 4", "randomguy4@example.com");
+		Key p4Key = PersonManager.addPerson(p1);
 		
 		List<Person> invites = new ArrayList<Person>();
 		invites.add(p1);
-		invites.add(p2);
+		invites.add(ryan);
 
 		Event sampleEvent = Event.createEvent("Sample Event",
 				restaurantHappyChina, me,

@@ -177,6 +177,10 @@ public final class Restaurant {
 			return restaurants;
 		}
 	}
+	
+	public static Key createKey(String restaurantKeyName) {
+		return KeyFactory.createKey(KIND_RESTAURANT, restaurantKeyName);
+	}
 
 	@Override
 	public String toString() {

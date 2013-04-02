@@ -129,8 +129,8 @@ public class EventAdminServlet extends HttpServlet {
 				}
 			} else if (action.equals("invite")) {
 				// Add new invites
-				if (eventId != null && invites != null) {
-					boolean result = EventManager.addInvites(invites, eventId);
+				if (eventId != null && invites != null && restaurantKeyName != null) {
+					boolean result = EventManager.addInvites(invites, eventId, restaurantKeyName);
 					if (result) {
 						eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventId);
 					} else if (ERROR_DATABASE_FAILED > status) {

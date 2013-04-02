@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 public final class Event {
 
@@ -231,6 +232,14 @@ public final class Event {
 		} else {
 			return events;
 		}
+	}
+	
+	public Key createKey(long eventKeyId, Key restaurantKey) {
+		return KeyFactory.createKey(restaurantKey, KIND_EVENT, eventKeyId);
+	}
+	
+	public Key createKey(long eventKeyId, String restaurantKeyName) {
+		return createKey(eventKeyId, Restaurant.createKey(restaurantKeyName));
 	}
 	
 	@Override
