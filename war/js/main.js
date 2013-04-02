@@ -20,13 +20,13 @@ function createEvent(restaurant,hour,min,eventname){
 function testClick(){
 	createEvent('happy-china',11,10);
 }
+
 $(function() {
     $( "#datepicker" ).datepicker();
     $( "#datepicker" ).datepicker( "option", "defaultDate", +7 );
   });
 $(function() {
 	$(".error").css("visibility","hidden");
-
 	$('.timepick').timepicker({
 		altField: '.timepick',
 		defaultTime: '12:00'
@@ -136,5 +136,26 @@ function join(obj){
 }
 
 function invite(obj){
+	$('#new-invite-modal').modal('show');
 	var restaurant=$(obj).parent().parent().parent().prev().attr('value');
+	var eventID=$(obj).parent().parent().attr('eventid');
+	$('#inviteBtn').click(function(){
+		var invites=$('#inviteContent').val().split(',');
+
+
+		var url = "/event?";
+			url += "action=invite";
+			url += "&id=" + eventID;
+			url += "&restaurant=" + restaurant;
+
+			if ($("#inviteContent").val() !== '') {
+				for (var i = 0;  i < invites.length; i++) {
+					if (invites[i] !== '') {
+						url += "&invite=" + invites[i];
+					}
+				}
+			}
+		//TODO AJAX TO CONNECT SERVER
+
+	});
 }
