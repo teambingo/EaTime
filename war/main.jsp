@@ -117,11 +117,11 @@
 						            	<% 
 						            if(event.getCreator().getUsername().equals(request.getSession().getAttribute("user"))){
 						            %>
-						            	<button type="submit" class="btn btn-info join" onclick="invite(this)">Invite!</button>
+						            	<button type="submit" class="btn btn-info join" onclick="invite(this)" value="invite">Invite!</button>
 						            <%
 						            }else{
 						            %>
-										<button type="submit" class="btn btn-info join" onclick="join(this)">Join!</button>
+										<button type="submit" class="btn btn-info join" onclick="join(this)" value="join">Join!</button>
 						            <%
 						            }
 						            %>
@@ -187,6 +187,19 @@
 	  </div>
 	</div>
 	<!-- new event modal end -->
-
+	<div id="new-invite-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="new-event-modal-label" aria-hidden="true">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+	    <h3 id="new-invite-modal-label">Who you want invite?</h3>
+	  </div>
+	  <div class="modal-body">
+	    <input type="text" id="inviteContent" class="modal-input" placeholder="Use , to separate username">
+	    <!-- <div class="timepick"></div> -->
+	  </div>
+	  <div class="modal-footer">
+	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	    <button class="btn btn-primary" id="inviteBtn">Invite</button>
+	  </div>
+	</div>
 </body>
 </html>
