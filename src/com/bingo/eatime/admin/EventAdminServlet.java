@@ -134,7 +134,21 @@ public class EventAdminServlet extends HttpServlet {
 						&& restaurantKeyName != null) {
 					boolean result = EventManager.addInvites(invites, eventId, restaurantKeyName);
 					if (result) {
-						eventKey = KeyFactory.createKey(Event.KIND_EVENT, eventId);
+						eventKey = Event.createKey(eventId, restaurantKeyName);
+					} else if (ERROR_DATABASE_FAILED > status) {
+						status = ERROR_DATABASE_FAILED;
+					}
+				} else if (ERROR_MISSING_ARGUMENT > status) {
+					status = ERROR_MISSING_ARGUMENT;
+				}
+			} else if (action.equals("join")) {
+				// Join to event
+				if (status == STATUS_SUCCEED && creator != null && eventId != null
+						&& restaurantKeyName != null) {
+					Key joinEventKey = Event.createKey(eventId, restaurantKeyName);
+					boolean result = EventManager.joinEvent(creator.getKey(), joinEventKey);
+					if (result) {
+						eventKey = joinEventKey;
 					} else if (ERROR_DATABASE_FAILED > status) {
 						status = ERROR_DATABASE_FAILED;
 					}
