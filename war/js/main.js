@@ -167,13 +167,7 @@ function join(obj) {
 
 function successPrompt(msg){
 	$('#msg').text(msg);
-	var top=$(window).height()/2-$('.msg').height()/2;
-	var left=$(window).width()/2-$('.msg').width()/2;
-	$('.msg').css('left',left);
-	$('.msg').css('top',top);
-	setTimeout(function(){
-		$('.msg').show("bounce",1000);
-	},100);
+	$('.msg').show();
 	setTimeout(function(){
 		$('.msg').hide('fade',1000);
 	},500);

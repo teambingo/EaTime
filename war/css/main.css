@@ -14,7 +14,7 @@ hr {
 }
 
 .msg {
-	position:fixed;
+	position:fixed !important;
 	left:40%;
 	top:40%;
 	z-index:10;
