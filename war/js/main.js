@@ -18,6 +18,20 @@ function createEvent(restaurant,hour,min,eventname){
 // function testClick(){
 // 	createEvent('happy-china',11,10);
 // }
+function setCurrentDate(){
+	$( "#datepicker" ).datepicker();
+	var d=new Date();
+	var month=d.getMonth()+1;
+	var day=d.getDate();
+	var year=d.getFullYear();
+	if(month<10)
+		month='0'+month.toString();
+	if(day<10)
+		day='0'+day.toString();
+	year=year.toString();
+	var date=month+'/'+day+'/'+year;
+	$( "#datepicker" ).val(date);
+}
 
 $(function() {
 	$(".error").css("visibility","hidden");
@@ -26,9 +40,7 @@ $(function() {
 		defaultTime: '12:00'
 	});
 
-	$( "#datepicker" ).datepicker();
-
-    $( "#datepicker" ).datepicker( "option", "defaultDate", +7 );
+	setCurrentDate();
 
 	$('#cattabs a').click(function (e) {
 		e.preventDefault();

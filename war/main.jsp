@@ -73,7 +73,7 @@
 							}
 						}
 					%>
-					<div class='date'>Date: <input type="text" id="datepicker" value="04/01/2013"/></div>
+					<div class='date'>Date: <input type="text" id="datepicker" value=""/></div>
 				</ul>
 				
 				<!-- restaurant body -->
