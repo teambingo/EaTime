@@ -36,15 +36,14 @@
 	// Makes session username accessible via javascript
 	var username = '${user}';
 	var userImg="<%=request.getSession().getAttribute("userImg")%>";
-	var fullname="<%=request.getSession().getAttribute("fullname")%>
-	";
+	var fullname="<%=request.getSession().getAttribute("fullname")%>";
 </script>
 </head>
 
 <body>
 	<div class="page">
-		<div class="alert alert-block">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<div class="alert alert-block msg">
+			<h1 id='msg'>test</h1>
 		</div>
 		<div class="container">
 			<div class="top">

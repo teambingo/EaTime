@@ -35,6 +35,7 @@ function setCurrentDate(){
 
 $(function() {
 	$(".error").css("visibility","hidden");
+	$(".msg").hide();
 	$('.timepick').timepicker({
 		altField: '.timepick',
 		defaultTime: '12:00'
@@ -150,6 +151,7 @@ function join(obj) {
 		if (status === 0) {
 			// succeed
 			console.log('join success');
+			successPrompt('Join success!');
 			$(obj).addClass('disabled');
 		} else {
 			// failed
@@ -161,6 +163,20 @@ function join(obj) {
 		// Error
 		console.log('join request failed.');
 	});
+}
+
+function successPrompt(msg){
+	$('#msg').text(msg);
+	var top=$(window).height()/2-$('.msg').height()/2;
+	var left=$(window).width()/2-$('.msg').width()/2;
+	$('.msg').css('left',left);
+	$('.msg').css('top',top);
+	setTimeout(function(){
+		$('.msg').show("bounce",1000);
+	},100);
+	setTimeout(function(){
+		$('.msg').hide('fade',1000);
+	},500);
 }
 
 function invite(obj) {
@@ -191,6 +207,10 @@ function invite(obj) {
 
 			if (status === 0) {
 				// succeed
+				$('#new-invite-modal').modal('hide');
+				setTimeout(function(){
+					successPrompt('Invite success!');
+				},1000);
 			} else {
 				// failed
 				var reason = data['reason'];
