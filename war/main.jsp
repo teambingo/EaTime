@@ -34,6 +34,8 @@
 <script>
 	// Makes session username accessible via javascript
 	var username = '${user}';
+	var userImg="<%= request.getSession().getAttribute("userImg") %>";
+	var fullname="<%= request.getSession().getAttribute("fullname") %>";
 </script>
 </head>
 
@@ -48,6 +50,7 @@
 					me = PersonManager.getPersonByUsername(username);
 				}
 			%>
+			
 				<div class="logout"><a href="logout">Log out</a></div>
 				<div class="topTag" id="notification"><a href="profile.html">Notification</a>
 					<div class="alert">

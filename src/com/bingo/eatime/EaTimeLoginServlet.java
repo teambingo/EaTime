@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.bingo.eatime.core.*;
+
 public class EaTimeLoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 4588543340482590495L;
@@ -21,9 +23,14 @@ public class EaTimeLoginServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		if ((user.equals("ryan") && password.equals("crd")) || (user.equals("kevin") && password.equals("kevin"))) {
 			try {
+				Person me = null;
+				me = PersonManager.getPersonByUsername(user);
+				
 				String username = user;
 				session.setAttribute("loginStatus", "true");
 				session.setAttribute("user", username);
+				session.setAttribute("userImg", me.getGravatarUrlString());
+				session.setAttribute("fullname", me.getFullName(true));
 				resp.sendRedirect("/eatime");
 			} catch (IOException e) {
 				log.log(Level.SEVERE, "Cannot redirect to /eatime.", e);
