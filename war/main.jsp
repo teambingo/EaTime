@@ -54,17 +54,35 @@
 				if (username != null) {
 					me = PersonManager.getPersonByUsername(username);
 				}
-			%>
+				%>
 
 				<div class="logout">
 					<a href="logout">Log out</a>
 				</div>
 				<div class="topTag" id="notification">
 					<a href="profile.html">Notification</a>
+					<%
+					int count=0;
+					if(me!=null){
+						Iterable<Entity> unreadEvents=PersonManager.getInviteEventEntities(me.getKey(),true);
+						if(unreadEvents!=null){
+							Iterator<Entity> iter=unreadEvents.iterator();
+							while(iter.hasNext()){
+								iter.next();
+	            				count++;
+							}
+						}
+					}else{
+						response.sendRedirect("/login.jsp");
+					}
+					if(count!=0){ %>
 					<div class="alert">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						You have 3 invitations
+						You have <%=count%> invitations
 					</div>
+					<%
+					}
+					%>
 				</div>
 				<div class="topTag" id="events">Events</div>
 				<div class="topTag" id="profile">Profile</div>
