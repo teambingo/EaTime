@@ -65,6 +65,7 @@ $(function(){
 				setTimeout(function(){
 					joinMsgPrompt('Invite success!');
 				},1000);
+
 			} else {
 				// failed
 				var reason = data['reason'];
@@ -217,6 +218,11 @@ function join(obj) {
 			console.log('join success');
 			joinMsgPrompt('Join success!');
 			$(obj).addClass('disabled');
+			// TODO add attendents
+			var attendents_count=$(obj).parent().prev().children('.display').text();
+			attendents_count=parseInt(attendents_count);
+			attendents_count+=1;
+			$(obj).parent().prev().children('.display').text(attendents_count);
 		} else {
 			// failed
 			var reason = data['reason'];
@@ -239,6 +245,7 @@ function joinMsgPrompt(msg){
 	setTimeout(function(){
 		$('.msg').hide('fade',1000);
 	},500);
+
 }
 //failure msg display
 function inviteMsgPrompt(msg){
