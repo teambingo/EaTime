@@ -158,6 +158,10 @@ $(function() {
 
 				if (status === 0) {
 					// succeed
+					var eventId = data['id'];
+					console.log('created event id', eventId);
+
+					// Add new event html using javascript
 					createEvent(restaurant,hourandmin[0],hourandmin[1],name);
 					$('#new-event-modal').modal('hide');
 				} else {
