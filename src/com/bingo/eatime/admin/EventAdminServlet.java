@@ -176,9 +176,13 @@ public class EventAdminServlet extends HttpServlet {
 			resp.setContentType("application/json");
 			PrintWriter writer = resp.getWriter();
 			if (status == STATUS_SUCCEED && eventKey != null) {
-				writer.print(generateResponseJson(status, null));
+				String json = generateResponseJson(status, eventKey.getId(), null);
+				log.info("Writing response: " + json);
+				writer.print(json);
 			} else {
-				writer.print(generateResponseJson(status, usernameList));
+				String json = generateResponseJson(status, 0, usernameList);
+				log.info("Writing response: " + json);
+				writer.print(json);
 			}
 		} catch (IOException e) {
 			log.log(Level.SEVERE, "Cannot get print writer.", e);
@@ -186,9 +190,9 @@ public class EventAdminServlet extends HttpServlet {
 		
 	}
 	
-	private String generateResponseJson(int status, List<String> bundle) {
+	private String generateResponseJson(int status, long eventId, List<String> bundle) {
 		if (status == STATUS_SUCCEED) {
-			return "{ \"status\": " + status + " }";
+			return "{ \"status\": " + status + ", \"id\": " + eventId + " }";
 		} else {
 			String reason = "";
 			StringBuilder sb;
