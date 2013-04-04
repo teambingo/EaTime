@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39"><!--
+<%@ page import="com.bingo.eatime.core.Category"%>
+<%@ page import="com.bingo.eatime.core.CategoryManager"%>
+<%@ page import="com.bingo.eatime.core.Event" %>
+<%@ page import="com.bingo.eatime.core.EventManager" %>
+<%@ page import="com.bingo.eatime.core.Restaurant"%>
+<%@ page import="com.bingo.eatime.core.Utilities"%>
+<%@ page import="com.google.appengine.api.datastore.*,java.util.*"%> -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            EaTime
+        </title>
+        <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.1.custom.css" type="text/css">
+        <link rel="stylesheet" href="css/bootstrap.css" type="text/css"><!-- <link rel="stylesheet" href="css/jquery.ui.timepicker.css" /> -->
+        <link rel="stylesheet" href="css/timePicker.css" type="text/css">
+        <link rel="stylesheet" href="css/main.css" type="text/css">
+        <link rel="stylesheet" href="css/notify.css" type="text/css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js" type="text/javascript">
+</script><!-- <script src="js/jquery-1.9.1.js"></script> -->
+
+        <script src="js/jquery-ui-1.10.1.custom.js" type="text/javascript">
+</script>
+        <script src="js/bootstrap.js" type="text/javascript">
+</script><!-- <script src="js/jquery.mb.browser.js"></script> -->
+        <!-- <script src="js/jquery.timePicker.js"></script> -->
+
+        <script src="js/jquery.ui.timepicker.js" type="text/javascript">
+</script>
+        <script src="js/main.js" type="text/javascript">
+</script>
+    </head>
+    <body>
+        <div class="page">
+            <div class="container">
+                <div class="top">
+                    Hi,${user}!!
+                    <div class="logout">
+                        Log out
+                    </div>
+                    <div class="topTag">
+                        Notification
+                        <div class="alert">
+                            <button type="button" class="close" data-dismiss="alert">×</button> You have 3 invitations
+                        </div>
+                    </div>
+                    <div class="topTag">
+                        Events
+                    </div>
+                    <div class="topTag">
+                        Profile
+                    </div>
+                </div>
+                <div class="down">
+                    <div class="tab-pane" id="Notification">
+                        <div class="events">
+                            <div class="row-fluid event" id="1">
+                                <div class="span2 headDiv">
+                                    <img src="http://www.gravatar.com/avatar/7c46aa86b25a0d1e343affd790e10700.jpg?s=100%3E" class="img-circle head">
+                                </div>
+                                <div class="span3 orgDiv">
+                                    <div class="label label-info">
+                                        Organizer
+                                    </div>
+                                    <div class="display">
+                                        Kaiwen Xu
+                                    </div>
+                                </div>
+                                <div class="span3 timeDiv">
+                                    <div class="label label-info">
+                                        Time
+                                    </div><br>
+                                    <div class="hourNum">
+                                        19
+                                    </div>:
+                                    <div class="minNum">
+                                        50
+                                    </div>
+                                </div>
+                                <div class="span2 countDiv">
+                                    <div class="label label-info">
+                                        Attendants
+                                    </div>
+                                    <div class="display">
+                                        2
+                                    </div>
+                                </div>
+                                <div class="span2 joinDiv">
+                                    <button type="submit" class="btn btn-info join">Accept!</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="events">
+                            <div class="row-fluid event" id="12">
+                                <div class="span2 headDiv">
+                                    <img src="http://www.gravatar.com/avatar/7c46aa86b25a0d1e343affd790e10700.jpg?s=100%3E" class="img-circle head">
+                                </div>
+                                <div class="span3 orgDiv">
+                                    <div class="label label-info">
+                                        Organizer
+                                    </div>
+                                    <div class="display">
+                                        Kaiwen Xu
+                                    </div>
+                                </div>
+                                <div class="span3 timeDiv">
+                                    <div class="label label-info">
+                                        Time
+                                    </div><br>
+                                    <div class="hourNum">
+                                        19
+                                    </div>:
+                                    <div class="minNum">
+                                        50
+                                    </div>
+                                </div>
+                                <div class="span2 countDiv">
+                                    <div class="label label-info">
+                                        Attendants
+                                    </div>
+                                    <div class="display">
+                                        2
+                                    </div>
+                                </div>
+                                <div class="span2 joinDiv">
+                                    <button type="submit" class="btn btn-info join">Accept!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

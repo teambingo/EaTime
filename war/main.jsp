@@ -60,7 +60,7 @@
 					<a href="logout">Log out</a>
 				</div>
 				<div class="topTag" id="notification">
-					<a href="profile.html">Notification</a>
+					<a href="notify.html">Notification</a>
 					<%
 					int count=0;
 					if(me!=null){
