@@ -33,6 +33,48 @@ function setCurrentDate(){
 	$( "#datepicker" ).val(date);
 }
 
+$(function(){
+	$('#inviteBtn').click(function() {
+		var invites=$('#inviteContent').val().split(',');
+
+		var url = "/event?";
+			url += "action=invite";
+			url += "&id=" + $(this).data('eventID');
+			url += "&restaurant=" + $(this).data('restaurant');
+
+			if ($("#inviteContent").val() !== '') {
+				for (var i = 0;  i < invites.length; i++) {
+					if (invites[i] !== '') {
+						url += "&invite=" + invites[i];
+					}
+				}
+			}
+
+		console.log('invite url', url);
+
+		//TODO AJAX TO CONNECT SERVER
+		$.getJSON(url, function(data) {
+			var status = data['status'];
+
+			if (status === 0) {
+				// succeed
+				$('#new-invite-modal').modal('hide');
+				setTimeout(function(){
+					successPrompt('Invite success!');
+				},1000);
+			} else {
+				// failed
+				var reason = data['reason'];
+				console.log('invite failed', reason);	
+			}
+		})
+		.error(function() {
+			// Error
+			console.log('invite request failed.');
+		});
+	});
+});
+
 $(function() {
 	$(".error").css("visibility","hidden");
 	$(".msg").hide();
@@ -163,6 +205,7 @@ function join(obj) {
 		// Error
 		console.log('join request failed.');
 	});
+	
 }
 
 function successPrompt(msg){
@@ -177,43 +220,7 @@ function invite(obj) {
 	$('#new-invite-modal').modal('show');
 	var restaurant = $(obj).parent().parent().parent().prev().attr('value');
 	var eventID = $(obj).parent().parent().attr('eventid');
-	$('#inviteBtn').click(function() {
-		var invites=$('#inviteContent').val().split(',');
-
-		var url = "/event?";
-			url += "action=invite";
-			url += "&id=" + eventID;
-			url += "&restaurant=" + restaurant;
-
-			if ($("#inviteContent").val() !== '') {
-				for (var i = 0;  i < invites.length; i++) {
-					if (invites[i] !== '') {
-						url += "&invite=" + invites[i];
-					}
-				}
-			}
-
-		console.log('invite url', url);
-
-		//TODO AJAX TO CONNECT SERVER
-		$.getJSON(url, function(data) {
-			var status = data['status'];
-
-			if (status === 0) {
-				// succeed
-				$('#new-invite-modal').modal('hide');
-				setTimeout(function(){
-					successPrompt('Invite success!');
-				},1000);
-			} else {
-				// failed
-				var reason = data['reason'];
-				console.log('invite failed', reason);	
-			}
-		})
-		.error(function() {
-			// Error
-			console.log('invite request failed.');
-		});
-	});
+	$('#inviteBtn').data('eventID',eventID);
+	$('#inviteBtn').data('restaurant',restaurant);
+	
 }
