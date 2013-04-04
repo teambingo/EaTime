@@ -6,7 +6,15 @@
 
 .event {
 	margin: 0 !important;
-	background-color: #810 !important;
 	margin-top: 30px;
 	margin-bottom: 30px;
+}
+
+.description {
+    width: 100%;
+    background-color: #FFFFFF;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    text-align: center;
 }
