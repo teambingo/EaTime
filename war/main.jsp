@@ -246,7 +246,9 @@
 		<div class="modal-body">
 			<input type="text" id="inviteContent" class="modal-input"
 				placeholder="Use , to separate username">
-			<!-- <div class="timepick"></div> -->
+			<div class="alert alert-block inviteMsg">
+				<h1 id='inviteMsg'>test</h1>
+			</div>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

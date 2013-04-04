@@ -33,6 +33,9 @@ function setCurrentDate(){
 	$( "#datepicker" ).val(date);
 }
 
+
+
+//Invite button initialized
 $(function(){
 	$('#inviteBtn').click(function() {
 		var invites=$('#inviteContent').val().split(',');
@@ -60,11 +63,12 @@ $(function(){
 				// succeed
 				$('#new-invite-modal').modal('hide');
 				setTimeout(function(){
-					successPrompt('Invite success!');
+					joinMsgPrompt('Invite success!');
 				},1000);
 			} else {
 				// failed
 				var reason = data['reason'];
+				inviteMsgPrompt(reason);
 				console.log('invite failed', reason);	
 			}
 		})
@@ -76,19 +80,27 @@ $(function(){
 });
 
 $(function() {
+
+	//Initailize error for event, msg for success and failure
 	$(".error").css("visibility","hidden");
 	$(".msg").hide();
+	$('.inviteMsg').hide();
+	//Initialize timepick and current date
 	$('.timepick').timepicker({
 		altField: '.timepick',
 		defaultTime: '12:00'
 	});
-
 	setCurrentDate();
 
+
+	//Initail tabs
 	$('#cattabs a').click(function (e) {
 		e.preventDefault();
 		$(this).tab('show');
 	});
+
+
+	// accordion setup
 
 	$('.accordion').accordion({
 		header: ".restaurant-header",
@@ -102,6 +114,9 @@ $(function() {
 		}
 	});
 
+
+	// modal function when clicking modal
+
 	$('a[data-toggle="modal"]').click(function(obj){
 		$("#create").data("restaurant",$(this).parent().attr('value'));
 		isModalOn = true;
@@ -111,6 +126,7 @@ $(function() {
 		isModalOn = false;
 	});
 
+	// Create Event click function
 	$("#create").click(function(){
 		var name = $("#event-name").val();
 		var restaurant=$(this).data("restaurant");
@@ -175,6 +191,8 @@ $(function() {
 
 });
 
+
+//Join
 function join(obj) {
 	var restaurant = $(obj).parent().parent().parent().prev().attr('value');
 	var eventID = $(obj).parent().parent().attr('eventid');
@@ -193,12 +211,13 @@ function join(obj) {
 		if (status === 0) {
 			// succeed
 			console.log('join success');
-			successPrompt('Join success!');
+			joinMsgPrompt('Join success!');
 			$(obj).addClass('disabled');
 		} else {
 			// failed
 			var reason = data['reason'];
 			console.log('join failed', reason);
+			joinMsgPrompt(reason);
 		}
 	})
 	.error(function() {
@@ -208,11 +227,21 @@ function join(obj) {
 	
 }
 
-function successPrompt(msg){
+
+//success msg display
+function joinMsgPrompt(msg){
 	$('#msg').text(msg);
 	$('.msg').show();
 	setTimeout(function(){
 		$('.msg').hide('fade',1000);
+	},500);
+}
+//failure msg display
+function inviteMsgPrompt(msg){
+	$('#inviteMsg').text(msg);
+	$('.inviteMsg').show();
+	setTimeout(function(){
+		$('.inviteMsg').hide('fade',1000);
 	},500);
 }
 
