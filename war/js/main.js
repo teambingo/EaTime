@@ -1,12 +1,12 @@
 var isModalOn = false;
 
 
-function createEvent(restaurant,hour,min,eventname){
+function createEvent(restaurant,hour,min,eventname,eventId){
 	var br='<hr>';
 	if($("*[value="+restaurant+"]").next().children('.event').length === 0){
 		br='';
 	}
-	var newEvent=$(br+'<div class="row-fluid event" id=1><div class="span2 headDiv"><img src="'+ userImg +'" class="img-circle head"></div><div class="span2 orgDiv"><div class="label label-info">Organizer</div><div class="display">'+fullname+'</div></div><div class="span2 eNameDiv"><div class="label label-info">Event Name</div><div class="display">'+eventname+'</div></div><div class="span2 timeDiv"><div class="label label-info">Time</div><br><div class="hourNum">'+hour+'</div> : <div class="minNum">'+min+'</div></div><div class="span2 countDiv"><div class="label label-info">Attendants</div><div class="display">0</div></div><div class="span2 joinDiv"><button type="submit" class="btn btn-info join" onclick="invite(this)">Invite!</button></div>');
+	var newEvent=$(br+'<div class="row-fluid event" value="'+eventId+'""><div class="span2 headDiv"><img src="'+ userImg +'" class="img-circle head"></div><div class="span2 orgDiv"><div class="label label-info">Organizer</div><div class="display">'+fullname+'</div></div><div class="span2 eNameDiv"><div class="label label-info">Event Name</div><div class="display">'+eventname+'</div></div><div class="span2 timeDiv"><div class="label label-info">Time</div><br><div class="hourNum">'+hour+'</div> : <div class="minNum">'+min+'</div></div><div class="span2 countDiv"><div class="label label-info">Attendants</div><div class="display">0</div></div><div class="span2 joinDiv"><button type="submit" class="btn btn-info join" onclick="invite(this)">Invite!</button></div>');
 	//newEvent.hide();
 	$("*[value="+restaurant+"]").next().each(function(){
 		$(this).append(newEvent.clone(true));
@@ -178,7 +178,7 @@ $(function() {
 					console.log('created event id', eventId);
 
 					// Add new event html using javascript
-					createEvent(restaurant,hourandmin[0],hourandmin[1],name);
+					createEvent(restaurant,hourandmin[0],hourandmin[1],name,eventId);
 					$('#new-event-modal').modal('hide');
 				} else {
 					// failed
