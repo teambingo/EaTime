@@ -18,3 +18,5 @@ http://eatime-bingo-test.appspot.com/
 * ryan / crd
 * brew20k / brew20k
 * christophermllr / christophermllr
+* john / john
+* jane / jane

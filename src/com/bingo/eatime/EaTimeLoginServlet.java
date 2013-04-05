@@ -25,7 +25,9 @@ public class EaTimeLoginServlet extends HttpServlet {
 		if ((user.equals("ryan") && password.equals("crd")) || 
 			(user.equals("kevin") && password.equals("kevin")) ||
 			(user.equals("brew20k") && password.equals("brew20k")) ||
-			(user.equals("christophermllr") && password.equals("christophermllr"))) {
+			(user.equals("christophermllr") && password.equals("christophermllr")) ||
+			(user.equals("john") && password.equals("john")) ||
+			(user.equals("jane") && password.equals("jane"))) {
 			try {
 				Person me = null;
 				me = PersonManager.getPersonByUsername(user);

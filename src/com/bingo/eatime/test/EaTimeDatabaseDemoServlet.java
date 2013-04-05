@@ -122,6 +122,12 @@ public class EaTimeDatabaseDemoServlet extends HttpServlet {
 		
 		Person christophermllr = Person.createPerson("christophermllr", "Christopher", "Miller", "cmiller0189@gmail.com");
 		PersonManager.addPerson(christophermllr);
+		
+		Person john = Person.createPerson("john", "John", "Doe", "johndoe@example.com");
+		PersonManager.addPerson(john);
+		
+		Person jane = Person.createPerson("jane", "Jane", "Doe", "janedoe@example.com");
+		PersonManager.addPerson(jane);
 	}
 
 }
