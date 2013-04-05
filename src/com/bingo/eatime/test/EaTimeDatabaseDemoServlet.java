@@ -3,7 +3,6 @@ package com.bingo.eatime.test;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,11 +19,11 @@ import com.bingo.eatime.core.RestaurantManager;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PhoneNumber;
 import com.google.appengine.api.datastore.PostalAddress;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Transaction;
 
 public class EaTimeDatabaseDemoServlet extends HttpServlet {
 	
@@ -53,16 +52,19 @@ public class EaTimeDatabaseDemoServlet extends HttpServlet {
 	private synchronized void cleanDatabase() {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		
-		HashSet<Key> allKeys = new HashSet<Key>();
+		Transaction txn = datastore.beginTransaction();
 		
 		Query q = new Query();
 		PreparedQuery pq = datastore.prepare(q);
 		
 		for (Entity entity : pq.asIterable()) {
-			allKeys.add(entity.getKey());
+			try {
+				datastore.delete(entity.getKey());
+			} catch (IllegalArgumentException e) {
+			}
 		}
 		
-		datastore.delete(allKeys);
+		txn.commit();
 	}
 	
 	private synchronized void addRestaurants() {
