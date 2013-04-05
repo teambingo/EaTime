@@ -6,7 +6,7 @@ function createEvent(restaurant,hour,min,eventname,eventID){
 	if($("*[value=" + "'" + restaurant + "'" + "]").next().children('.event').length === 0){
 		br='';
 	}
-	var newEvent=$(br+'<div class="row-fluid event" eventid="'+eventID+'""><div class="span2 headDiv"><img src="'+ userImg +'" class="img-circle head"></div><div class="span2 orgDiv"><div class="label label-info">Organizer</div><div class="display">'+fullname+'</div></div><div class="span2 eNameDiv"><div class="label label-info">Event Name</div><div class="display">'+eventname+'</div></div><div class="span2 timeDiv"><div class="label label-info">Time</div><br><div class="hourNum">'+hour+'</div> : <div class="minNum">'+min+'</div></div><div class="span2 countDiv"><div class="label label-info">Attendants</div><div class="display">0</div></div><div class="span2 joinDiv"><button type="submit" class="btn btn-info join" onclick="invite(this)">Invite!</button></div>');
+	var newEvent=$(br+'<div class="row-fluid event" eventid="'+eventID+'"><div class="span2 headDiv"><img src="'+ userImg +'" class="img-circle head"></div><div class="span2 orgDiv"><div class="label label-info">Organizer</div><div class="display">'+fullname+'</div></div><div class="span2 eNameDiv"><div class="label label-info">Event Name</div><div class="display">'+eventname+'</div></div><div class="span2 timeDiv"><div class="label label-info">Time</div><br><div class="hourNum">'+hour+'</div> : <div class="minNum">'+min+'</div></div><div class="span2 countDiv"><div class="label label-info">Attendants</div><div class="display">0</div></div><div class="span2 joinDiv"><button type="submit" class="btn btn-info join" onclick="invite(this)">Invite!</button></div>');
 	//newEvent.hide();
 	$("*[value=" + "'" + restaurant + "'" + "]").next().each(function(){
 		$(this).append(newEvent.clone(true));
@@ -41,7 +41,7 @@ $(function(){
 		var invites = $('#inviteContent').val().split(/[\s,]+/);
 		var eventId = $(this).data('eventid');
 		var restaurant = $(this).data('restaurant');
-
+		
 		var url = "/event?";
 			url += "action=invite";
 			url += "&id=" + encodeURIComponent(eventId);
@@ -271,6 +271,6 @@ function invite(obj) {
 	$('#new-invite-modal').modal('show');
 	var restaurant = $(obj).parent().parent().parent().prev().attr('value');
 	var eventID = $(obj).parent().parent().attr('eventid');
-	$('#inviteBtn').data('eventID',eventID);
+	$('#inviteBtn').data('eventid',eventID);
 	$('#inviteBtn').data('restaurant',restaurant);
 }
