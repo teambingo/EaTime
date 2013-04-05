@@ -69,14 +69,14 @@ $(function(){
 			} else {
 				// failed
 				var reason = data['reason'];
-				joinMsgPrompt(reason);
+				inviteMsgPrompt(reason);
 				console.log('invite failed', reason);
 			}
 		})
 		.error(function() {
 			// Error
 			console.log('invite request failed.');
-			joinMsgPrompt('invite request failed.');
+			inviteMsgPrompt('invite request failed.');
 		});
 	});
 });
@@ -189,13 +189,13 @@ $(function() {
 					// failed
 					var reason = data['reason'];
 					console.log('create failed', reason);
-					inviteMsgPrompt(reason);
+					joinMsgPrompt(reason);
 				}
 			})
 			.error(function() {
 				// Error
 				console.log('create request failed.');
-				inviteMsgPrompt('create request failed.');
+				joinMsgPrompt('create request failed.');
 			});
 		}
 	});

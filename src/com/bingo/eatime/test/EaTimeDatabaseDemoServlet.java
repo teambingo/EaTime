@@ -106,7 +106,7 @@ public class EaTimeDatabaseDemoServlet extends HttpServlet {
 		
 		categories.clear();
 		categories.add(american);
-		Restaurant ajs = Restaurant.createRestaurant("AJ's Burger Beef", categories, new PostalAddress("134 W State Street, Suite D, West Lafayette, IN 47906"), new PhoneNumber("765-743-1940"));
+		Restaurant ajs = Restaurant.createRestaurant("AJ's Burger & Beef", categories, new PostalAddress("134 W State Street, Suite D, West Lafayette, IN 47906"), new PhoneNumber("765-743-1940"));
 		RestaurantManager.addRestaurant(ajs);
 	}
 	
