@@ -38,17 +38,19 @@ function setCurrentDate(){
 //Invite button initialized
 $(function(){
 	$('#inviteBtn').click(function() {
-		var invites=$('#inviteContent').val().split(',');
+		var invites = $('#inviteContent').val().split(/[\s,]+/);
+		var eventId = $(this).data('eventid');
+		var restaurant = $(this).data('restaurant');
 
 		var url = "/event?";
 			url += "action=invite";
-			url += "&id=" + $(this).data('eventID');
-			url += "&restaurant=" + $(this).data('restaurant');
+			url += "&id=" + encodeURIComponent(eventId);
+			url += "&restaurant=" + encodeURIComponent(restaurant);
 
 			if ($("#inviteContent").val() !== '') {
 				for (var i = 0;  i < invites.length; i++) {
 					if (invites[i] !== '') {
-						url += "&invite=" + invites[i];
+						url += "&invite=" + encodeURIComponent(invites[i]);
 					}
 				}
 			}
@@ -62,9 +64,9 @@ $(function(){
 			if (status === 0) {
 				// succeed
 				$('#new-invite-modal').modal('hide');
-				setTimeout(function(){
+				setTimeout(function() {
 					joinMsgPrompt('Invite success!');
-				},500);
+				}, 500);
 
 			} else {
 				// failed
@@ -131,7 +133,7 @@ $(function() {
 	// Create Event click function
 	$("#create").click(function(){
 		var name = $("#event-name").val();
-		var restaurant=$(this).data("restaurant");
+		var restaurant = $(this).data("restaurant");
 		var time = $(".timepick").timepicker('getTime');
 		var hourandmin = time.split(":");
 		var d = new Date();
@@ -153,18 +155,18 @@ $(function() {
 
 			var url = "/event?";
 			url += "action=add";
-			url += "&name=" + name;
-			url += "&restaurant=" + restaurant;
-			url += "&date=" + date;
+			url += "&name=" + encodeURIComponent(name);
+			url += "&restaurant=" + encodeURIComponent(restaurant);
+			url += "&date=" + encodeURIComponent(date);
 
 			if (typeof username !== 'undefined') {
-				url += '&username=' + username;
+				url += '&username=' + encodeURIComponent(username);
 			}
 
 			if ($("#event-invite").val() !== '') {
 				for (var i = 0;  i < invites.length; i++) {
 					if (invites[i] !== '') {
-						url += "&invite=" + invites[i];
+						url += "&invite=" + encodeURIComponent(invites[i]);
 					}
 				}
 			}
@@ -180,11 +182,11 @@ $(function() {
 					console.log('created event id', eventID);
 
 					// Add new event html using javascript
-					createEvent(restaurant,hourandmin[0],hourandmin[1],name,eventID);
+					createEvent(restaurant, hourandmin[0], hourandmin[1], name,eventID);
 					$('#new-event-modal').modal('hide');
-					setTimeout(function(){
-						joinMsgPrompt("Successfully creat!");
-					},500);
+					setTimeout(function() {
+						joinMsgPrompt("Successfully created!");
+					}, 500);
 				} else {
 					// failed
 					var reason = data['reason'];
@@ -213,9 +215,9 @@ function join(obj) {
 
 	var url = "/event?";
 		url += "action=join";
-		url += "&id=" + eventID;
-		url += '&restaurant=' + restaurant;
-		url += "&username=" + username;
+		url += "&id=" + encodeURIComponent(eventID);
+		url += '&restaurant=' + encodeURIComponent(restaurant);
+		url += "&username=" + encodeURIComponent(username);
 
 	console.log('join url', url);
 
@@ -228,9 +230,9 @@ function join(obj) {
 			joinMsgPrompt('Join success!');
 			$(obj).addClass('disabled');
 			// TODO add attendents
-			var attendents_count=$(obj).parent().prev().children('.display').text();
-			attendents_count=parseInt(attendents_count);
-			attendents_count+=1;
+			var attendents_count = $(obj).parent().prev().children('.display').text();
+			attendents_count = parseInt(attendents_count, 10);
+			attendents_count += 1;
 			$(obj).parent().prev().children('.display').text(attendents_count);
 		} else {
 			// failed
