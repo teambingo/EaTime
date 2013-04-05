@@ -113,6 +113,15 @@ public class EaTimeDatabaseDemoServlet extends HttpServlet {
 	private synchronized void addPeople() {
 		Person kevin = Person.createPerson("kevin", "Kaiwen", "Xu", "kevin@kevxu.net");
 		PersonManager.addPerson(kevin);
+		
+		Person ryan = Person.createPerson("ryan", "Rendong", "Chen", "ryan@example.com");
+		PersonManager.addPerson(ryan);
+		
+		Person brew20k = Person.createPerson("brew20k", "Kevin", "Kinnebrew", "kevin.kinnebrew@gmail.com");
+		PersonManager.addPerson(brew20k);
+		
+		Person christophermllr = Person.createPerson("christophermllr", "Christopher", "Miller", "cmiller0189@gmail.com");
+		PersonManager.addPerson(christophermllr);
 	}
 
 }

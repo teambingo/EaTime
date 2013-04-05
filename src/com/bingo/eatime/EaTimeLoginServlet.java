@@ -22,7 +22,10 @@ public class EaTimeLoginServlet extends HttpServlet {
 		String user = req.getParameter("user");
 		String password = req.getParameter("pwd");
 		HttpSession session = req.getSession();
-		if ((user.equals("ryan") && password.equals("crd")) || (user.equals("kevin") && password.equals("kevin"))) {
+		if ((user.equals("ryan") && password.equals("crd")) || 
+			(user.equals("kevin") && password.equals("kevin")) ||
+			(user.equals("brew20k") && password.equals("brew20k")) ||
+			(user.equals("christophermllr") && password.equals("christophermllr"))) {
 			try {
 				Person me = null;
 				me = PersonManager.getPersonByUsername(user);

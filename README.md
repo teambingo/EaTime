@@ -14,5 +14,7 @@ http://eatime-bingo-test.appspot.com/
 
 ## Fake logins
 
-* ryan / crd
 * kevin / kevin
+* ryan / crd
+* brew20k / brew20k
+* christophermllr / christophermllr
