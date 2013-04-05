@@ -92,7 +92,7 @@
 						if (categories != null) {
 							for (Category cat : categories) {
 					%>
-					<li><a href=<%="#" + cat.getName()%>><%=cat.getName()%></a></li>
+					<li><a href=<%="#" + cat.getKey().getName()%>><%=cat.getName()%></a></li>
 					<%
 						}
 						}
@@ -108,7 +108,7 @@
 						if (categories != null) {
 							for (Category cat : categories) {
 					%>
-					<div class="tab-pane" id="<%=cat.getName()%>">
+					<div class="tab-pane" id="<%=cat.getKey().getName()%>">
 						<div class="accordion">
 							<%
 								TreeSet<Restaurant> restaurants = CategoryManager.getRestaurantsFromCategory(cat.getKey());
