@@ -31,4 +31,4 @@ Events are grouped by its catagory.
 
 * /eatime  :  main page, users can view events, join events, create events and invite people to join. Also, users can view attendants for each events
 * /notify.jsp : invitation page, users can view invitations, and can accpet invitations.
-* /events  : events page, users can view events they created, and events they joined. Also, users can invite people to join to events they created
+* /events.jsp  : events page, users can view events they created, and events they joined. Also, users can invite people to join to events they created
