@@ -165,14 +165,14 @@
 											onclick="invite(this)" value="invite">Invite!</button>
 										<%
 											} else {
-																		// System.out.println(me.getKey());
-																		// System.out.println(event.getKey());
-																		boolean isJoined = false;
-																		if (me != null) {
-																			isJoined = EventManager.isJoined(me.getKey(), event.getKey());
-																		}
+												// System.out.println(me.getKey());
+												// System.out.println(event.getKey());
+												boolean isJoined = false;
+												if (me != null) {
+													isJoined = EventManager.isJoined(me.getKey(), event.getKey());
+												}
 
-																		if (isJoined) {
+												if (isJoined) {
 										%>
 										<button type="submit" class="btn btn-info disabled join"
 											value="join">Join!</button>

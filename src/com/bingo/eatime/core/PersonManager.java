@@ -1,7 +1,6 @@
 package com.bingo.eatime.core;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -47,9 +46,8 @@ public class PersonManager {
 
 			personKey = datastore.put(personEntity);
 			
-			if (person.getReadEvents() != null) {
-				for (Event event : person.getReadEvents()) {
-					Key eventKey = event.getKey();
+			if (person.getReadEventKeys() != null) {
+				for (Key eventKey : person.getReadEventKeys()) {
 					if (eventKey == null) {
 						txn.rollback();
 						throw new NullKeyException("Event Key is null.");
@@ -229,7 +227,7 @@ public class PersonManager {
 		return Person.createPeople(personEntities);
 	}
 	
-	public static Iterable<Entity> getReadEventEntities(Key personKey) {
+	public static HashSet<Key> getReadEventKeys(Key personKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		
@@ -237,23 +235,42 @@ public class PersonManager {
 		
 		PreparedQuery pq = datastore.prepare(q);
 		
-		HashSet<Entity> readEventEntities = new HashSet<Entity>();
-		try {
-			for (Entity entity : pq.asIterable()) {
-				Key eventKey = (Key) entity.getProperty(Person.PROPERTY_EVENTKEY);
-			
-				Entity readEventEntity = datastore.get(eventKey);
-				readEventEntities.add(readEventEntity);
+		HashSet<Key> readEventKeys = null;
+		for (Entity entity : pq.asIterable()) {
+			if (readEventKeys == null) {
+				readEventKeys = new HashSet<Key>();
 			}
-		} catch (EntityNotFoundException e) {
-			return null;
+			
+			Key eventKey = (Key) entity.getProperty(Person.PROPERTY_EVENTKEY);
+			readEventKeys.add(eventKey);
 		}
 		
-		return readEventEntities;
+		return readEventKeys;
+	}
+	
+	public static Iterable<Entity> getReadEventEntities(Key personKey) {
+		HashSet<Key> readEventKeys = getReadEventKeys(personKey);
+		
+		HashSet<Entity> readEventEntities = null;
+		if (readEventKeys != null) {
+			for (Key eventKey : readEventKeys) {
+				if (readEventEntities == null) {
+					readEventEntities = new HashSet<Entity>();
+				}
+				
+				Entity readEventEntity = EventManager.getEventEntity(eventKey);
+				readEventEntities.add(readEventEntity);
+			}
+			
+			return readEventEntities;
+		} else {
+			return null;
+		}
 	}
 	
 	public static TreeSet<Event> getReadEvents(Key personKey) {
 		Iterable<Entity> readEventEntities = getReadEventEntities(personKey);
+		
 		if (readEventEntities != null) {
 			TreeSet<Event> readEvents = Event.createEvents(readEventEntities);
 			
@@ -262,6 +279,7 @@ public class PersonManager {
 			return null;
 		}
 	}
+
 	
 	public static Iterable<Entity> getInviteEventEntities(Key personKey, boolean filterReadEvent) {
 		DatastoreService datastore = DatastoreServiceFactory
