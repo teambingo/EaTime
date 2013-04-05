@@ -87,7 +87,7 @@
 				<div class="topTag" id="events"><a href="events.jsp">Events</a></div>
 				<div class="topTag" id="profile"><a href="eatime">Profile</a></div>
 				<div class="topTag" id="home"><a href="eatime">Home</a></div>	
-				<div class="topTag" id="greating"><a href="eatime">Hi,<%=request.getSession().getAttribute("user")%>!!</a></div>
+				<!-- <div class="topTag" id="greating"><a href="eatime">Hi,<%=request.getSession().getAttribute("user")%>!</a></div> -->
 			</div>
 			<div class="down">
 				<ul class="nav nav-tabs" id="cattabs">
