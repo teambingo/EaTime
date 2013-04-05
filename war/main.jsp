@@ -64,17 +64,11 @@
 				<div class="topTag" id="notification">
 					<a href="notify.jsp">Notification</a>
 					<%
-					int count=0;
-					if(me!=null){
-						Iterable<Entity> unreadEvents=PersonManager.getInviteEventEntities(me.getKey(),true);
-						if(unreadEvents!=null){
-							Iterator<Entity> iter=unreadEvents.iterator();
-							while(iter.hasNext()){
-								iter.next();
-	            				count++;
-							}
-						}
-					}else{
+					int count = 0;
+					if (me != null) {
+						TreeSet<Event> inviteEvents = PersonManager.getInviteEvents(me.getKey(), true);
+						count = inviteEvents.size();
+					} else {
 						response.sendRedirect("/login.jsp");
 					}
 					if(count!=0){ %>
