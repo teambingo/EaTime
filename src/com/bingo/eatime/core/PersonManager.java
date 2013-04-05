@@ -414,6 +414,26 @@ public class PersonManager {
 		}
 	}
 	
+	public synchronized static Iterable<Entity> getCreateEventEntities(Key personKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		
+		Query q = new Query(Event.KIND_EVENT);
+		Filter createKeyFilter = new FilterPredicate(Event.PROPERTY_CREATOR, FilterOperator.EQUAL, personKey);
+		q.setFilter(createKeyFilter);
+		
+		PreparedQuery pq = datastore.prepare(q);
+		
+		return pq.asIterable();
+	}
+	
+	public synchronized static TreeSet<Event> getCreateEvents(Key personKey) {
+		Iterable<Entity> createEventEntities = getCreateEventEntities(personKey);
+		TreeSet<Event> createEvents = Event.createEvents(createEventEntities);
+		
+		return createEvents;
+	}
+	
 	protected synchronized static Entity createReadEventKeyEntity(Key eventKey, Key personKey) {
 		Entity readEventKeyEntity = new Entity(Person.KIND_READ_EVENTKEY, eventKey.getId(), personKey);
 		readEventKeyEntity.setProperty(Person.PROPERTY_EVENTKEY, eventKey);
