@@ -3,12 +3,12 @@ var isModalOn = false;
 
 function createEvent(restaurant,hour,min,eventname,eventID){
 	var br='<hr>';
-	if($("*[value="+restaurant+"]").next().children('.event').length === 0){
+	if($("*[value=" + "'" + restaurant + "'" + "]").next().children('.event').length === 0){
 		br='';
 	}
 	var newEvent=$(br+'<div class="row-fluid event" eventid="'+eventID+'""><div class="span2 headDiv"><img src="'+ userImg +'" class="img-circle head"></div><div class="span2 orgDiv"><div class="label label-info">Organizer</div><div class="display">'+fullname+'</div></div><div class="span2 eNameDiv"><div class="label label-info">Event Name</div><div class="display">'+eventname+'</div></div><div class="span2 timeDiv"><div class="label label-info">Time</div><br><div class="hourNum">'+hour+'</div> : <div class="minNum">'+min+'</div></div><div class="span2 countDiv"><div class="label label-info">Attendants</div><div class="display">0</div></div><div class="span2 joinDiv"><button type="submit" class="btn btn-info join" onclick="invite(this)">Invite!</button></div>');
 	//newEvent.hide();
-	$("*[value="+restaurant+"]").next().each(function(){
+	$("*[value=" + "'" + restaurant + "'" + "]").next().each(function(){
 		$(this).append(newEvent.clone(true));
 	});
 	//alert('success');
@@ -189,13 +189,13 @@ $(function() {
 					// failed
 					var reason = data['reason'];
 					console.log('create failed', reason);
-					joinMsgPrompt(reason);
+					inviteMsgPrompt(reason);
 				}
 			})
 			.error(function() {
 				// Error
 				console.log('create request failed.');
-				joinMsgPrompt('create request failed.');
+				inviteMsgPrompt('create request failed.');
 			});
 		}
 	});
