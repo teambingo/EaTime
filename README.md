@@ -20,3 +20,7 @@ http://eatime-bingo-test.appspot.com/
 * christophermllr / christophermllr
 * john / john
 * jane / jane
+
+## Notice
+
+Refresh the page may fix the problem sometimes.
