@@ -70,6 +70,9 @@
 				response.sendRedirect("/login.jsp");
 			}
 		%>
+		<div class="alert alert-block msg">
+			<h1 id='msg'>test</h1>
+		</div>
 		<div class="container">
 			<div class="top">
 				<div class="logout">Log out</div>
@@ -80,8 +83,6 @@
 			<div class="down">
 				<div class="description">Here are all your invitations!</div>
 
-				<div class="accordion" id="Notification">
-					<div class="restaurant-header" id='unread'>Unread</div>
 					<%
 						TreeSet<Key> unreadKeys = new TreeSet<Key>();
 						Iterator<Event> iterUnread = unreadEvents.iterator();
@@ -137,10 +138,10 @@
 
 						<%
 							}
-							PersonManager.addReadEvents(unreadKeys, me.getKey());
+							//PersonManager.addReadEvents(unreadKeys, me.getKey());
 						%>
-					</div>
-				</div>
+
+
 
 			</div>
 		</div>
