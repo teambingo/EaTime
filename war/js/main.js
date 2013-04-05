@@ -89,6 +89,7 @@ $(function() {
 	$(".error").css("visibility","hidden");
 	$(".msg").hide();
 	$('.inviteMsg').hide();
+	$('.createMsg').hide();
 	//Initialize timepick and current date
 	$('.timepick').timepicker({
 		altField: '.timepick',
@@ -191,13 +192,13 @@ $(function() {
 					// failed
 					var reason = data['reason'];
 					console.log('create failed', reason);
-					joinMsgPrompt(reason);
+					createMsgPrompt(reason);
 				}
 			})
 			.error(function() {
 				// Error
 				console.log('create request failed.');
-				joinMsgPrompt('create request failed.');
+				createMsgPrompt('create request failed.');
 			});
 		}
 	});
@@ -228,7 +229,7 @@ function join(obj) {
 			// succeed
 			console.log('join success');
 			joinMsgPrompt('Join success!');
-			$(obj).addClass('disabled');
+			$('*[eventid='+ eventID +']').children('.joinDiv').children().addClass('disabled');
 			// TODO add attendents
 			var attendents_count = $(obj).parent().prev().children('.display').text();
 			attendents_count = parseInt(attendents_count, 10);
@@ -264,6 +265,15 @@ function inviteMsgPrompt(msg){
 	$('.inviteMsg').show();
 	setTimeout(function(){
 		$('.inviteMsg').hide('fade',1000);
+	},500);
+}
+
+//failure msg display for creation
+function createMsgPrompt(msg){
+	$('#createMsg').text(msg);
+	$('.createMsg').show();
+	setTimeout(function(){
+		$('.createMsg').hide('fade',1000);
 	},500);
 }
 

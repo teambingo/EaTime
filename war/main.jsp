@@ -59,7 +59,7 @@
 					isLogin=false;
 				}
 				%>
-
+				<img src="/img/logo-80.png" id="logo"></img>
 				<div class="logout">
 					<a href="logout">Log out</a>
 				</div>
@@ -256,6 +256,9 @@
 				</tbody>
 			</table>
 			<!-- <div class="timepick"></div> -->
+			<div class="alert alert-block createMsg">
+				<h1 id='createMsg'>test</h1>
+			</div>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

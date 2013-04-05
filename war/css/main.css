@@ -95,6 +95,15 @@ div.top
 
 /* end background color setting*/
 
+
+#logo {
+	float:left;
+	margin-top:10px;
+	margin-left:50px;
+	width:260px;
+	height:80px;
+}
+
 .msg {
 	position:fixed !important;
 	left:40%;
@@ -102,7 +111,7 @@ div.top
 	z-index:10;
 }
 
-.inviteMsg {
+.inviteMsg,.createMsg {
 	position:fixed !important;
 	left:40%;
 	top:40%;

@@ -87,9 +87,88 @@
 				<div class="topTag" id="home">
 					<a href="eatime">Home</a>
 				</div>
+				<div class="topTag" id="greating"><a href="eatime">Hi,<%=request.getSession().getAttribute("user")%>!!</a></div>
 			</div>
 			<div class="down">
-				<div class="description">Here are all your joined events!</div>
+				<div class="description">Here are all your created events!</div>
+
+				<%
+				if(isLogin){
+					TreeSet<Event> createEvents=PersonManager.getCreateEvents(me.getKey());
+					if(createEvents==null)
+						createEvents=new TreeSet<Event>();
+					for (Event event : createEvents) {
+				%>
+				<div class='unreadEvents'>
+					<div class="restaurantName"
+						value="<%=event.getRestaurantKey().getName()%>">
+						<%
+							Restaurant r=RestaurantManager.getRestaurant(event.getRestaurantKey());
+							if(r!=null){
+							%>
+						<p class="restaurant"><%=RestaurantManager.getRestaurant(event.getRestaurantKey()).getName()%></p>
+							<% 
+							}else{
+							%>
+							<p class="restaurant">NO NAME</p>
+							<%
+							}
+							%>
+
+					</div>
+					<div class="events">
+						<div
+							class="row-fluid event"  eventid=<%=event.getKey().getId()%>>
+							<div class="span2 headDiv">
+								<img src="<%=event.getCreator().getGravatarUrlString()%>"
+									class="img-circle head">
+							</div>
+							<div class="span2 orgDiv">
+								<div class="label label-info">Organizer</div>
+								<div class="display"><%=event.getCreator().getFullName(true)%></div>
+							</div>
+							<div class="span2 eNameDiv">
+							
+								<div class="label label-info">Event Name</div>
+								<div class="display"><%=event.getName()%></div>
+							</div>
+							<div class="span2 timeDiv">
+								<div class="label label-info">Time</div>
+								<br>
+								<div class="hourNum"><%=Utilities.getDateHourString(event.getTime())%></div>
+								:
+								<div class="minNum"><%=Utilities.getDateMinString(event.getTime())%></div>
+							</div>
+							<div class="span2 countDiv">
+								<div class="label label-info">Attendants</div>
+								<%
+										TreeSet<Person> joins = event.getJoins();
+										JSONArray joinsArray = new JSONArray();
+										if (joins != null) {
+											for (Person person : joins) {
+												joinsArray.put(person.getFullName(true));
+											}
+										}
+								%>
+								<div class="display" data-content='<%= joinsArray %>'><%=event.getJoins() != null ? event.getJoins().size() : 0%></div>
+							</div>
+							<div class="span2 joinDiv">
+
+								<button type="submit" class="btn btn-info join"
+											onclick="invite(this)" value="invite">Invite!</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<%
+					}
+				}
+				%>
+
+
+
+
+				<div class="description second">Here are all your joined events!</div>
 
 				<%
 				if(isLogin){
@@ -155,8 +234,33 @@
 
 
 
+
 			</div>
 		</div>
 	</div>
+	
+	
+	
+	<div id="new-invite-modal" class="modal hide fade" tabindex="-1"
+		role="dialog" aria-labelledby="new-event-modal-label"
+		aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">x</button>
+			<h3 id="new-invite-modal-label">Who you want invite?</h3>
+		</div>
+		<div class="modal-body">
+			<input type="text" id="inviteContent" class="modal-input"
+				placeholder="Use , to separate username">
+			<div class="alert alert-block inviteMsg">
+				<h1 id='inviteMsg'>test</h1>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button class="btn btn-primary" id="inviteBtn">Invite</button>
+		</div>
+	</div>
+	
 </body>
 </html>

@@ -19,7 +19,10 @@
 </head>
 
 <body>
-	<div class="block">LOGO</div>
+	<div class="block">
+		<div ><img src="/img/logo-940.png" id="logo"></img></div>
+	</div>
+	<div class="form">
 	<form action="login" method="post">
 		<div class="row-fluid">
 			<div class="span2 offset4">
@@ -57,8 +60,7 @@
 			</div>
 		</div>
 	</form>
-	<div class="block"></div>
-
+	</div>
 	<!-- Modal -->
 	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
