@@ -3,6 +3,7 @@ package com.bingo.eatime.core;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -30,7 +31,7 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	private Email email;
-	private TreeSet<Event> readEvents;
+	private HashSet<Key> readEventKeys;
 
 	protected Person() {
 
@@ -92,12 +93,12 @@ public class Person {
 		return this;
 	}
 
-	public TreeSet<Event> getReadEvents() {
-		return readEvents;
+	public HashSet<Key> getReadEventKeys() {
+		return readEventKeys;
 	}
 
-	private Person setReadEvents(TreeSet<Event> readEvents) {
-		this.readEvents = readEvents;
+	private Person setReadEventKeys(HashSet<Key> readEventKeys) {
+		this.readEventKeys = readEventKeys;
 		
 		return this;
 	}
@@ -177,8 +178,8 @@ public class Person {
 			person.setLastName((String) entity.getProperty(PROPERTY_LASTNAME));
 			person.setEmail((Email) entity.getProperty(PROPERTY_EMAIL));
 			
-			TreeSet<Event> readEvents = PersonManager.getReadEvents(entity.getKey());
-			person.setReadEvents(readEvents);
+			HashSet<Key> readEventKeys = PersonManager.getReadEventKeys(entity.getKey());
+			person.setReadEventKeys(readEventKeys);
 
 			return person;
 		} else {
