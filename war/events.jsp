@@ -72,6 +72,7 @@
 		</div>
 		<div class="container">
 			<div class="top">
+			<img src="/img/logo-80.png" id="logo"></img>
 				<div class="logout">
 					<a href="logout">Log out</a>
 				</div>
