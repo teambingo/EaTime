@@ -250,6 +250,51 @@ function join(obj) {
 }
 
 
+//Join Reload
+function joinReload(obj) {
+	if($(obj).hasClass('disabled')){
+		return;
+	}
+	var restaurant = $(obj).parent().parent().parent().prev().attr('value');
+	var eventID = $(obj).parent().parent().attr('eventid');
+
+	var url = "/event?";
+		url += "action=join";
+		url += "&id=" + encodeURIComponent(eventID);
+		url += '&restaurant=' + encodeURIComponent(restaurant);
+		url += "&username=" + encodeURIComponent(username);
+
+	console.log('join url', url);
+
+	$.getJSON(url, function(data) {
+		var status = data['status'];
+
+		if (status === 0) {
+			// succeed
+			console.log('join success');
+			joinMsgPrompt('Join success!');
+			// $('*[eventid='+ eventID +']').children('.joinDiv').children().addClass('disabled');
+			// // TODO add attendents
+			// var attendents_count = $(obj).parent().prev().children('.display').text();
+			// attendents_count = parseInt(attendents_count, 10);
+			// attendents_count += 1;
+			// $(obj).parent().prev().children('.display').text(attendents_count);
+			location.reload();
+		} else {
+			// failed
+			var reason = data['reason'];
+			console.log('join failed', reason);
+			joinMsgPrompt(reason);
+		}
+	})
+	.error(function() {
+		// Error
+		console.log('join request failed.');
+		joinMsgPrompt('join request failed.');
+	});
+}
+
+
 //success msg display
 function joinMsgPrompt(msg){
 	$('#msg').text(msg);
