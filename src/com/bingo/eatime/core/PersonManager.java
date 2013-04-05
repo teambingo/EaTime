@@ -108,6 +108,43 @@ public class PersonManager {
 		
 		return true;
 	}
+	
+	public synchronized static boolean unreadEvent(Key eventKey, Key personKey) {
+		HashSet<Key> eventKeys = new HashSet<Key>();
+		eventKeys.add(eventKey);
+		
+		return unreadEvents(eventKeys, personKey);
+	}
+	
+	public synchronized static boolean unreadEvents(Iterable<Key> eventKeys, Key personKey) {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		
+		Transaction txn = datastore.beginTransaction();
+		try {
+			for (Key eventKey : eventKeys) {
+				Query q = new Query(Person.KIND_READ_EVENTKEY, personKey);
+				Filter eventKeyFilter = new FilterPredicate(Person.PROPERTY_EVENTKEY, FilterOperator.EQUAL, eventKey);
+				q.setFilter(eventKeyFilter);
+				
+				PreparedQuery pq = datastore.prepare(q);
+				
+				for (Entity entity : pq.asIterable()) {
+					datastore.delete(entity.getKey());
+				}
+			}
+			
+			txn.commit();
+		} finally {
+			if (txn.isActive()) {
+				txn.rollback();
+
+				return false;
+			}
+		}
+		
+		return true;
+	}
 
 	/**
 	 * Get Person Entity from Person Key.
