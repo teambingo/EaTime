@@ -64,7 +64,7 @@ $(function(){
 				$('#new-invite-modal').modal('hide');
 				setTimeout(function(){
 					joinMsgPrompt('Invite success!');
-				},1000);
+				},500);
 
 			} else {
 				// failed
@@ -76,6 +76,7 @@ $(function(){
 		.error(function() {
 			// Error
 			console.log('invite request failed.');
+			inviteMsgPrompt('invite request failed.');
 		});
 	});
 });
@@ -181,15 +182,20 @@ $(function() {
 					// Add new event html using javascript
 					createEvent(restaurant,hourandmin[0],hourandmin[1],name,eventID);
 					$('#new-event-modal').modal('hide');
+					setTimeout(function(){
+						joinMsgPrompt("Successfully creat!");
+					},500);
 				} else {
 					// failed
 					var reason = data['reason'];
 					console.log('create failed', reason);
+					joinMsgPrompt(reason);
 				}
 			})
 			.error(function() {
 				// Error
 				console.log('create request failed.');
+				joinMsgPrompt('create request failed.');
 			});
 		}
 	});
@@ -236,6 +242,7 @@ function join(obj) {
 	.error(function() {
 		// Error
 		console.log('join request failed.');
+		joinMsgPrompt('join request failed.');
 	});
 	
 }
