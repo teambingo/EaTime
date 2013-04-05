@@ -69,14 +69,14 @@ $(function(){
 			} else {
 				// failed
 				var reason = data['reason'];
-				inviteMsgPrompt(reason);
-				console.log('invite failed', reason);	
+				joinMsgPrompt(reason);
+				console.log('invite failed', reason);
 			}
 		})
 		.error(function() {
 			// Error
 			console.log('invite request failed.');
-			inviteMsgPrompt('invite request failed.');
+			joinMsgPrompt('invite request failed.');
 		});
 	});
 });
@@ -244,7 +244,6 @@ function join(obj) {
 		console.log('join request failed.');
 		joinMsgPrompt('join request failed.');
 	});
-	
 }
 
 
@@ -272,5 +271,4 @@ function invite(obj) {
 	var eventID = $(obj).parent().parent().attr('eventid');
 	$('#inviteBtn').data('eventID',eventID);
 	$('#inviteBtn').data('restaurant',restaurant);
-	
 }

@@ -149,7 +149,7 @@
 				</div>
 				<%
 					}
-					//PersonManager.addReadEvents(unreadKeys, me.getKey());
+					PersonManager.addReadEvents(unreadKeys, me.getKey());
 				%>
 
 

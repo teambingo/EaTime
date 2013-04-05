@@ -96,6 +96,7 @@ public class EventAdminServlet extends HttpServlet {
 		
 		Restaurant restaurant = null;
 		if (restaurantKeyName != null) {
+			log.info("Restaurant Key Name: " + restaurantKeyName);
 			restaurant = RestaurantManager.getRestaurant(restaurantKeyName);
 			if (restaurant == null && ERROR_RESTAURANT_NOT_FOUND > status) {
 				status = ERROR_RESTAURANT_NOT_FOUND;
