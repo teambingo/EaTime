@@ -95,15 +95,12 @@
 				<div class="description">Here are all your invitations!</div>
 
 				<%
-					TreeSet<Key> unreadKeys = new TreeSet<Key>();
-					Iterator<Event> iterUnread = unreadEvents.iterator();
-					while (iterUnread.hasNext()) {
-						Event event = iterUnread.next();
+					HashSet<Key> unreadKeys = new HashSet<Key>();
+					for (Event event : unreadEvents) {
 						unreadKeys.add(event.getKey());
 					}
-					Iterator<Event> iter = inviteEvents.iterator();
-					while (iter.hasNext()) {
-						Event event = iter.next();
+
+					for (Event event : inviteEvents) {
 				%>
 				<div class='unreadEvents'>
 					<div class="restaurantName"

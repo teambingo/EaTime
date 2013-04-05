@@ -3,6 +3,7 @@ package com.bingo.eatime.core;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -19,6 +20,8 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Transaction;
 
 public class PersonManager {
+	
+	private static final Logger log = Logger.getLogger(PersonManager.class.getName());
 
 	/**
 	 * Add Person to database.
@@ -78,6 +81,8 @@ public class PersonManager {
 	}
 	
 	public synchronized static boolean addReadEvents(Iterable<Key> eventKeys, Key personKey) {
+		log.info("Adding following keys to read events: " + eventKeys + ".");
+		
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		
@@ -293,14 +298,10 @@ public class PersonManager {
 		
 		HashSet<Key> readEventKeys = null;
 		if (filterReadEvent) {
-			Iterable<Entity> readEventEntities = getReadEventEntities(personKey);
-			if (readEventEntities != null) {
-				readEventKeys = new HashSet<Key>();
-				for (Entity entity : readEventEntities) {
-					readEventKeys.add((Key) entity.getProperty(Person.PROPERTY_EVENTKEY));
-				}
-			}
+			readEventKeys = getReadEventKeys(personKey);
 		}
+		
+		log.info("Read event keys: " + readEventKeys + ".");
 		
 		HashSet<Entity> inviteEventEntities = new HashSet<Entity>();
 		try {
