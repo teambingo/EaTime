@@ -26,6 +26,12 @@
 	type="text/javascript">
 	
 </script>
+<script>
+	// Makes session username accessible via javascript
+	var username = "<%=request.getSession().getAttribute("user")%>";
+	var userImg="<%=request.getSession().getAttribute("userImg")%>";
+	var fullname="<%=request.getSession().getAttribute("fullname")%>";
+</script>
 <!-- <script src="js/jquery-1.9.1.js"></script> -->
 
 <script src="js/jquery-ui-1.10.1.custom.js" type="text/javascript">
