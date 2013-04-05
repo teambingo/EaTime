@@ -29,6 +29,7 @@
 	    <servlet-class>com.bingo.eatime.admin.EventAdminServlet</servlet-class>
 	</servlet>
 
+	
 	<servlet-mapping>
 		<servlet-name>EaTime</servlet-name>
 		<url-pattern>/eatime</url-pattern>

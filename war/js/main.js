@@ -274,3 +274,9 @@ function invite(obj) {
 	$('#inviteBtn').data('eventid',eventID);
 	$('#inviteBtn').data('restaurant',restaurant);
 }
+
+
+// Add attendants inspect function
+$(function(){
+	$('.countDiv').children('.display').popover({'placement':'bottom','trigger':'hover'});
+});

@@ -11,6 +11,7 @@
 <%@ page import="com.bingo.eatime.core.Person"%>
 <%@ page import="com.bingo.eatime.core.PersonManager"%>
 <%@ page import="com.google.appengine.api.datastore.*,java.util.*"%>
+<%@ page import="com.google.appengine.labs.repackaged.org.json.JSONArray"%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,8 +25,8 @@
 <link rel="stylesheet" href="css/timePicker.css" />
 <link rel="stylesheet" href="css/main.css" />
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<!-- <script src="js/jquery-1.9.1.js"></script> -->
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  -->
+<script src="js/jquery-1.9.1.js"></script>
 <script src="js/jquery-ui-1.10.1.custom.js"></script>
 <script src="js/bootstrap.js"></script>
 <!-- <script src="js/jquery.mb.browser.js"></script> -->
@@ -47,14 +48,15 @@
 		</div>
 		<div class="container">
 			<div class="top">
-				Hi,${user}!!
 				<%
+				boolean isLogin=true;
 				String username = (String) request.getSession().getAttribute("user");
 				Person me = null;
 				if (username != null) {
 					me = PersonManager.getPersonByUsername(username);
 				} else {
 					response.sendRedirect("/login.jsp");
+					isLogin=false;
 				}
 				%>
 
@@ -64,6 +66,7 @@
 				<div class="topTag" id="notification">
 					<a href="notify.jsp">Notification</a>
 					<%
+					if(isLogin){
 					int count = 0;
 					if (me != null) {
 						TreeSet<Event> inviteEvents = PersonManager.getInviteEvents(me.getKey(), true);
@@ -81,9 +84,10 @@
 					}
 					%>
 				</div>
-				<div class="topTag" id="events"><a href="eatime">Events</a></div>
+				<div class="topTag" id="events"><a href="events.jsp">Events</a></div>
 				<div class="topTag" id="profile"><a href="eatime">Profile</a></div>
 				<div class="topTag" id="home"><a href="eatime">Home</a></div>	
+				<div class="topTag" id="greating"><a href="eatime">Hi,<%=request.getSession().getAttribute("user")%>!!</a></div>
 			</div>
 			<div class="down">
 				<ul class="nav nav-tabs" id="cattabs">
@@ -150,7 +154,16 @@
 									</div>
 									<div class="span2 countDiv">
 										<div class="label label-info">Attendants</div>
-										<div class="display"><%=event.getJoins() != null ? event.getJoins().size() : 0%></div>
+										<%
+										TreeSet<Person> joins = event.getJoins();
+										JSONArray joinsArray = new JSONArray();
+										if (joins != null) {
+											for (Person person : joins) {
+												joinsArray.put(person.getFullName(true));
+											}
+										}
+										%>
+										<div class="display" data-content='<%= joinsArray %>'><%=event.getJoins() != null ? event.getJoins().size() : 0%></div>
 									</div>
 									<div class="span2 joinDiv">
 										<%
@@ -202,6 +215,7 @@
 					<%
 						}
 						}
+					}
 					%>
 					<!-- restaurant body end -->
 

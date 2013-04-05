@@ -5,6 +5,9 @@
     line-height: 40px;
     vertical-align: middle;
     text-align: center;
+    color:#E68906;
+    font-size:17px;
+	font-weight:bold;
 }
 
 .restaurantName {

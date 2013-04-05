@@ -13,6 +13,7 @@
 <%@ page import="com.bingo.eatime.core.Person"%>
 <%@ page import="com.bingo.eatime.core.PersonManager"%>
 <%@ page import="com.google.appengine.api.datastore.*,java.util.*"%>
+<%@ page import="com.google.appengine.labs.repackaged.org.json.JSONArray"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EaTime</title>
@@ -33,7 +34,7 @@
 	var userImg="<%=request.getSession().getAttribute("userImg")%>";
 	var fullname="<%=request.getSession().getAttribute("fullname")%>";
 </script>
-<!-- <script src="js/jquery-1.9.1.js"></script> -->
+<script src="js/jquery-1.9.1.js"></script>
 
 <script src="js/jquery-ui-1.10.1.custom.js" type="text/javascript">
 	
@@ -54,6 +55,7 @@
 <body>
 	<div class="page">
 		<%
+		boolean isLogin=true;
 			TreeSet<Event> unreadEvents = null;
 			TreeSet<Event> inviteEvents = null;
 			String username = (String) request.getSession().getAttribute("user");
@@ -68,6 +70,7 @@
 					inviteEvents = new TreeSet<Event>();
 			} else {
 				response.sendRedirect("/login.jsp");
+				isLogin=false;
 			}
 		%>
 		<div class="alert alert-block msg">
@@ -82,7 +85,7 @@
 					<a href="notify.jsp">Notification</a>
 				</div>
 				<div class="topTag" id="events">
-					<a href="eatime">Events</a>
+					<a href="events.jsp">Events</a>
 				</div>
 				<div class="topTag" id="profile">
 					<a href="eatime">Profile</a>
@@ -95,6 +98,7 @@
 				<div class="description">Here are all your invitations!</div>
 
 				<%
+				if(isLogin){
 					HashSet<Key> unreadKeys = new HashSet<Key>();
 					for (Event event : unreadEvents) {
 						unreadKeys.add(event.getKey());
@@ -133,7 +137,16 @@
 							</div>
 							<div class="span2 countDiv">
 								<div class="label label-info">Attendants</div>
-								<div class="display"><%=event.getJoins() != null ? event.getJoins().size() : 0%></div>
+								<%
+										TreeSet<Person> joins = event.getJoins();
+										JSONArray joinsArray = new JSONArray();
+										if (joins != null) {
+											for (Person person : joins) {
+												joinsArray.put(person.getFullName(true));
+											}
+										}
+								%>
+								<div class="display" data-content='<%= joinsArray %>'><%=event.getJoins() != null ? event.getJoins().size() : 0%></div>
 							</div>
 							<div class="span2 joinDiv">
 
@@ -147,6 +160,7 @@
 				<%
 					}
 					PersonManager.addReadEvents(unreadKeys, me.getKey());
+				}
 				%>
 
 
