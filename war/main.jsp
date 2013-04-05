@@ -34,7 +34,7 @@
 <script src="js/main.js"></script>
 <script>
 	// Makes session username accessible via javascript
-	var username = '${user}';
+	var username = "<%=request.getSession().getAttribute("user")%>";
 	var userImg="<%=request.getSession().getAttribute("userImg")%>";
 	var fullname="<%=request.getSession().getAttribute("fullname")%>";
 </script>
@@ -62,7 +62,7 @@
 					<a href="logout">Log out</a>
 				</div>
 				<div class="topTag" id="notification">
-					<a href="notify.html">Notification</a>
+					<a href="notify.jsp">Notification</a>
 					<%
 					int count=0;
 					if(me!=null){
