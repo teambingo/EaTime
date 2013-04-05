@@ -199,6 +199,9 @@ $(function() {
 
 //Join
 function join(obj) {
+	if($(obj).hasClass('disabled')){
+		return;
+	}
 	var restaurant = $(obj).parent().parent().parent().prev().attr('value');
 	var eventID = $(obj).parent().parent().attr('eventid');
 

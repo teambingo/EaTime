@@ -75,6 +75,7 @@ div.top
 .btn-info,.btn-primary{
 	background-color:#E7E2A8;
 	background-image:linear-gradient(to bottom, #E7E2A8, #E68906);
+	background-image:-webkit-linear-gradient(top, #E7E2A8, #E68906);
 }
 
 .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] 

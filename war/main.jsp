@@ -53,6 +53,8 @@
 				Person me = null;
 				if (username != null) {
 					me = PersonManager.getPersonByUsername(username);
+				}else {
+					response.sendRedirect("/login.jsp");
 				}
 				%>
 
