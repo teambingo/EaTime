@@ -67,7 +67,8 @@
 					int count = 0;
 					if (me != null) {
 						TreeSet<Event> inviteEvents = PersonManager.getInviteEvents(me.getKey(), true);
-						count = inviteEvents.size();
+						if(inviteEvents!=null)
+							count = inviteEvents.size();
 					} else {
 						response.sendRedirect("/login.jsp");
 					}
