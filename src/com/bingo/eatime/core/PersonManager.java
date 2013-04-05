@@ -27,7 +27,7 @@ public class PersonManager {
 	 *            Person object.
 	 * @return Key of added person. Null if failed.
 	 */
-	public static Key addPerson(Person person) {
+	public synchronized static Key addPerson(Person person) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -70,14 +70,14 @@ public class PersonManager {
 		return personKey;
 	}
 	
-	public static boolean addReadEvent(Key eventKey, Key personKey) {
+	public synchronized static boolean addReadEvent(Key eventKey, Key personKey) {
 		HashSet<Key> eventKeys = new HashSet<Key>();
 		eventKeys.add(eventKey);
 		
 		return addReadEvents(eventKeys, personKey);
 	}
 	
-	public static boolean addReadEvents(Iterable<Key> eventKeys, Key personKey) {
+	public synchronized static boolean addReadEvents(Iterable<Key> eventKeys, Key personKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		
@@ -111,7 +111,7 @@ public class PersonManager {
 	 *            Key of Person.
 	 * @return Entity object. Null if not found.
 	 */
-	public static Entity getPersonEntity(Key personKey) {
+	public synchronized static Entity getPersonEntity(Key personKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -124,7 +124,7 @@ public class PersonManager {
 		}
 	}
 	
-	public static Entity getPersonEntity(String personKeyName) {
+	public synchronized static Entity getPersonEntity(String personKeyName) {
 		Key personKey = KeyFactory.createKey(Person.KIND_PERSON, personKeyName);
 		
 		return getPersonEntity(personKey);
@@ -137,7 +137,7 @@ public class PersonManager {
 	 *            Key of Person.
 	 * @return Person object. Null if not found.
 	 */
-	public static Person getPerson(Key personKey) {
+	public synchronized static Person getPerson(Key personKey) {
 		Entity personEntity = getPersonEntity(personKey);
 		
 		if (personEntity != null) {
@@ -149,7 +149,7 @@ public class PersonManager {
 		}
 	}
 	
-	public static Person getPerson(String personKeyName) {
+	public synchronized static Person getPerson(String personKeyName) {
 		Key personKey = KeyFactory.createKey(Person.KIND_PERSON, personKeyName);
 		
 		return getPerson(personKey);
@@ -165,7 +165,7 @@ public class PersonManager {
 	 *             Throws MultipleEntityException if multiple same usernames
 	 *             found.
 	 */
-	public static Entity getPersonEntityByUsername(String username) {
+	public synchronized static Entity getPersonEntityByUsername(String username) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -197,7 +197,7 @@ public class PersonManager {
 	 *             Throws MultipleEntityException if multiple same usernames
 	 *             found.
 	 */
-	public static Person getPersonByUsername(String username) {
+	public synchronized static Person getPersonByUsername(String username) {
 		Entity personEntity = getPersonEntityByUsername(username);
 		if (personEntity != null) {
 			Person person = Person.createPerson(personEntity);
@@ -208,7 +208,7 @@ public class PersonManager {
 		}
 	}
 	
-	public static Iterable<Entity> getPersonEntitiesByUsername(Iterable<String> usernames) {
+	public synchronized static Iterable<Entity> getPersonEntitiesByUsername(Iterable<String> usernames) {
 		HashSet<Entity> personEntities = new HashSet<Entity>();
 		
 		for (String username : usernames) {
@@ -221,13 +221,13 @@ public class PersonManager {
 		return personEntities;
 	}
 	
-	public static TreeSet<Person> getPeopleByUsername(Iterable<String> usernames) {
+	public synchronized static TreeSet<Person> getPeopleByUsername(Iterable<String> usernames) {
 		Iterable<Entity> personEntities = getPersonEntitiesByUsername(usernames);
 		
 		return Person.createPeople(personEntities);
 	}
 	
-	public static HashSet<Key> getReadEventKeys(Key personKey) {
+	public synchronized static HashSet<Key> getReadEventKeys(Key personKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		
@@ -248,7 +248,7 @@ public class PersonManager {
 		return readEventKeys;
 	}
 	
-	public static Iterable<Entity> getReadEventEntities(Key personKey) {
+	public synchronized static Iterable<Entity> getReadEventEntities(Key personKey) {
 		HashSet<Key> readEventKeys = getReadEventKeys(personKey);
 		
 		HashSet<Entity> readEventEntities = null;
@@ -268,7 +268,7 @@ public class PersonManager {
 		}
 	}
 	
-	public static TreeSet<Event> getReadEvents(Key personKey) {
+	public synchronized static TreeSet<Event> getReadEvents(Key personKey) {
 		Iterable<Entity> readEventEntities = getReadEventEntities(personKey);
 		
 		if (readEventEntities != null) {
@@ -281,7 +281,7 @@ public class PersonManager {
 	}
 
 	
-	public static Iterable<Entity> getInviteEventEntities(Key personKey, boolean filterReadEvent) {
+	public synchronized static Iterable<Entity> getInviteEventEntities(Key personKey, boolean filterReadEvent) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		
@@ -323,7 +323,7 @@ public class PersonManager {
 		return inviteEventEntities;
 	}
 	
-	public static TreeSet<Event> getInviteEvents(Key personKey, boolean filterReadEvent) {
+	public synchronized static TreeSet<Event> getInviteEvents(Key personKey, boolean filterReadEvent) {
 		Iterable<Entity> inviteEventEntities = getInviteEventEntities(personKey, filterReadEvent);
 		
 		if (inviteEventEntities != null) {
@@ -335,11 +335,11 @@ public class PersonManager {
 		}
 	}
 	
-	public static TreeSet<Event> getInviteEvents(Key personKey) {
+	public synchronized static TreeSet<Event> getInviteEvents(Key personKey) {
 		return getInviteEvents(personKey, false);
 	}
 	
-	public static Iterable<Entity> getJoinEventEntities(Key personKey) {
+	public synchronized static Iterable<Entity> getJoinEventEntities(Key personKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		
@@ -364,7 +364,7 @@ public class PersonManager {
 		return joinEventEntities;
 	}
 	
-	public static TreeSet<Event> getJoinEvents(Key personKey) {
+	public synchronized static TreeSet<Event> getJoinEvents(Key personKey) {
 		Iterable<Entity> joinEventEntities = getJoinEventEntities(personKey);
 		
 		if (joinEventEntities != null) {
@@ -376,7 +376,7 @@ public class PersonManager {
 		}
 	}
 	
-	protected static Entity createReadEventKeyEntity(Key eventKey, Key personKey) {
+	protected synchronized static Entity createReadEventKeyEntity(Key eventKey, Key personKey) {
 		Entity readEventKeyEntity = new Entity(Person.KIND_READ_EVENTKEY, eventKey.getId(), personKey);
 		readEventKeyEntity.setProperty(Person.PROPERTY_EVENTKEY, eventKey);
 		

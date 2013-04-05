@@ -21,7 +21,7 @@ import com.google.appengine.api.datastore.TransactionOptions;
 
 public class EventManager {
 
-	public static Key addEvent(Event event) {
+	public synchronized static Key addEvent(Event event) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -88,20 +88,20 @@ public class EventManager {
 		return eventKey;
 	}
 
-	public static boolean addInvite(Person person, Key eventKey) {
+	public synchronized static boolean addInvite(Person person, Key eventKey) {
 		HashSet<Person> people = new HashSet<Person>();
 		people.add(person);
 		
 		return addInvites(people, eventKey);
 	}
 	
-	public static boolean addInvite(Person person, long eventKeyId, String restaurantKeyName) {
+	public synchronized static boolean addInvite(Person person, long eventKeyId, String restaurantKeyName) {
 		Key eventKey = Event.createKey(eventKeyId, restaurantKeyName);
 		
 		return addInvite(person, eventKey);
 	}
 
-	public static boolean addInvites(Iterable<Person> people, Key eventKey) {
+	public synchronized static boolean addInvites(Iterable<Person> people, Key eventKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -135,26 +135,26 @@ public class EventManager {
 		return true;
 	}
 	
-	public static boolean addInvites(Iterable<Person> people, long eventKeyId, String restaurantKeyName) {
+	public synchronized static boolean addInvites(Iterable<Person> people, long eventKeyId, String restaurantKeyName) {
 		Key eventKey = Event.createKey(eventKeyId, restaurantKeyName);
 		
 		return addInvites(people, eventKey);
 	}
 	
-	public static boolean addJoin(Person person, Key eventKey) {
+	public synchronized static boolean addJoin(Person person, Key eventKey) {
 		HashSet<Person> people = new HashSet<Person>();
 		people.add(person);
 		
 		return addJoins(people, eventKey);
 	}
 	
-	public static boolean addJoin(Person person, long eventKeyId, String restaurantKeyName) {
+	public synchronized static boolean addJoin(Person person, long eventKeyId, String restaurantKeyName) {
 		Key eventKey = Event.createKey(eventKeyId, restaurantKeyName);
 		
 		return addJoin(person, eventKey);
 	}
 
-	public static boolean addJoins(Iterable<Person> people, Key eventKey) {
+	public synchronized static boolean addJoins(Iterable<Person> people, Key eventKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -182,13 +182,13 @@ public class EventManager {
 		return true;
 	}
 	
-	public static boolean addJoins(Iterable<Person> people, long eventKeyId, String restaurantKeyName) {
+	public synchronized static boolean addJoins(Iterable<Person> people, long eventKeyId, String restaurantKeyName) {
 		Key eventKey = Event.createKey(eventKeyId, restaurantKeyName);
 		
 		return addJoins(people, eventKey);
 	}
 	
-	public static boolean isJoined(Key personKey, Key eventKey) {
+	public synchronized static boolean isJoined(Key personKey, Key eventKey) {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		
 		Query q = new Query(Event.KIND_JOIN_PERSONKEY, eventKey);
@@ -205,7 +205,7 @@ public class EventManager {
 		}
 	}
 	
-	public static Entity getEventEntity(Key eventKey) {
+	public synchronized static Entity getEventEntity(Key eventKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		
@@ -218,7 +218,7 @@ public class EventManager {
 		}
 	}
 	
-	public static Event getEvent(Key eventKey) {
+	public synchronized static Event getEvent(Key eventKey) {
 		Entity eventEntity = getEventEntity(eventKey);
 		
 		if (eventEntity != null) {
@@ -237,7 +237,7 @@ public class EventManager {
 	 *            Restaurant key.
 	 * @return Iterable of event entities.
 	 */
-	public static Iterable<Entity> getEventEntitiesFromRestaurant(
+	public synchronized static Iterable<Entity> getEventEntitiesFromRestaurant(
 			Key restaurantKey) {
 		return getEventEntitiesFromRestaurant(restaurantKey, null);
 	}
@@ -249,7 +249,7 @@ public class EventManager {
 	 *            Restaurant key.
 	 * @return A set of Event object ordered by time. Null if not found.
 	 */
-	public static TreeSet<Event> getEventsFromRestaurant(Key restaurantKey) {
+	public synchronized static TreeSet<Event> getEventsFromRestaurant(Key restaurantKey) {
 		return getEventsFromRestaurant(restaurantKey, null);
 	}
 
@@ -262,7 +262,7 @@ public class EventManager {
 	 *            A specific date.
 	 * @return Iterable of event entities.
 	 */
-	public static Iterable<Entity> getEventEntitiesFromRestaurant(
+	public synchronized static Iterable<Entity> getEventEntitiesFromRestaurant(
 			Key restaurantKey, Date date) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
@@ -305,7 +305,7 @@ public class EventManager {
 	 *            A specific date.
 	 * @return A set of Event object ordered by time. Null if not found.
 	 */
-	public static TreeSet<Event> getEventsFromRestaurant(Key restaurantKey,
+	public synchronized static TreeSet<Event> getEventsFromRestaurant(Key restaurantKey,
 			Date date) {
 		Iterable<Entity> eventEntities = getEventEntitiesFromRestaurant(
 				restaurantKey, date);
@@ -321,7 +321,7 @@ public class EventManager {
 	 *            Event key.
 	 * @return A Iterable of Entity. Null if failed.
 	 */
-	public static Iterable<Entity> getInviteEntities(Key eventKey) {
+	public synchronized static Iterable<Entity> getInviteEntities(Key eventKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -353,7 +353,7 @@ public class EventManager {
 	 * @return A set of invite Person ordered by the name of the person. Null if
 	 *         failed.
 	 */
-	public static TreeSet<Person> getInvitePeople(Key eventKey) {
+	public synchronized static TreeSet<Person> getInvitePeople(Key eventKey) {
 		Iterable<Entity> inviteEntities = getInviteEntities(eventKey);
 		if (inviteEntities != null) {
 			TreeSet<Person> invitePeople = Person.createPeople(inviteEntities);
@@ -364,7 +364,7 @@ public class EventManager {
 		}
 	}
 	
-	public static Iterable<Entity> getJoinEntities(Key eventKey) {
+	public synchronized static Iterable<Entity> getJoinEntities(Key eventKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -387,7 +387,7 @@ public class EventManager {
 		return joinEntities;
 	}
 
-	public static TreeSet<Person> getJoinPeople(Key eventKey) {
+	public synchronized static TreeSet<Person> getJoinPeople(Key eventKey) {
 		Iterable<Entity> joinEntities = getJoinEntities(eventKey);
 		if (joinEntities != null) {
 			TreeSet<Person> joinPeople = Person.createPeople(joinEntities);
@@ -398,7 +398,7 @@ public class EventManager {
 		}
 	}
 	
-	public static boolean removePersonFromInvites(Key personKey, Key eventKey) {
+	public synchronized static boolean removePersonFromInvites(Key personKey, Key eventKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		
@@ -419,7 +419,7 @@ public class EventManager {
 		return true;
 	}
 	
-	public static boolean joinEvent(Key personKey, Key eventKey) {
+	public synchronized static boolean joinEvent(Key personKey, Key eventKey) {
 		Person person = PersonManager.getPerson(personKey);
 		boolean addResult = addJoin(person, eventKey);
 		if (addResult) {
@@ -430,14 +430,14 @@ public class EventManager {
 		}
 	}
 
-	protected static Entity createPersonKeyEntity(Key personKey, Key eventKey) {
+	protected synchronized static Entity createPersonKeyEntity(Key personKey, Key eventKey) {
 		Entity personKeyEntity = new Entity(Event.KIND_PERSONKEY, personKey.getName(), eventKey);
 		personKeyEntity.setProperty(Event.PROPERTY_PERSONKEY, personKey);
 
 		return personKeyEntity;
 	}
 	
-	protected static Entity createJoinPersonKeyEntity(Key personKey, Key eventKey) {
+	protected synchronized static Entity createJoinPersonKeyEntity(Key personKey, Key eventKey) {
 		Entity joinPersonKeyEntity = new Entity(Event.KIND_JOIN_PERSONKEY, personKey.getName(), eventKey);
 		joinPersonKeyEntity.setProperty(Event.PROPERTY_PERSONKEY, personKey);
 		

@@ -25,7 +25,7 @@ public class CategoryManager {
 	 *            Category.createCategory.
 	 * @return Key of added Category. Null if failed.
 	 */
-	public static Key addCategory(Category category) {
+	public synchronized static Key addCategory(Category category) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -57,7 +57,7 @@ public class CategoryManager {
 	 *            Category key.
 	 * @return Category entity. Null if failed.
 	 */
-	public static Entity getCategoryEntity(Key categoryKey) {
+	public synchronized static Entity getCategoryEntity(Key categoryKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -77,7 +77,7 @@ public class CategoryManager {
 	 *            Category key.
 	 * @return Category object. Null if failed.
 	 */
-	public static Category getCategory(Key categoryKey) {
+	public synchronized static Category getCategory(Key categoryKey) {
 		Entity categoryEntity = getCategoryEntity(categoryKey);
 		if (categoryEntity != null) {
 			Category category = Category.createCategory(categoryEntity);
@@ -88,7 +88,7 @@ public class CategoryManager {
 		}
 	}
 
-	public static TreeSet<Category> getAllCategories() {
+	public synchronized static TreeSet<Category> getAllCategories() {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -100,7 +100,7 @@ public class CategoryManager {
 		return categories;
 	}
 
-	public static TreeSet<Category> getRestaurantCategories(Key restaurantKey) {
+	public synchronized static TreeSet<Category> getRestaurantCategories(Key restaurantKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -139,7 +139,7 @@ public class CategoryManager {
 	 * @return A set of Restaurant ordered by the name of the restaurant. Null
 	 *         if failed.
 	 */
-	public static TreeSet<Restaurant> getRestaurantsFromCategory(Key categoryKey) {
+	public synchronized static TreeSet<Restaurant> getRestaurantsFromCategory(Key categoryKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -175,7 +175,7 @@ public class CategoryManager {
 	 *            Key object of the category to be added into.
 	 * @return Entity of RestaurantKey kind.
 	 */
-	protected static Entity createRestaurantKeyEntity(Key restaurantKey,
+	protected synchronized static Entity createRestaurantKeyEntity(Key restaurantKey,
 			String restaurantKeyName, Key categoryKey) {
 		Entity restaurantKeyEntity = new Entity(Category.KIND_RESTAURANTKEY,
 				restaurantKeyName, categoryKey);

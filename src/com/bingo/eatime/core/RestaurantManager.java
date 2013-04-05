@@ -19,7 +19,7 @@ public class RestaurantManager {
 	 *            Restaurant.createRestaurant.
 	 * @return Key of added Restaurant. Null if failed.
 	 */
-	public static Key addRestaurant(Restaurant restaurant) {
+	public synchronized static Key addRestaurant(Restaurant restaurant) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -57,7 +57,7 @@ public class RestaurantManager {
 		return restaurantKey;
 	}
 	
-	public static Entity getRestaurantEntity(Key restaurantKey) {
+	public synchronized static Entity getRestaurantEntity(Key restaurantKey) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		
@@ -70,13 +70,13 @@ public class RestaurantManager {
 		}
 	}
 	
-	public static Entity getRestaurantEntity(String restaurantKeyName) {
+	public synchronized static Entity getRestaurantEntity(String restaurantKeyName) {
 		Key restaurantKey = Restaurant.createKey(restaurantKeyName);
 		
 		return getRestaurantEntity(restaurantKey);
 	}
 	
-	public static Restaurant getRestaurant(Key restaurantKey) {
+	public synchronized static Restaurant getRestaurant(Key restaurantKey) {
 		Entity restaurantEntity = getRestaurantEntity(restaurantKey);
 		
 		if (restaurantEntity != null) {
@@ -88,7 +88,7 @@ public class RestaurantManager {
 		}
 	}
 	
-	public static Restaurant getRestaurant(String restaurantKeyName) {
+	public synchronized static Restaurant getRestaurant(String restaurantKeyName) {
 		Key restaurantKey = Restaurant.createKey(restaurantKeyName);
 		
 		return getRestaurant(restaurantKey);
