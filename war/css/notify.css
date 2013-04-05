@@ -6,3 +6,28 @@
     vertical-align: middle;
     text-align: center;
 }
+
+.restaurantName {
+	text-align:center;
+	height:30px;
+	inline-height:30px;
+	vertical-align: middle;
+	background-color:#E68906;
+}
+
+.restaurant {
+	color:#ffffff !important;
+	font-size:17px;
+	font-weight:bold;
+}
+
+.events,.event {
+	width:99.5% !important;
+	margin:0;
+}
+
+
+.unreadEvents {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}

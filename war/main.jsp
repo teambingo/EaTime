@@ -81,8 +81,9 @@
 					}
 					%>
 				</div>
-				<div class="topTag" id="events">Events</div>
-				<div class="topTag" id="profile">Profile</div>
+				<div class="topTag" id="events"><a href="eatime">Events</a></div>
+				<div class="topTag" id="profile"><a href="eatime">Profile</a></div>
+				<div class="topTag" id="home"><a href="eatime">Home</a></div>	
 			</div>
 			<div class="down">
 				<ul class="nav nav-tabs" id="cattabs">
