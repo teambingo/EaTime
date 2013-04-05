@@ -10,7 +10,7 @@ Google App Engine for Java
 
 ## URL
 
-http://eatime-bingo-test.appspot.com/
+http://eatime-demo.appspot.com/
 
 ## Fake logins
 
