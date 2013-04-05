@@ -143,6 +143,35 @@ public class EaTimeDatabaseDemoServlet extends HttpServlet {
 		categories.add(chinese);
 		Restaurant oishi = Restaurant.createRestaurant("O-ishi", categories, new PostalAddress("213 East State St, West Lafayette, IN 47906"), new PhoneNumber("765-743-3838"));
 		RestaurantManager.addRestaurant(oishi);
+		
+		
+		categories.clear();
+		categories.add(thai);
+		categories.add(breakfast);
+		Restaurant thaiFood = Restaurant.createRestaurant("Thai-food", categories, new PostalAddress("213 East State St, West Lafayette, IN 47906"), new PhoneNumber("765-743-3838"));
+		RestaurantManager.addRestaurant(thaiFood);
+		
+		categories.clear();
+		categories.add(thai);
+		Restaurant thaiFood_2 = Restaurant.createRestaurant("Sample-Thai-food", categories, new PostalAddress("213 East State St, West Lafayette, IN 47906"), new PhoneNumber("765-743-3838"));
+		RestaurantManager.addRestaurant(thaiFood_2);
+		
+		categories.clear();
+		categories.add(italian);
+		Restaurant italianRest = Restaurant.createRestaurant("Sample italian", categories, new PostalAddress("300 Brown St, West Lafayette, IN 47906"), new PhoneNumber("765-746-5000"));
+		RestaurantManager.addRestaurant(italianRest);
+		
+		categories.clear();
+		categories.add(italian);
+		categories.add(breakfast);
+		Restaurant italianRest_2 = Restaurant.createRestaurant("Italian-food", categories, new PostalAddress("300 Brown St, West Lafayette, IN 47906"), new PhoneNumber("765-746-5000"));
+		RestaurantManager.addRestaurant(italianRest_2);
+		
+		
+		categories.clear();
+		categories.add(japanese);
+		Restaurant sample_japanese = Restaurant.createRestaurant("Sample_Japanese", categories, new PostalAddress("111 North Chauncey Ave, West Lafayette, IN 47906"), new PhoneNumber("765-743-2646"));
+		RestaurantManager.addRestaurant(sample_japanese);
 	}
 	
 	private synchronized void addPeople() {
