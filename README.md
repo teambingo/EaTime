@@ -23,4 +23,4 @@ http://eatime-bingo-test.appspot.com/
 
 ## Notice
 
-Refresh the page may fix the problem sometimes.
+Refresh the page may fix the problem.

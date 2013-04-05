@@ -93,7 +93,7 @@
 				<div class="topTag" id="home">
 					<a href="eatime">Home</a>
 				</div>
-				<!-- <div class="topTag" id="greating"><a href="eatime">Hi,<%=request.getSession().getAttribute("user")%>!!</a></div> -->
+				<div class="topTag" id="greating"><a href="eatime">Hi,<%=request.getSession().getAttribute("user")%>!</a></div>
 			</div>
 			<div class="down">
 				<div class="description">Here are all your invitations!</div>
