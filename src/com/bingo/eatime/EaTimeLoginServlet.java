@@ -27,12 +27,21 @@ public class EaTimeLoginServlet extends HttpServlet {
 				Person me = null;
 				me = PersonManager.getPersonByUsername(user);
 				
-				String username = user;
-				session.setAttribute("loginStatus", "true");
-				session.setAttribute("user", username);
-				session.setAttribute("userImg", me.getGravatarUrlString());
-				session.setAttribute("fullname", me.getFullName(true));
-				resp.sendRedirect("/eatime");
+				if (me != null) {
+					String username = user;
+					session.setAttribute("loginStatus", "true");
+					session.setAttribute("user", username);
+					session.setAttribute("userImg", me.getGravatarUrlString());
+					session.setAttribute("fullname", me.getFullName(true));
+					resp.sendRedirect("/eatime");
+				} else {
+					try {
+						session.setAttribute("loginStatus", "false");
+						resp.sendRedirect("/login.jsp");
+					} catch (IOException e) {
+						log.log(Level.SEVERE, "Cannot redirect to /login.jsp", e);
+					}
+				}
 			} catch (IOException e) {
 				log.log(Level.SEVERE, "Cannot redirect to /eatime.", e);
 			}

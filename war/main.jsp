@@ -53,7 +53,7 @@
 				Person me = null;
 				if (username != null) {
 					me = PersonManager.getPersonByUsername(username);
-				}else {
+				} else {
 					response.sendRedirect("/login.jsp");
 				}
 				%>
@@ -71,7 +71,7 @@
 					} else {
 						response.sendRedirect("/login.jsp");
 					}
-					if(count!=0){ %>
+					if(count != 0){ %>
 					<div class="alert">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
 						You have <%=count%> invitations
