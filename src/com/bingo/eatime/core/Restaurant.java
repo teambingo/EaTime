@@ -39,8 +39,8 @@ public final class Restaurant {
 	}
 
 	private Restaurant setKey(String name) {
-		this.key = KeyFactory.createKey(KIND_RESTAURANT,
-				Utilities.getKeyFromName(name));
+		String restaurantKeyName = Utilities.getKeyFromName(name);
+		this.key = createKey(restaurantKeyName);
 
 		return this;
 	}

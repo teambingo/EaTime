@@ -33,8 +33,8 @@ public final class Category {
 	}
 
 	private Category setKey(String name) {
-		this.key = KeyFactory.createKey(KIND_CATEGORY,
-				Utilities.getKeyFromName(name));
+		String categoryKeyName = Utilities.getKeyFromName(name);
+		this.key = createKey(categoryKeyName);
 
 		return this;
 	}
@@ -97,6 +97,10 @@ public final class Category {
 		} else {
 			return categories;
 		}
+	}
+	
+	public static Key createKey(String categoryKeyName) {
+		return KeyFactory.createKey(KIND_CATEGORY, categoryKeyName);
 	}
 
 	@Override
