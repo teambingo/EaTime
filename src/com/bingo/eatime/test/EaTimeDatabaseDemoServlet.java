@@ -76,7 +76,6 @@ public class EaTimeDatabaseDemoServlet extends HttpServlet {
 		Category breakfast = Category.createCategory("Breakfast");
 		Category italian = Category.createCategory("Italian");
 		Category openLate = Category.createCategory("Open Late");
-		Category vegetarian = Category.createCategory("Vegetarian");
 		
 		categories.add(american);
 		categories.add(chinese);
@@ -85,7 +84,6 @@ public class EaTimeDatabaseDemoServlet extends HttpServlet {
 		categories.add(breakfast);
 		categories.add(italian);
 		categories.add(openLate);
-		categories.add(vegetarian);
 		
 		for (Category category : categories) {
 			CategoryManager.addCategory(category);
@@ -106,8 +104,43 @@ public class EaTimeDatabaseDemoServlet extends HttpServlet {
 		
 		categories.clear();
 		categories.add(american);
+		categories.add(openLate);
 		Restaurant ajs = Restaurant.createRestaurant("AJ's Burger & Beef", categories, new PostalAddress("134 W State Street, Suite D, West Lafayette, IN 47906"), new PhoneNumber("765-743-1940"));
 		RestaurantManager.addRestaurant(ajs);
+		
+		categories.clear();
+		categories.add(american);
+		categories.add(breakfast);
+		Restaurant cookie = Restaurant.createRestaurant("Insomnia Cookies", categories, new PostalAddress("602 W. Stadium Ave., West Lafayette, IN 47906"), new PhoneNumber("877-632-6654"));
+		RestaurantManager.addRestaurant(cookie);
+		
+		categories.clear();
+		categories.add(chinese);
+		categories.add(openLate);
+		Restaurant rice = Restaurant.createRestaurant("Rice Cafe", categories, new PostalAddress("128 Pierce Street, West Lafayette, IN 47906"), new PhoneNumber("765-743-3503"));
+		RestaurantManager.addRestaurant(rice);
+		
+		categories.clear();
+		categories.add(chinese);
+		Restaurant china = Restaurant.createRestaurant("Happy China", categories, new PostalAddress("219 East State St, West Lafayette, IN 47906"), new PhoneNumber("765-743-1666"));
+		RestaurantManager.addRestaurant(china);
+		
+		categories.clear();
+		categories.add(italian);
+		Restaurant puccini = Restaurant.createRestaurant("Puccini's Smiling Teeth", categories, new PostalAddress("300 Brown St, West Lafayette, IN 47906"), new PhoneNumber("765-746-5000"));
+		RestaurantManager.addRestaurant(puccini);
+		
+		categories.clear();
+		categories.add(japanese);
+		categories.add(chinese);
+		Restaurant sushi = Restaurant.createRestaurant("Maru Sushi", categories, new PostalAddress("111 North Chauncey Ave, West Lafayette, IN 47906"), new PhoneNumber("765-743-2646"));
+		RestaurantManager.addRestaurant(sushi);
+		
+		categories.clear();
+		categories.add(japanese);
+		categories.add(chinese);
+		Restaurant oishi = Restaurant.createRestaurant("O-ishi", categories, new PostalAddress("213 East State St, West Lafayette, IN 47906"), new PhoneNumber("765-743-3838"));
+		RestaurantManager.addRestaurant(oishi);
 	}
 	
 	private synchronized void addPeople() {
