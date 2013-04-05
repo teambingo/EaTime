@@ -34,7 +34,7 @@
 <script src="js/main.js"></script>
 <script>
 	// Makes session username accessible via javascript
-	var username = '${user}';
+	var username = "<%=request.getSession().getAttribute("user")%>";
 	var userImg="<%=request.getSession().getAttribute("userImg")%>";
 	var fullname="<%=request.getSession().getAttribute("fullname")%>";
 </script>
