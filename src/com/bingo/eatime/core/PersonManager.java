@@ -377,7 +377,7 @@ public class PersonManager {
 	}
 	
 	protected static Entity createReadEventKeyEntity(Key eventKey, Key personKey) {
-		Entity readEventKeyEntity = new Entity(Person.KIND_READ_EVENTKEY, personKey);
+		Entity readEventKeyEntity = new Entity(Person.KIND_READ_EVENTKEY, eventKey.getId(), personKey);
 		readEventKeyEntity.setProperty(Person.PROPERTY_EVENTKEY, eventKey);
 		
 		return readEventKeyEntity;
