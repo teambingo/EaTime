@@ -138,7 +138,8 @@ $(function() {
 		var time = $(".timepick").timepicker('getTime');
 		var hourandmin = time.split(":");
 		var d = new Date();
-		d.setHours(hourandmin[0]);
+		// timezone offset
+		d.setHours(hourandmin[0] - 4);
 		d.setMinutes(hourandmin[1]);
 		d.setSeconds(0);
 		d.setMilliseconds(0);
